@@ -1,6 +1,6 @@
 package com.project.Entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,10 +18,10 @@ public class Album {
     private String albumDescription;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "is_active")
     private boolean albumIsActive;
@@ -51,19 +51,19 @@ public class Album {
         this.albumDescription = albumDescription;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

@@ -1,13 +1,11 @@
 package com.project.Entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "video_master")
-@Data
+@Table(name = "video")
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +23,18 @@ public class Video {
     private int batchId;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "is_active")
     private boolean videoIsActive;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
+    
     // Getters and Setters
     public int getVideoId() {
         return videoId;
@@ -66,19 +68,19 @@ public class Video {
         this.batchId = batchId;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -88,5 +90,13 @@ public class Video {
 
     public void setVideoIsActive(boolean videoIsActive) {
         this.videoIsActive = videoIsActive;
+    }
+
+    public Course getCourse() {
+    	return course;
+    }
+    
+    public void setCourse(Course course) {
+    	this.course = course;
     }
 }
