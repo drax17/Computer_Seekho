@@ -1,6 +1,8 @@
 package com.project.Entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -22,7 +24,7 @@ public class Followup implements Serializable {
     private Staff staff;
 
     @Column(name = "followup_date")
-    private String followupDate;
+    private LocalDate followupDate;
 
     @Column(name = "followup_msg")
     private String followupMsg;
@@ -54,11 +56,11 @@ public class Followup implements Serializable {
         this.staff.setStaffId(staffId);
     }
 
-    public void setFollowupDate(String followupDate){
+    public void setFollowupDate(LocalDate followupDate){
         this.followupDate = followupDate;
     }
 
-    public String getFollowupDate(){
+    public LocalDate getFollowupDate(){
         return this.followupDate;
     }
 
@@ -67,7 +69,7 @@ public class Followup implements Serializable {
     }
 
     public String getFollowupMsg(){
-        return followupDate;
+        return followupMsg;
     }
 
     public void setActive(boolean isActive){

@@ -1,5 +1,7 @@
 package com.project.Entities;
 
+import java.time.LocalTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,10 +16,10 @@ public class Batch {
     private String batchName;
 
     @Column(name = "batch_start_time")
-    private int batchStartTime;
+    private LocalTime batchStartTime;
 
     @Column(name = "batch_end_time")
-    private int batchEndTime;
+    private LocalTime batchEndTime;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
@@ -42,19 +44,19 @@ public class Batch {
         this.batchName = batchName;
     }
 
-    public int getBatchStartTime() {
+    public LocalTime getBatchStartTime() {
         return batchStartTime;
     }
 
-    public void setBatchStartTime(int batchStartTime) {
+    public void setBatchStartTime(LocalTime batchStartTime) {
         this.batchStartTime = batchStartTime;
     }
 
-    public int getBatchEndTime() {
+    public LocalTime getBatchEndTime() {
         return batchEndTime;
     }
 
-    public void setBatchEndTime(int batchEndTime) {
+    public void setBatchEndTime(LocalTime batchEndTime) {
         this.batchEndTime = batchEndTime;
     }
 
