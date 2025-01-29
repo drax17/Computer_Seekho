@@ -1,11 +1,9 @@
 package com.project.Entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
 @Table(name = "image")
-@Data
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

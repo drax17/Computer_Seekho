@@ -1,14 +1,9 @@
 package com.project.Entities;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "student")
 public class Student {
 
@@ -42,6 +37,10 @@ public class Student {
     @JoinColumn(name = "batch_id", referencedColumnName = "batch_id")
     private Batch batch;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
+    
     public int getStudentId() {
 		return studentId;
 	}
@@ -114,37 +113,12 @@ public class Student {
 		this.batch = batch;
 	}
 
-	public Course getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseId(Course courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
-	public String getStudentPassword() {
-		return studentPassword;
-	}
-
-	public void setStudentPassword(String studentPassword) {
-		this.studentPassword = studentPassword;
-	}
-
-	public String getStudentUsername() {
-		return studentUsername;
-	}
-
-	public void setStudentUsername(String studentUsername) {
-		this.studentUsername = studentUsername;
-	}
-
-	@ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
-    private Course courseId;
-
-    @Column(name = "student_password", length = 15, nullable = false)
-    private String studentPassword;
-
-    @Column(name = "student_username", length = 15, unique = true, nullable = false)
-    private String studentUsername;
 }

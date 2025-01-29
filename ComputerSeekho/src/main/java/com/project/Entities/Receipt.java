@@ -1,13 +1,12 @@
 package com.project.Entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity  
 @Table(name = "receipt")
-@Data
 public class Receipt implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +16,7 @@ public class Receipt implements Serializable {
     private int receiptId;
 
     @Column(nullable = false)
-    private String receiptDate; 
+    private LocalDate receiptDate; 
 
     @Column(nullable = false)
     private double receiptAmount;
@@ -33,11 +32,11 @@ public class Receipt implements Serializable {
         this.receiptId = receiptId;
     }
 
-    public String getReceiptDate() {
+    public LocalDate getReceiptDate() {
         return receiptDate;
     }
 
-    public void setReceiptDate(String receiptDate) {
+    public void setReceiptDate(LocalDate receiptDate) {
         this.receiptDate = receiptDate;
     }
 

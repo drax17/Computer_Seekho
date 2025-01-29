@@ -1,6 +1,6 @@
 package com.project.Entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
@@ -27,7 +27,7 @@ public class Enquiry {
     private String enquirerEmailId;
 
     @Column(name = "enquiry_date")
-    private Date enquiryDate;
+    private LocalDate enquiryDate;
 
     @Column(name = "enquirer_query")
     private String enquirerQuery;
@@ -54,7 +54,7 @@ public class Enquiry {
     private int inquiryCounter;
 
     @Column(name = "follow_up_date")
-    private Date followUpDate;
+    private LocalDate followUpDate;
 
     public int getEnquiryId() {
         return enquiryId;
@@ -104,11 +104,11 @@ public class Enquiry {
         this.enquirerEmailId = enquirerEmailId;
     }
 
-    public Date getEnquiryDate() {
+    public LocalDate getEnquiryDate() {
         return enquiryDate;
     }
 
-    public void setEnquiryDate(Date enquiryDate) {
+    public void setEnquiryDate(LocalDate enquiryDate) {
         this.enquiryDate = enquiryDate;
     }
 
@@ -176,11 +176,11 @@ public class Enquiry {
         this.inquiryCounter = inquiryCounter;
     }
 
-    public Date getFollowUpDate() {
+    public LocalDate getFollowUpDate() {
         return followUpDate;
     }
 
-    public void setFollowUpDate(Date followUpDate) {
+    public void setFollowUpDate(LocalDate followUpDate) {
         this.followUpDate = followUpDate;
     }
 }
