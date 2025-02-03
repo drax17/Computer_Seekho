@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.Entities.Staff;
 import com.project.Repositories.StaffRepository;
-
 @Service
 public class StaffServiceImpl implements StaffService {
 	
