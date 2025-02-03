@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import { Call, PersonAdd, Close } from "@mui/icons-material"; // Import Material-UI Icons
 import "./ListComponent.css"; // Import CSS file
 
 const ListComponent = ({ enquiries }) => {
@@ -25,9 +26,15 @@ const ListComponent = ({ enquiries }) => {
             <tr key={index} className="enquiry-row">
               <td className="enquiry-details">{enquiry.name} - {enquiry.details}</td>
               <td className="enquiry-actions">
-                <Button className="btn call">Call</Button>
-                <Button className="btn register">Register</Button>
-                <Button className="btn close">Close</Button>
+                <Button className="btn call">
+                  <Call /> Call
+                </Button>
+                <Button className="btn register">
+                  <PersonAdd /> Register
+                </Button>
+                <Button className="btn close">
+                  <Close /> Close
+                </Button>
               </td>
             </tr>
           ))}
