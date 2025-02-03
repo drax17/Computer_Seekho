@@ -11,7 +11,7 @@ import com.project.Entities.Course;
 import com.project.Services.CourseService;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -31,7 +31,7 @@ public class CourseController {
         Course course2 = courseService.addCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).body(course2);
     }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
         Course course2 = courseService.updateCourse(course, course.getCourseId());
         return ResponseEntity.status(HttpStatus.CREATED).body(course2);
@@ -40,5 +40,15 @@ public class CourseController {
     public ResponseEntity<String> deleteCourse(@PathVariable int courseId) {
         courseService.deleteCourse(courseId);
         return ResponseEntity.ok().body("Course Deleted");
+    }
+
+    @GetMapping("/name/{courseName}")
+    public ResponseEntity<Course> getCourseByName(@PathVariable String courseName) {
+        Optional<Course> course = courseService.findByCourseName(courseName);
+        if (course.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(course.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

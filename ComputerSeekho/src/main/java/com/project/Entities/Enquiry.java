@@ -18,10 +18,7 @@ public class Enquiry {
     private String enquirerAddress;
 
     @Column(name = "enquirer_mobile")
-    private int enquirerMobile;
-
-    @Column(name = "enquirer_alternate_mobile")
-    private int enquirerAlternateMobile;
+    private String enquirerMobile;
 
     @Column(name = "enquirer_email_id")
     private String enquirerEmailId;
@@ -31,9 +28,6 @@ public class Enquiry {
 
     @Column(name = "enquirer_query")
     private String enquirerQuery;
-
-    @Column(name = "closure_reason_id")
-    private int closureReasonId;
 
     @Column(name = "closure_reason")
     private String closureReason;
@@ -80,20 +74,12 @@ public class Enquiry {
         this.enquirerAddress = enquirerAddress;
     }
 
-    public int getEnquirerMobile() {
+    public String getEnquirerMobile() {
         return enquirerMobile;
     }
 
-    public void setEnquirerMobile(int enquirerMobile) {
+    public void setEnquirerMobile(String enquirerMobile) {
         this.enquirerMobile = enquirerMobile;
-    }
-
-    public int getEnquirerAlternateMobile() {
-        return enquirerAlternateMobile;
-    }
-
-    public void setEnquirerAlternateMobile(int enquirerAlternateMobile) {
-        this.enquirerAlternateMobile = enquirerAlternateMobile;
     }
 
     public String getEnquirerEmailId() {
@@ -120,13 +106,13 @@ public class Enquiry {
         this.enquirerQuery = enquirerQuery;
     }
 
-    public int getClosureReasonId() {
-        return closureReasonId;
-    }
+    // public int getClosureReasonId() {
+    //     return closureReasonId;
+    // }
 
-    public void setClosureReasonId(int closureReasonId) {
-        this.closureReasonId = closureReasonId;
-    }
+    // public void setClosureReasonId(int closureReasonId) {
+    //     this.closureReasonId = closureReasonId;
+    // }
 
     public String getClosureReason() {
         return closureReason;

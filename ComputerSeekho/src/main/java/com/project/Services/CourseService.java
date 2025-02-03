@@ -10,4 +10,5 @@ public interface CourseService {
     Course addCourse(Course course);
     Course updateCourse(Course course,int courseId);
     void deleteCourse(int courseId);
+    Optional<Course> findByCourseName(String courseName);
 }

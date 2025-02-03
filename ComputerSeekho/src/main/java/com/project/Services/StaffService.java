@@ -9,6 +9,6 @@ public interface StaffService {
 	Optional<Staff> getStaffByUsername(String staffUsername);
 	List<Staff> getAllStaffMembers();
 	Staff addStaff(Staff staff);
-	Staff updateStaff(Staff staff);
+	boolean updateStaff(Staff staff);
 	void deleteStaff(int staffId);
 }

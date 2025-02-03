@@ -26,8 +26,8 @@ public class Course {
     @Column(length = 200, name = "course_syllabus") 
     private String courseSyllabus;
 
-    @Column(length = 100, name = "age_grp_type") 
-    private String ageGrpType;
+    // @Column(length = 100, name = "age_grp_type") 
+    // private String ageGrpType;
 
     @Column(name = "course_fee")
     private double courseFee;
@@ -37,10 +37,6 @@ public class Course {
 
     @Column(length = 100, name = "cover_photo") 
     private String coverPhoto;
-
-    @ManyToOne // Many courses can reference one video
-    @JoinColumn(name = "video_id") 
-    private Video videoId;
 
 	public int getCourseId() {
 		return courseId;
@@ -82,13 +78,13 @@ public class Course {
 		this.courseSyllabus = courseSyllabus;
 	}
 
-	public String getAgeGrpType() {
-		return ageGrpType;
-	}
+	// public String getAgeGrpType() {
+	// 	return ageGrpType;
+	// }
 
-	public void setAgeGrpType(String ageGrpType) {
-		this.ageGrpType = ageGrpType;
-	}
+	// public void setAgeGrpType(String ageGrpType) {
+	// 	this.ageGrpType = ageGrpType;
+	// }
 
 	public double getCourseFee() {
 		return courseFee;
@@ -112,13 +108,5 @@ public class Course {
 
 	public void setCoverPhoto(String coverPhoto) {
 		this.coverPhoto = coverPhoto;
-	}
-
-	public Video getVideoId() {
-		return videoId;
-	}
-
-	public void setVideoId(Video videoId) {
-		this.videoId = videoId;
 	}
 }

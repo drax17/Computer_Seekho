@@ -37,8 +37,13 @@ public class FollowupServiceImpl implements FollowupService {
 	}
 
 	@Override
-	public Followup updateFollowup(Followup followup) {
-		return followupRepository.save(followup);
+	public boolean updateFollowup(Followup followup) {
+		Optional<Followup> foundFollowUp = followupRepository.findById(followup.getFollowupId());
+		if(foundFollowUp.isPresent()) {
+			followupRepository.save(followup);
+			return true;
+		}
+		else return false;
 	}
 
 	@Override

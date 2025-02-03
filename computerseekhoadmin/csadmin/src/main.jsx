@@ -5,7 +5,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="home" element={<Home />} />
@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> */}
+    <App/>
   </StrictMode>
 )
