@@ -11,15 +11,18 @@ import com.project.Services.StudentService;
 import com.project.Entities.Student;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable int id) {
-        Optional<Student> student = studentService.getStudentById(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(student.get());
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
+        Optional<Student> student = studentService.getStudentById(studentId);
+        if (student.isPresent())
+			return new ResponseEntity<>(student.get(), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/all")
@@ -35,12 +38,15 @@ public class StudentController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, int studentId) {
-        Student student2 = studentService.updateStudent(student, studentId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(student2);
+    public ResponseEntity<String> updateStudent(@RequestBody Student student, int studentId) {
+        boolean isUpdated = studentService.updateStudent(student);
+		if (isUpdated)
+			return new ResponseEntity<>("Student Updated", HttpStatus.OK);
+		else
+			return new ResponseEntity<>("There was a problem updating the Student Details", HttpStatus.NOT_FOUND);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable int studentId){
     	studentService.deleteStudent(studentId);
     	return ResponseEntity.ok().body("Student Deleted");

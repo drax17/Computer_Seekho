@@ -10,6 +10,6 @@ public interface FollowupService {
 	List<Followup> getFollowupsByDate(LocalDate followupDate);
 	List<Followup> getAll();
 	Followup addFollowup(Followup followup);
-	Followup updateFollowup(Followup followup);
+	boolean updateFollowup(Followup followup);
 	void deleteFollowUp(int followupId);
 }

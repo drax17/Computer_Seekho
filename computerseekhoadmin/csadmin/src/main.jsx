@@ -8,8 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter> 
-      <App />
-    </BrowserRouter>
+    {/* <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="home" element={<Home />} />
+          <Route path="campus" element={<Campus />} />
+          <Route path="faculty" element={<Faculty />} />
+          <Route path="getintouch" element={<GetInTouch />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter> */}
+    <App/>
   </StrictMode>
 );

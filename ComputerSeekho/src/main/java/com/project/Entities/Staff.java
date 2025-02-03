@@ -2,6 +2,8 @@ package com.project.Entities;
 
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +50,7 @@ public class Staff {
     @Column(name = "staffPassword")
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String staffPassword;
 
     @Column(name = "staff_role")
@@ -101,12 +104,12 @@ public class Staff {
 		this.staffUsername = staffUsername;
 	}
 
-	public String getStaff_password() {
+	public String getStaffPassword() {
 		return staffPassword;
 	}
 
-	public void setStaff_password(String staff_password) {
-		this.staffPassword = staff_password;
+	public void setStaffPassword(String staffPassword) {
+		this.staffPassword = staffPassword;
 	}
 
 	public String getStaffRole() {

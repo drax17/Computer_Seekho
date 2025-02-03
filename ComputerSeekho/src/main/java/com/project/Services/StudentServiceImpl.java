@@ -31,9 +31,13 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student updateStudent(Student student, int studentId) {
-		student.setStudentId(studentId);
-		return studentRepository.save(student);
+	public boolean updateStudent(Student student) {
+		Optional<Student> foundStudent = studentRepository.findById(student.getStudentId());
+		if(foundStudent.isPresent()) {
+			studentRepository.save(student);
+			return true;
+		}
+		else return false;
 	}
 
 	@Override
