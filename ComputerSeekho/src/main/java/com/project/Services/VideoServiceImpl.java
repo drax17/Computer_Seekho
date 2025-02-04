@@ -45,4 +45,19 @@ public class VideoServiceImpl implements VideoService{
 		videoRepository.deleteById(videoId);		
 	}
 
+	@Override
+	public void activateVideo(int videoId, boolean videoIsActive) {
+		videoRepository.activateVideo(videoIsActive, videoId);
+	}
+
+	@Override
+	public List<Video> findByBatchId(int batchId) {
+		return videoRepository.findByBatchId(batchId);
+	}
+
+	@Override
+	public List<Video> findByVideoName(int courseId) {
+		return videoRepository.findByVideoName(courseId);
+	}
+
 }

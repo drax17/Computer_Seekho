@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import AdminNavbar from "./Components/Navbar/AdminNavbar.jsx";
 import ListComponent from "./Components/EnquiryList/ListComponent.jsx";
@@ -20,8 +20,15 @@ import PaymentTypeMasterComponent from "./Components/Tables/PaymentTypeMasterCom
 import ClosureReasonComponent from "./Components/Tables/ClosureReasonComponent.jsx";
 import FollowupComponent from "./Components/Tables/FollowupComponent.jsx";
 import EnquiryComponent from "./Components/Tables/EnquiryComponent.jsx";
+import Login from "./Components/Login/Login";  // Import your Login component
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
   const enquiries = [
     { name: "Enquiry 1", details: "Details of enquiry 1" },
     { name: "Enquiry 2", details: "Details of enquiry 2" },
@@ -33,6 +40,9 @@ const App = () => {
     { name: "Enquiry 8", details: "Details of enquiry 8" },
   ];
 
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <HeaderComponent />
@@ -54,9 +64,6 @@ const App = () => {
           <Route path="/table/closure-reasons" element={<ClosureReasonComponent/>}/>
           <Route path="/table/followups" element={<FollowupComponent/>}/>
           <Route path="/table/enquiries" element={<EnquiryComponent/>}/>
-
-
-        
         </Routes>
       </div>
       <FooterComponent />

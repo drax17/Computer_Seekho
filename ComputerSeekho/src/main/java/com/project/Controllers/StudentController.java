@@ -22,7 +22,7 @@ public class StudentController {
         if (student.isPresent())
 			return new ResponseEntity<>(student.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/all")

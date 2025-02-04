@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.project.Entities.Video;
 import com.project.Services.VideoService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/video")
@@ -22,7 +25,7 @@ public class VideoController {
 		if (video.isPresent())
 			return new ResponseEntity<>(video.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/all")
@@ -49,5 +52,29 @@ public class VideoController {
 	public ResponseEntity<String> deleteVideo(@PathVariable int videoId) {
 		videoService.deleteVideo(videoId);
 		return ResponseEntity.ok().body("Video Deleted");
+	}
+
+	@GetMapping("/activate/{videoId}")
+	public ResponseEntity<String> activateVideo(@PathVariable int videoId, @RequestParam boolean videoIsActive) {
+		videoService.activateVideo(videoId, videoIsActive);
+		return ResponseEntity.ok().body("Video Activated");
+	}
+
+	@GetMapping("/findByBatchId/{batchId}")
+	public ResponseEntity<List<Video>> findByBatchId(@PathVariable int batchId) {
+		List<Video> videos = videoService.findByBatchId(batchId);
+		if (videos.isEmpty())
+			return ResponseEntity.notFound().build();
+		else
+			return ResponseEntity.ok().body(videos);
+	}
+
+	@GetMapping("/findByVideoName/{courseId}")
+	public ResponseEntity<List<Video>> findByVideoName(@PathVariable int courseId) {
+		List<Video> videos = videoService.findByVideoName(courseId);
+		if (videos.isEmpty())
+			return ResponseEntity.notFound().build();
+		else
+			return ResponseEntity.ok().body(videos);
 	}
 }

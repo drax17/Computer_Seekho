@@ -11,4 +11,7 @@ public interface VideoService {
     Video addVideo(Video video);
     boolean updateVideo(Video video);
     void deleteVideo(int videoId);
+    void activateVideo(int videoId, boolean videoIsActive);
+    List<Video> findByBatchId(int batchId);
+    List<Video> findByVideoName(int courseId);
 }

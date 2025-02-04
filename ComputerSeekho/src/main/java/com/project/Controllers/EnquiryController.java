@@ -24,7 +24,7 @@ public class EnquiryController {
 		if (enquiry.isPresent())
 			return new ResponseEntity<>(enquiry.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/all")

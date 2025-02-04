@@ -22,7 +22,7 @@ public class PaymentController {
 		if (payment.isPresent())
 			return new ResponseEntity<>(payment.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/all")
