@@ -12,7 +12,7 @@ public class Batch {
     @Column(name = "batch_id")
     private int batchId;
 
-    @Column(name = "batch_name")
+    @Column(name = "batch_name", unique = true)
     private String batchName;
 
     @Column(name = "batch_start_time")

@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.project.Configuration.SecurityConstants;
-import com.project.Configuration.StaffAuthenticator;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

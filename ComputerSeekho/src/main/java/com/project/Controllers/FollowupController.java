@@ -37,7 +37,7 @@ public class FollowupController {
 		if(foundFollowup.isPresent()) {
 			return new ResponseEntity<>(foundFollowup.get(),HttpStatus.OK);
 		}
-		return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		return ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping("/add")

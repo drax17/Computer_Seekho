@@ -24,7 +24,7 @@ public class ReceiptController {
 		if (receipt.isPresent())
 			return new ResponseEntity<>(receipt.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/all")

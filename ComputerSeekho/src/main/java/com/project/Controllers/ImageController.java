@@ -23,7 +23,7 @@ public class ImageController {
 		if (image.isPresent())
 			return new ResponseEntity<>(image.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/all")

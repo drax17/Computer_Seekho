@@ -28,7 +28,7 @@ public class StaffController {
 		if (staff.isPresent())
 			return new ResponseEntity<>(staff.get(), HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping("/add")
