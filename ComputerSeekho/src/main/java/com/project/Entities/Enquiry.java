@@ -2,9 +2,11 @@ package com.project.Entities;
 
 import java.time.LocalDate;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "enquiry")
+@Data
 public class Enquiry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +37,12 @@ public class Enquiry {
     @Column(name = "enquiry_processed_flag")
     private boolean enquiryProcessedFlag;
 
-    @Column(name = "course_id")
-    private int courseId;
+    @Column(name = "course_name")
+    private String courseName;
 
-    @Column(name = "staff_id")
-    private int staffId;
+    @ManyToOne
+    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
+    private Staff staff;
 
     @Column(name = "student_name")
     private String studentName;
@@ -130,20 +133,20 @@ public class Enquiry {
         this.enquiryProcessedFlag = enquiryProcessedFlag;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public String getCoursName() {
+        return courseName;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourseId(String courseName) {
+        this.courseName = courseName;
     }
 
-    public int getStaffId() {
-        return staffId;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setStaffId(Staff staff) {
+        this.staff = staff;
     }
 
     public String getStudentName() {

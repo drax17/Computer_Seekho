@@ -3,6 +3,7 @@ package com.project.Configuration;
 import java.util.Collections;
 
 import org.springframework.context.annotation.*;
+import org.springframework.lang.NonNull;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,7 +31,7 @@ public class SecurityCongif {
 		security.addFilterBefore(new JWTValidationFilter(), BasicAuthenticationFilter.class);
 		
 		security.authorizeHttpRequests(auth->auth.requestMatchers("/staff/signIn").authenticated()
-				.requestMatchers("/staff/all").hasRole("ADMIN")
+				// .requestMatchers("/staff/all").hasAnyRole("NON_TEACHING","TEACHING")
 		.requestMatchers("/**").permitAll());
 		security.formLogin(Customizer.withDefaults());
 		security.httpBasic(Customizer.withDefaults());
@@ -38,7 +39,7 @@ public class SecurityCongif {
 		security.cors(csrf->csrf.configurationSource(new CorsConfigurationSource() {
 			
 			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+			public CorsConfiguration getCorsConfiguration(@NonNull HttpServletRequest request) {
 				CorsConfiguration config = new CorsConfiguration();
 				config.setAllowedOriginPatterns(Collections.singletonList("*"));
 				config.setAllowedMethods(Collections.singletonList("*"));

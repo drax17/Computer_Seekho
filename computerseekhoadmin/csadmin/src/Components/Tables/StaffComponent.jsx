@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, 
+  ListItemSecondaryAction, InputAdornment, Avatar, Dialog, DialogTitle, DialogContent, 
+  DialogActions 
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
@@ -8,54 +12,39 @@ const colors = {
   primary: '#1A1A1D',
   secondary: '#3B1C32',
   accent: '#6A1E55',
-  light: '#F2F2F2', // Lighter background
+  light: '#F2F2F2',
   white: '#FFFFFF'
 };
 
-// Temporary static content
-const staticStaff = [
-  {
-    staff_id: 1,
-    staff_name: 'John Doe',
-    photo_url: 'https://via.placeholder.com/150',
-    staff_mobile: 1234567890,
-    staff_email: 'john.doe@example.com',
-    staff_username: 'johndoe',
-    staff_password: 'password123',
-    staff_role: 'Teaching staff',
-  },
-  {
-    staff_id: 2,
-    staff_name: 'Jane Smith',
-    photo_url: 'https://via.placeholder.com/150',
-    staff_mobile: 9876543210,
-    staff_email: 'jane.smith@example.com',
-    staff_username: 'janesmith',
-    staff_password: 'password123',
-    staff_role: 'Non teaching',
-  },
-  {
-    staff_id: 3,
-    staff_name: 'Alice Johnson',
-    photo_url: 'https://via.placeholder.com/150',
-    staff_mobile: 5555555555,
-    staff_email: 'alice.johnson@example.com',
-    staff_username: 'alicejohnson',
-    staff_password: 'password123',
-    staff_role: 'House keeping',
-  },
-];
-
 const StaffComponent = () => {
-  const [staff, setStaff] = useState(staticStaff); // Using static content
+  const [staff, setStaff] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editStaff, setEditStaff] = useState(null);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
-  // Commented out fetchStaff and other dynamic code
-  /*
   const fetchStaff = async () => {
     try {
-      const response = await axios.get('/api/staff');
-      setStaff(response.data);
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) {
+        console.error('No token found in sessionStorage');
+        return;
+      }
+
+      const response = await fetch('http://localhost:8080/api/staff/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.error('API Error:', response.status, await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      setStaff(data);
     } catch (error) {
       console.error('Error fetching staff:', error);
     }
@@ -67,17 +56,71 @@ const StaffComponent = () => {
 
   const deleteStaff = async (id) => {
     try {
-      await axios.delete(`/api/staff/${id}`);
-      setStaff(staff.filter(member => member.staff_id !== id));
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) return;
+
+      await fetch(`http://localhost:8080/api/staff/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setStaff(staff.filter(member => member.staffId !== id));
     } catch (error) {
       console.error('Error deleting staff:', error);
     }
   };
-  */
 
-  const filteredStaff = Array.isArray(staff) ? staff.filter(member =>
-    member.staff_name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  const openEditForm = (member) => {
+    setEditStaff(member);
+    setOpenEditDialog(true);
+  };
+
+  const handleEditChange = (e) => {
+    setEditStaff({ ...editStaff, [e.target.name]: e.target.value });
+  };
+
+  const updateStaff = async () => {
+    try {
+      console.log("Updating staff:", editStaff); // Debugging
+      
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) {
+        console.error("No JWT token found");
+        return;
+      }
+  
+      const response = await fetch('http://localhost:8080/api/staff/update', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editStaff),
+      });
+  
+      const responseData = await response.text(); // Read response
+  
+      if (!response.ok) {
+        console.error('Update failed:', response.status, responseData);
+        return;
+      }
+  
+      console.log('Update successful:', responseData);
+  
+      setStaff(staff.map(member => (member.staffId === editStaff.staffId ? editStaff : member)));
+      setOpenEditDialog(false);
+    } catch (error) {
+      console.error('Error updating staff:', error);
+    }
+  };
+  
+
+  const filteredStaff = staff.filter(member =>
+    member.staffName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.light, borderRadius: '8px' }}>
@@ -89,7 +132,7 @@ const StaffComponent = () => {
           label="Search by Staff Name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ width: '300px', backgroundColor: colors.white, borderRadius: '4px' }} // Adjust width as needed
+          sx={{ width: '300px', backgroundColor: colors.white, borderRadius: '4px' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -102,27 +145,72 @@ const StaffComponent = () => {
 
       <List>
         {filteredStaff.map(member => (
-          <ListItem key={member.staff_id} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+          <ListItem key={member.staffId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+            <Avatar src={member.photoUrl} alt={member.staffName} sx={{ width: 50, height: 50, marginRight: 2 }} />
             <ListItemText
-              primary={member.staff_name}
-              secondary={`${member.staff_role} | ${member.staff_email} | ${member.staff_mobile}`}
+              primary={member.staffName}
+              secondary={`${member.staffRole} | ${member.staffEmail} | ${member.staffMobile}`}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => console.log('View staff', member.staff_id)}>
-                <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px' }}>
-                  View
-                </Button>
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Edit staff', member.staff_id)}>
+              <IconButton edge="end" onClick={() => openEditForm(member)}>
                 <EditIcon sx={{ color: colors.accent }} />
               </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Delete staff', member.staff_id)}>
+              <IconButton edge="end" onClick={() => deleteStaff(member.staffId)}>
                 <DeleteIcon sx={{ color: colors.secondary }} />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
+
+      {/* Edit Staff Dialog */}
+      {editStaff && (
+        <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+          <DialogTitle>Edit Staff</DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Name"
+              name="staffName"
+              value={editStaff.staffName}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Role"
+              name="staffRole"
+              value={editStaff.staffRole}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              name="staffEmail"
+              value={editStaff.staffEmail}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Mobile"
+              name="staffMobile"
+              value={editStaff.staffMobile}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenEditDialog(false)} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={updateStaff} color="primary" variant="contained">
+              Save Changes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Box>
   );
 };

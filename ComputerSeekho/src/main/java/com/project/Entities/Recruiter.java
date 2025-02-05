@@ -1,6 +1,5 @@
 package com.project.Entities;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "recruiter")
+@Data
 public class Recruiter {
 
     @Id
@@ -27,6 +28,9 @@ public class Recruiter {
     @NotBlank(message = "Recruiter Location is compulsory")
     @Size(min = 3, max = 50, message = "Location must be in between 3 and 50 characters")
     private String recruiterLocation;
+
+    @Column(name = "recruiter_photo")
+    private String recruiterPhoto;
 
     public int getRecruiterId() {
         return recruiterId;

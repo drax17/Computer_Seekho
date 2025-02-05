@@ -1,5 +1,6 @@
 package com.project.Configuration;
 
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,6 +17,9 @@ import com.project.Services.StaffService;
 
 @Component
 public class StaffAuthenticator implements AuthenticationProvider {
+
+	private static final Logger logger = LoggerFactory.getLogger(StaffAuthenticator.class);
+
 	@Autowired
 	StaffService staffService;
 	@Autowired
@@ -40,6 +44,7 @@ public class StaffAuthenticator implements AuthenticationProvider {
 		} else {
 			throw new BadCredentialsException("User not found with username: " + username);
 		}
+		logger.info(staff.getStaffName()+ " logged in on " + new Date() + " with username: " + username);
 		return new UsernamePasswordAuthenticationToken(username, password, authorities);
 	}
 

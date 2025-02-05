@@ -9,9 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "placement")
+@Data
 public class Placement {
 
     @Id
@@ -27,6 +29,9 @@ public class Placement {
     @JoinColumn(name = "recruiter_id", referencedColumnName = "recruiter_id")
     private Recruiter recruiterID;
 
+    @ManyToOne
+    @JoinColumn(name = "batch_id", referencedColumnName = "batch_id")
+    private Batch batch;
 
     private float CTC;
 

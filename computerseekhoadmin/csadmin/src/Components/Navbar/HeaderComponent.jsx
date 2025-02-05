@@ -20,23 +20,12 @@ const HeaderComponent = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "#1A1A1D", overflow: "hidden", height: 50 }}
+       sx={{ backgroundColor: "#1A1A1D", overflow: "hidden", height: 50 }}
     >
       <Toolbar
-        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-      >
-        <Box
-          sx={{
-            color: "#FEFFFF",
-            fontWeight: "bold",
-            whiteSpace: "nowrap",
-            transform: `translateX(${position}px)`,
-            transition: "transform 0.1s linear",
-          }}
-        >
-          USM's Shriram Mantri Vidyanidhi Info Tech Academy
-        </Box>
-        <Typography sx={{ color: "#FEFFFF", fontWeight: "bold" }}>
+        sx={{ justifyContent: "space-between", alignItems: "center" }}
+      ><marquee>USM's Shriram Mantri Vidyanidhi Info Tech Academy</marquee>
+        <Typography sx={{ color: "#FEFFFF", fontWeight: "bold" ,width: "10%"}}>
           {time.toLocaleTimeString()}
         </Typography>
       </Toolbar>

@@ -1,12 +1,14 @@
 package com.project.Controllers;
 
 import java.util.Optional;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Album;
 import com.project.Services.AlbumService;
 
@@ -31,23 +33,23 @@ public class AlbumController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
-		Album album1 = albumService.addAlbum(album);
-		return ResponseEntity.status(HttpStatus.CREATED).body(album1);
+	public ResponseEntity<ResponseDTO> addAlbum(@RequestBody Album album) {
+		albumService.addAlbum(album);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Album Added",new Date()));
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<String> updateAlbum(@RequestBody Album album) {
+	public ResponseEntity<ResponseDTO> updateAlbum(@RequestBody Album album) {
 		boolean isUpdated = albumService.updateAlbum(album);
 		if (isUpdated)
-			return new ResponseEntity<>("Album Updated", HttpStatus.OK);
+			return new ResponseEntity<>(new ResponseDTO("Album Details Updated",new Date()), HttpStatus.OK);
 		else
-			return new ResponseEntity<>("There was a problem updating the album", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new ResponseDTO("Album Not Found",new Date()), HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/delete/{albumId}")
-	public ResponseEntity<String> deleteAlbum(@PathVariable int albumId) {
+	public ResponseEntity<ResponseDTO> deleteAlbum(@PathVariable int albumId) {
 		albumService.deleteAlbum(albumId);
-		return ResponseEntity.ok().body("Album Deleted");
+    	return ResponseEntity.ok().body(new ResponseDTO("AAlbum Deleted",new Date()));
 	}
 }

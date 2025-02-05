@@ -1,5 +1,6 @@
 package com.project.Controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Batch;
 import com.project.Services.BatchService;
 
@@ -32,25 +34,26 @@ public class BatchController {
 		return batchService.getAllBatches();
 	}
 	
-	@PostMapping("/add")
-	public ResponseEntity<Batch> addBatch(@RequestBody Batch batch){
-		Batch batch2=batchService.addBatch(batch);
-		return ResponseEntity.status(HttpStatus.CREATED).body(batch2);	
+	@PostMapping(value = "/add", consumes = "application/json")
+	public ResponseEntity<ResponseDTO> addBatch(@RequestBody Batch batch){
+		batchService.addBatch(batch);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Batch Added",new Date()));
+
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> updateBatch(@RequestBody Batch batch){
+	public ResponseEntity<ResponseDTO> updateBatch(@RequestBody Batch batch){
 		boolean isUpdated = batchService.updateBatch(batch);
-		if(isUpdated)
-			return new ResponseEntity<>("Batch Updated Successfully",HttpStatus.OK);
-		else 
-			return new ResponseEntity<>("There was a problem updating the ",HttpStatus.NOT_FOUND);
+		if (isUpdated)
+			return new ResponseEntity<>(new ResponseDTO("Batch Details Updated",new Date()), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(new ResponseDTO("Batch Not Found",new Date()), HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/delete/{batchId}")
-	public ResponseEntity<String> deleteBatch(@PathVariable int batchId){
+	public ResponseEntity<ResponseDTO> deleteBatch(@PathVariable int batchId){
 		batchService.deleteBatch(batchId);
-		return ResponseEntity.ok().body("Batch Deleted");
+		return ResponseEntity.ok().body(new ResponseDTO("Batch Deleted",new Date()));
 	}
 	
 	@GetMapping("/getByName/{batchName}")
@@ -63,8 +66,8 @@ public class BatchController {
 	}
 
 	@PutMapping("/activate/{batchIsActive}/{batchId}")
-	public ResponseEntity<String> activateBatch(@PathVariable boolean batchIsActive, @PathVariable int batchId){
+	public ResponseEntity<ResponseDTO> activateBatch(@PathVariable boolean batchIsActive, @PathVariable int batchId){
 		batchService.activateBatch(batchIsActive, batchId);
-		return ResponseEntity.ok().body("Batch Activation Toggled");
+		return ResponseEntity.ok().body(new ResponseDTO("Activation Toggled ",new Date()));
 	}
 }

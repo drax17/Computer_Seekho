@@ -1,5 +1,6 @@
 package com.project.Controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Receipt;
 import com.project.Services.ReceiptService;
 
@@ -33,23 +35,23 @@ public class ReceiptController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Receipt> addReceipt(@RequestBody Receipt recept){
-		Receipt receipt2 = receiptService.addReceipt(recept);
-		return ResponseEntity.status(HttpStatus.CREATED).body(receipt2);
+	public ResponseEntity<ResponseDTO> addReceipt(@RequestBody Receipt recept){
+		receiptService.addReceipt(recept);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Receipt Added",new Date()));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> updateService(@RequestBody Receipt receipt){
+	public ResponseEntity<ResponseDTO> updateService(@RequestBody Receipt receipt){
 		boolean isUpdated = receiptService.updateReceipt(receipt);
 		if (isUpdated)
-			return new ResponseEntity<>("Receipt Updated", HttpStatus.OK);
+			return new ResponseEntity<>(new ResponseDTO("Receipt Details Updated",new Date()), HttpStatus.OK);
 		else
-			return new ResponseEntity<>("There was a problem updating the Receipt", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new ResponseDTO("Receipt Not Found",new Date()), HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/delete/{receiptId}")
-	public ResponseEntity<String> deleteReceipt(@PathVariable int receiptId){
+	public ResponseEntity<ResponseDTO> deleteReceipt(@PathVariable int receiptId){
 		receiptService.deleteReceipt(receiptId);
-		return ResponseEntity.ok().body("Receipt deleted");
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Receipt Deleted", new Date()));
 	}
 }

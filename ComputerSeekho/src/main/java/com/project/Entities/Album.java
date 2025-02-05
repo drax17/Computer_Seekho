@@ -2,13 +2,15 @@ package com.project.Entities;
 
 import java.time.LocalDate;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "album")
+@Data
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "albumId")
+    @Column(name = "album_Id")
     private int albumId;
 
     @Column(name = "album_name", nullable = false)
@@ -26,7 +28,6 @@ public class Album {
     @Column(name = "is_active")
     private boolean albumIsActive;
 
-    // Getters and Setters
     public int getAlbumId() {
         return albumId;
     }

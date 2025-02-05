@@ -14,9 +14,7 @@ const options = [
   { name: 'Students', path: '/table/students', icon: <GroupIcon /> },
   { name: 'Albums', path: '/table/albums', icon: <GroupIcon /> },
   { name: 'Payment', path: '/table/payment', icon: <AttachMoneyIcon /> },
-  { name: 'Receipts', path: '/table/receipts', icon: <AttachMoneyIcon /> },
-  { name: 'Closure Reasons', path: '/table/closure-reasons', icon: <AttachMoneyIcon /> },
-  { name: 'Payment Master', path: '/table/payment-type', icon: <AttachMoneyIcon /> }
+  { name: 'Closure Reasons', path: '/table/closure-reasons', icon: <AttachMoneyIcon /> }
 ];
 
 const colors = {

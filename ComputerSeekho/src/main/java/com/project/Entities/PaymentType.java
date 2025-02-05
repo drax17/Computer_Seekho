@@ -1,9 +1,11 @@
 package com.project.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "payment_type")
+@Data
 public class PaymentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

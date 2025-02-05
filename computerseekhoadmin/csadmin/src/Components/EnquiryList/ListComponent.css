@@ -61,6 +61,7 @@ body {
   padding: 1rem;
   text-align: center;
   color: #1A1A1D; /* Darker Maroon */
+  width: 60%; /* Increase width */
 }
 
 .enquiry-details:hover {
@@ -70,6 +71,7 @@ body {
 .enquiry-actions {
   padding: 1rem;
   text-align: center;
+  width: 25%; /* Decrease width */
 }
 
 .enquiry-actions:hover {
@@ -140,4 +142,12 @@ body {
 .page-info {
   margin: 0 1rem;
   color: #1A1A1D; /* Darker Maroon */
+}
+
+
+.followup-count {
+  padding: 1rem;
+  text-align: center;
+  color: #1A1A1D; /* Darker Maroon */
+  width: 15%; /* Reduce width */
 }

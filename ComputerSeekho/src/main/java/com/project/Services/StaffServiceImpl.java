@@ -34,8 +34,8 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public Staff addStaff(Staff staff) {
-		staff.setStaffRole("ROLE_ADMIN");
-		staff.setStaffUsername("userroot");
+		staff.setStaffRole("ROLE_"+staff.getStaffRole());
+		staff.setStaffUsername(staff.getStaffEmail());
 		staff.setStaffPassword(passwordEncoder.encode("rootpassword"));
 		return staffRepository.save(staff);
 	}
@@ -55,5 +55,20 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public void deleteStaff(int staffId) {
 		staffRepository.deleteById(staffId);
+	}
+
+	@Override
+	public boolean updateStaffUserNamePassword(String staffUsername, String staffPassword, int staffId) {
+		Optional<Staff> foundStaff = staffRepository.findById(staffId);
+		if(foundStaff.isPresent()) {
+			staffRepository.updateStaffUserNamePassword(staffUsername, staffPassword, staffId);
+			return true;
+		}
+		else return false;
+	}
+
+	@Override
+	public void deleteByStaffUsername(String staffUsername) {
+		staffRepository.deleteByStaffUsername(staffUsername);
 	}
 }
