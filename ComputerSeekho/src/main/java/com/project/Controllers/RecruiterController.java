@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Recruiter;
-import com.project.Entities.ResponseDTO;
 import com.project.Services.RecruiterService;
 
 @RestController

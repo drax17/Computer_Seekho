@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.Services.ImageService;
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Image;
-import com.project.Entities.ResponseDTO;
 
 @RestController
 @RequestMapping("/api/image")

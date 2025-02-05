@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Placement;
-import com.project.Entities.ResponseDTO;
 import com.project.Services.PlacementService;
 
 @RestController

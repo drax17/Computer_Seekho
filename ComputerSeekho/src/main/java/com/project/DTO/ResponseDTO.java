@@ -1,4 +1,4 @@
-package com.project.Entities;
+package com.project.DTO;
 
 import java.util.Date;
 

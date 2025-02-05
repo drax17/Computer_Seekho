@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Course;
-import com.project.Entities.ResponseDTO;
 import com.project.Services.CourseService;
 
 @RestController

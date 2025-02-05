@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.PaymentType;
-import com.project.Entities.ResponseDTO;
 import com.project.Services.PaymentTypeService;
 
 import java.util.Date;

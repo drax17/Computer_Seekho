@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.DTO.ResponseDTO;
 import com.project.Entities.Batch;
-import com.project.Entities.ResponseDTO;
 import com.project.Services.BatchService;
 
 @RestController
