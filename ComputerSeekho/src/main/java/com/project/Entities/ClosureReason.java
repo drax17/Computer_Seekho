@@ -2,9 +2,11 @@ package com.project.Entities;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "closure_reason")
+@Data
 public class ClosureReason {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +16,6 @@ public class ClosureReason {
     @Column(name = "closure_reason_desc")
     private String closureReasonDesc;
 
-    // Getters and Setters
     public int getClosureReasonId() {
         return closureReasonId;
     }

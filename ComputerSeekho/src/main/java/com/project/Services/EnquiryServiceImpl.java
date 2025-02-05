@@ -50,5 +50,10 @@ public class EnquiryServiceImpl implements EnquiryService{
 	public List<Enquiry> getEnquiryByDate(LocalDate enquiryDate) {
 		return enquiryRepository.findByEnquiryDate(enquiryDate);
 	}
+
+	@Override
+	public List<Enquiry> getbystaff(int staffId) {
+		return enquiryRepository.getbystaff(staffId);
+	}
 	
 }

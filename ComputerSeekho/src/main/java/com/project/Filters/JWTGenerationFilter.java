@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JWTGenerationFilter extends OncePerRequestFilter{
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull FilterChain filterChain)
 			throws ServletException, IOException {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -41,7 +42,7 @@ public class JWTGenerationFilter extends OncePerRequestFilter{
 	}
 
 	@Override
-	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+	protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
 		return !request.getServletPath().equals("/auth/signIn");
 	}
 	

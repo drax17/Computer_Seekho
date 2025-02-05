@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.Entities.ResponseDTO;
 import com.project.Entities.Staff;
 import com.project.Services.StaffService;
 
@@ -32,23 +33,47 @@ public class StaffController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Staff> addStaff(@RequestBody Staff staff){
-		Staff staff1 = staffService.addStaff(staff);
-		return ResponseEntity.status(HttpStatus.CREATED).body(staff1);
+	public ResponseEntity<ResponseDTO> addStaff(@RequestBody Staff staff){
+		staffService.addStaff(staff);
+		return ResponseEntity.ok().body(new ResponseDTO("Staff Added", new Date()));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> updateAlbum(@RequestBody Staff staff) {
+	public ResponseEntity<ResponseDTO> updateAlbum(@RequestBody Staff staff) {
 		boolean isUpdated = staffService.updateStaff(staff);
 		if (isUpdated)
-			return new ResponseEntity<>("Staff Updated", HttpStatus.OK);
+			return ResponseEntity.ok().body(new ResponseDTO("Staff Updated", new Date()));
 		else
-			return new ResponseEntity<>("There was a problem updating the staff", HttpStatus.NOT_FOUND);
+			return ResponseEntity.ok().body(new ResponseDTO("There was a problem updating the staff", new Date()));
 	}
 	
 	@DeleteMapping("/delete/{staffId}")
-	public ResponseEntity<String> deleteAlbum(@PathVariable int staffId) {
+	public ResponseEntity<ResponseDTO> deleteAlbum(@PathVariable int staffId) {
 		staffService.deleteStaff(staffId);
-		return ResponseEntity.ok().body("Staff Deleted");
+		return ResponseEntity.ok().body(new ResponseDTO("Staff Deleted", new Date()));
+	}
+	
+	@DeleteMapping("/deleteByUsername/{staffUsername}")
+	public ResponseEntity<ResponseDTO> deleteByStaffUsername(@PathVariable String staffUsername) {
+		staffService.deleteByStaffUsername(staffUsername);
+		return ResponseEntity.ok().body(new ResponseDTO("Staff Deleted", new Date()));
+	}
+
+	@PutMapping("/updateUserNamePassword/{staffId}")
+	public ResponseEntity<ResponseDTO> updateStaffUserNamePassword(@RequestBody Staff staff, @PathVariable int staffId) {
+		boolean isUpdated = staffService.updateStaffUserNamePassword(staff.getStaffUsername(), staff.getStaffPassword(), staffId);
+		if (isUpdated)
+			return ResponseEntity.ok().body(new ResponseDTO("Staff Updated", new Date()));
+		else
+			return ResponseEntity.ok().body(new ResponseDTO("There was a problem updating the staff", new Date()));
+	}
+	
+	@GetMapping("/getByUsername/{staffUsername}")
+	public ResponseEntity<Staff> getStaffByUsername(@PathVariable String staffUsername){
+		Optional<Staff> staff = staffService.getStaffByUsername(staffUsername);
+		if (staff.isPresent())
+			return new ResponseEntity<>(staff.get(), HttpStatus.OK);
+		else
+			return ResponseEntity.notFound().build();
 	}
 }

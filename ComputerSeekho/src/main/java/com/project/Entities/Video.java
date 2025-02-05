@@ -1,11 +1,13 @@
 package com.project.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Entity
+ @Entity
 @Table(name = "video")
+@Data
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +20,9 @@ public class Video {
     @Column(name = "video_url", length = 255)
     private String videoUrl;
 
-    @Column(name = "batch_id")
-    
-    private int batchId;
+    @ManyToOne
+    @JoinColumn(name = "batch_id", referencedColumnName = "batch_id")
+    private Batch batch;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -35,7 +37,6 @@ public class Video {
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
     
-    // Getters and Setters
     public int getVideoId() {
         return videoId;
     }
@@ -60,12 +61,12 @@ public class Video {
         this.videoUrl = videoUrl;
     }
 
-    public int getBatchId() {
-        return batchId;
+    public Batch getBatchId() {
+        return batch;
     }
 
-    public void setBatchId(int batchId) {
-        this.batchId = batchId;
+    public void setBatchId(Batch batch) {
+        this.batch = batch;
     }
 
     public LocalDate getStartDate() {

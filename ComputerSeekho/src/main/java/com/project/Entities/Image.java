@@ -1,9 +1,11 @@
 package com.project.Entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "image")
+@Data
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +16,9 @@ public class Image {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "album_id", referencedColumnName = "albumId")
+    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
     private Album album;
 
-    // Getters and Setters
     public int getImageId() {
         return imageId;
     }

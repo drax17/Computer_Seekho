@@ -1,6 +1,7 @@
 package com.project.Controllers;
 
 import java.util.Optional;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Entities.ClosureReason;
+import com.project.Entities.ResponseDTO;
 import com.project.Services.ClosureReasonService;
 
 @RestController
@@ -41,24 +43,24 @@ public class ClosureReasonController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<ClosureReason> addClosureReason(@RequestBody ClosureReason closureReason){
-		ClosureReason closureReason1 = closureReasonService.addClosureReason(closureReason);
-		return ResponseEntity.status(HttpStatus.CREATED).body(closureReason1);
+	public ResponseEntity<ResponseDTO> addClosureReason(@RequestBody ClosureReason closureReason){
+		closureReasonService.addClosureReason(closureReason);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("ClosureReason Added",new Date()));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> updateClosureReason(@RequestBody ClosureReason closureReason){
+	public ResponseEntity<ResponseDTO> updateClosureReason(@RequestBody ClosureReason closureReason){
 		boolean isUpdated = closureReasonService.updateClosureReason(closureReason);
-		if(isUpdated) {
-			return new ResponseEntity<>("Closure Reason Updated",HttpStatus.OK);
-		}
-		return new ResponseEntity<>("Closure Reason Updated",HttpStatus.NOT_MODIFIED);
+		if (isUpdated)
+			return new ResponseEntity<>(new ResponseDTO("ClosureReason Details Updated",new Date()), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(new ResponseDTO("ClosureReason Not Found",new Date()), HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/delete/{closureReasonId}")
-	public ResponseEntity<String> deleteClosureReason(@PathVariable int closureReasonId){
+	public ResponseEntity<ResponseDTO> deleteClosureReason(@PathVariable int closureReasonId){
 		closureReasonService.deleteClosureReason(closureReasonId);
-		return ResponseEntity.ok().body("ClosureReason Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("ClosureReason Deleted",new Date()));
 	}
 }
 

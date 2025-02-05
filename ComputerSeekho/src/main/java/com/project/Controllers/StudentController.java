@@ -1,5 +1,6 @@
 package com.project.Controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.project.Services.StudentService;
+import com.project.Entities.ResponseDTO;
 import com.project.Entities.Student;
 
 @RestController
@@ -16,7 +18,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/student/{studentId}")
+    @GetMapping("/getById/{studentId}")
     public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
         Optional<Student> student = studentService.getStudentById(studentId);
         if (student.isPresent())
@@ -30,25 +32,42 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
-        // Student student = new Student();
-        Student student2= studentService.addStudent(student);
-        return ResponseEntity.status(HttpStatus.CREATED).body(student2);
+    @PostMapping(value = "/add")
+    public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student) {
+        studentService.addStudent(student);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Student Added",new Date()));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateStudent(@RequestBody Student student, int studentId) {
+    public ResponseEntity<ResponseDTO> updateStudent(@RequestBody Student student) {
         boolean isUpdated = studentService.updateStudent(student);
 		if (isUpdated)
-			return new ResponseEntity<>("Student Updated", HttpStatus.OK);
+			return new ResponseEntity<>(new ResponseDTO("Student Details Updated",new Date()), HttpStatus.OK);
 		else
-			return new ResponseEntity<>("There was a problem updating the Student Details", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new ResponseDTO("Student Not Found",new Date()), HttpStatus.NOT_FOUND);
     }
     
     @DeleteMapping("/delete/{studentId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable int studentId){
+    public ResponseEntity<ResponseDTO> deleteStudent(@PathVariable int studentId){
     	studentService.deleteStudent(studentId);
-    	return ResponseEntity.ok().body("Student Deleted");
+    	return ResponseEntity.ok().body(new ResponseDTO("Student Deleted",new Date()));
+    }
+    
+    @GetMapping("/byCourseId/{courseId}")
+    public ResponseEntity<List<Student>> findbyCourse(@PathVariable int courseId){
+    	List<Student> students = studentService.findbyCourse(courseId);
+    	if(students.isEmpty())
+    		return ResponseEntity.notFound().build();
+    	else
+    		return ResponseEntity.ok().body(students);
+    }
+
+    @GetMapping("/byBatchId/{batchId}")
+    public ResponseEntity<List<Student>> findByBatch(@PathVariable int batchId){
+    	List<Student> students = studentService.findByBatch(batchId);
+    	if(students.isEmpty())
+    		return ResponseEntity.notFound().build();
+    	else
+    		return ResponseEntity.ok().body(students);
     }
 }

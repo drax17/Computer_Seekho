@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
-@Entity
+ @Entity
 @Table(name = "followup")
+@Data
 public class Followup implements Serializable {
     private static final long serialVersionUID = 1L;
 

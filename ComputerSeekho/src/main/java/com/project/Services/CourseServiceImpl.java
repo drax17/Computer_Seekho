@@ -31,9 +31,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course updateCourse(Course course, int courseId) {
-        course.setCourseId(courseId);
-        return courseRepositories.save(course);
+    public boolean updateCourse(Course course) {
+        if (courseRepositories.existsById(course.getCourseId())) {
+            courseRepositories.save(course);
+            return true;
+        }
+        return false;
     }
 
     @Override

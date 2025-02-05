@@ -1,14 +1,14 @@
 package com.project.Entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
-@Entity  
+@Entity
 @Table(name = "receipt")
-public class Receipt implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Data
+public class Receipt{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,8 +21,9 @@ public class Receipt implements Serializable {
     @Column(nullable = false)
     private double receiptAmount;
 
-    @Column(nullable = false)
-    private int paymentId;
+    @OneToOne
+    @JoinColumn(name = "payment_id", referencedColumnName = "payment_id")
+    private Payment payment;
 
     public int getReceiptId() {
         return receiptId;
@@ -48,11 +49,11 @@ public class Receipt implements Serializable {
         this.receiptAmount = receiptAmount;
     }
 
-    public int getPaymentId() {
-        return paymentId;
+    public Payment getPaymentId() {
+        return payment;
     }
 
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
+    public void setPaymentId(Payment payment) {
+        this.payment = payment;
     }
 }

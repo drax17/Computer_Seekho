@@ -14,9 +14,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "staff")
+@Data
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +46,7 @@ public class Staff {
 
     @Column(name = "staff_username")
     @NotBlank(message = "Username is required")
-    @Size(min = 5, max = 20, message = "Username must be between 5 and 20 characters")
+    @Size(min = 5, max = 30, message = "Username must be between 5 and 20 characters")
     private String staffUsername;
 
     @Column(name = "staffPassword")
@@ -54,7 +56,7 @@ public class Staff {
     private String staffPassword;
 
     @Column(name = "staff_role")
-    private String staffRole = "ADMIN";
+    private String staffRole;
 
 	public int getStaffId() {
 		return staffId;

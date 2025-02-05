@@ -8,7 +8,7 @@ public interface CourseService {
     Optional<Course> getCourseById(int courseId);
     List<Course> getAllCourses();
     Course addCourse(Course course);
-    Course updateCourse(Course course,int courseId);
+    boolean updateCourse(Course course);
     void deleteCourse(int courseId);
     Optional<Course> findByCourseName(String courseName);
 }

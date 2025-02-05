@@ -11,4 +11,6 @@ public interface StaffService {
 	Staff addStaff(Staff staff);
 	boolean updateStaff(Staff staff);
 	void deleteStaff(int staffId);
+	boolean updateStaffUserNamePassword(String staffUsername, String staffPassword, int staffId);
+	void deleteByStaffUsername(String staffUsername);
 }

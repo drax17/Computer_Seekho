@@ -11,4 +11,6 @@ public interface StudentService {
 	Student addStudent(Student student);
 	boolean updateStudent(Student student);
 	void deleteStudent(int studentId);
+	List<Student> findbyCourse(int courseId);
+	List<Student> findByBatch(int batchId);
 }

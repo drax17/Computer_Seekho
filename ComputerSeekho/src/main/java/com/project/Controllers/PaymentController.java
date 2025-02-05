@@ -1,6 +1,7 @@
 package com.project.Controllers;
 
 import java.util.Optional;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.Entities.Payment;
+import com.project.Entities.ResponseDTO;
 import com.project.Services.PaymentService;
 
 @RestController
@@ -31,23 +33,23 @@ public class PaymentController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
-		Payment payment1 = paymentService.addPayment(payment);
-		return ResponseEntity.status(HttpStatus.CREATED).body(payment1);
+	public ResponseEntity<ResponseDTO> addPayment(@RequestBody Payment payment) {
+		paymentService.addPayment(payment);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Payment Details Added",new Date()));
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<String> updatePayment(@RequestBody Payment payment) {
+	public ResponseEntity<ResponseDTO> updatePayment(@RequestBody Payment payment) {
 		boolean isUpdated = paymentService.updatePayment(payment);
 		if (isUpdated)
-			return new ResponseEntity<>("Payment Updated", HttpStatus.OK);
+			return new ResponseEntity<>(new ResponseDTO(" Details Updated",new Date()), HttpStatus.OK);
 		else
-			return new ResponseEntity<>("There was a problem updating the payment", HttpStatus.NOT_MODIFIED);
+			return new ResponseEntity<>(new ResponseDTO(" Not Found",new Date()), HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/delete/{paymentId}")
-	public ResponseEntity<String> deletePayment(@PathVariable int paymentId) {
+	public ResponseEntity<ResponseDTO> deletePayment(@PathVariable int paymentId) {
 		paymentService.deletePayment(paymentId);
-		return ResponseEntity.ok().body("Payment Deleted");
+		return new ResponseEntity<>(new ResponseDTO("Payment Details Deleted",new Date()), HttpStatus.OK);
 	}
 }

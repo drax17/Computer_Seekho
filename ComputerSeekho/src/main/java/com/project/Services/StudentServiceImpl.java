@@ -45,4 +45,13 @@ public class StudentServiceImpl implements StudentService{
 		studentRepository.deleteById(studentId);
 	}
 
+	@Override
+	public List<Student> findbyCourse(int courseId) {
+		return studentRepository.findbyCourse(courseId);
+	}
+
+	@Override
+	public List<Student> findByBatch(int batchId) {
+		return studentRepository.findByBatch(batchId);
+	}
 }

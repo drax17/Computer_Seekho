@@ -1,11 +1,13 @@
 package com.project.Entities;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "batch")
+@Data
 public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +18,10 @@ public class Batch {
     private String batchName;
 
     @Column(name = "batch_start_time")
-    private LocalTime batchStartTime;
+    private LocalDate batchStartTime;
 
     @Column(name = "batch_end_time")
-    private LocalTime batchEndTime;
+    private LocalDate batchEndTime;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
@@ -44,19 +46,19 @@ public class Batch {
         this.batchName = batchName;
     }
 
-    public LocalTime getBatchStartTime() {
+    public LocalDate getBatchStartTime() {
         return batchStartTime;
     }
 
-    public void setBatchStartTime(LocalTime batchStartTime) {
+    public void setBatchStartTime(LocalDate batchStartTime) {
         this.batchStartTime = batchStartTime;
     }
 
-    public LocalTime getBatchEndTime() {
+    public LocalDate getBatchEndTime() {
         return batchEndTime;
     }
 
-    public void setBatchEndTime(LocalTime batchEndTime) {
+    public void setBatchEndTime(LocalDate batchEndTime) {
         this.batchEndTime = batchEndTime;
     }
 

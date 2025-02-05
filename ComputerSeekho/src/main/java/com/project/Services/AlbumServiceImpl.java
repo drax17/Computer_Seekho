@@ -6,7 +6,7 @@ import com.project.Repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +20,10 @@ public class AlbumServiceImpl implements AlbumService{
 		return albumRepository.findById(albumId);
 	}
 
-	@Override
-	public List<Album> getAlbumsByDate(LocalDate startDate) {
-		return  albumRepository.findByStartDate(startDate);
-	}
+	// @Override
+	// public List<Album> getAlbumsByDate(LocalDate startDate) {
+	// 	return  albumRepository.findByStartDate(startDate);
+	// }
 
 	@Override
 	public Album addAlbum(Album album) {
