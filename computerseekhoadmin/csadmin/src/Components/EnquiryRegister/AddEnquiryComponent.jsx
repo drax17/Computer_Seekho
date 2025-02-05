@@ -51,9 +51,24 @@ const AddEnquiryComponent = () => {
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-        <Typography variant="h4" color="#6A1E55" sx={{ fontWeight: 700, fontFamily: "'Roboto Slab', serif" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontSize: "2.5rem",
+            marginBottom: "1.5rem",
+            color: "#1A1A1D", // Darker Maroon
+            fontWeight: "bold",
+            fontFamily: "'Arial', sans-serif", // Changing the font family to Arial
+            transition: "color 0.3s, transform 0.3s",
+            "&:hover": {
+              color: "#A64D79",
+              transform: "scale(1.02)", // Adding a slight scaling effect on hover
+            },
+          }}
+        >
           Enquiry Form
         </Typography>
+
       </Box>
       <Card
         sx={{

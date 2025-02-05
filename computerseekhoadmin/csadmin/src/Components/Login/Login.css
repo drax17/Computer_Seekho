@@ -1,126 +1,189 @@
 /* Add the keyframes for animation */
-@keyframes slideInLeft {
-    0% {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
   }
-  
-  @keyframes slideInRight {
-    0% {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Apply the animation to the image */
-  .login-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: slideInLeft 1s ease-out forwards;
+}
+
+@keyframes slideInBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
   }
-  
-  /* Apply the animation to the form */
-  .login-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    animation: slideInRight 1s ease-out forwards;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Existing Styles */
+}
+
+/* Apply the animation to the image */
+.login-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideInTop 1s ease-out forwards;
+  padding: 0;
+  margin: 0;
+  max-width: 45%; /* Reduce width */
+}
+
+/* Apply the animation to the form */
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: slideInBottom 1s ease-out forwards;
+  padding: 0;
+  margin: 0;
+  max-width: 55%; /* Reduce width */
+}
+
+/* Container adjustments */
+.login-container {
+  display: flex; /* Use flexbox instead of grid */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  padding: 20px 0;
+  background-color: #1A1A1D;
+  gap: 10px; /* Small gap to reduce spacing */
+}
+
+/* Image styles */
+.login-image {
+  width: 100%;
+  max-width: 350px; /* Adjust size */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Title */
+.login-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #A64D79;
+}
+
+.highlight {
+  color: #ebc1df;
+}
+
+/* Form styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 450px; /* Adjust size */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group .input-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.input-group .input-icon input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #3B1C32;
+  width: 100%;
+}
+
+.input-group .input-icon svg {
+  color: #6A1E55;
+}
+
+.input-group .input-icon:focus-within {
+  border-color: #A64D79;
+  box-shadow: 0 0 5px rgba(166, 77, 121, 0.3);
+}
+
+/* Button styles */
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: 10px;
+  border: 2px solid #6A1E55;
+  background-color: #6A1E55;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-button .button-icon {
+  font-size: 1.2rem;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #6A1E55;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .login-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    width: 100%;
-    min-height: calc(100vh - 64px);
-    padding: 20px 0px;
-    background-color: #D9D4D3;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
   }
-  
+
+  .login-image-container,
+  .login-form-container {
+    max-width: 100%;
+  }
+
   .login-image {
-    width: 100%;
-    max-width: 800px;
+    max-width: 200px;
   }
-  
-  .login-title {
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-  
-  .highlight {
-    color: #e91e63;
-  }
-  
+
   .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    max-width: 350px;
+    max-width: 300px;
   }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .input-group input {
-    padding: 10px;
-    font-size: 1rem;
-    color: #4b5563;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.2s, box-shadow 0.2s;
-  }
-  
-  .input-group input:focus {
-    border-color: #e91e63;
-    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
-  }
-  
-  .login-button {
-    width: 100%;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 8px;
-    padding: 10px;
-    border: 2px solid #e91e63;
-    background-color: #e91e63;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .login-button:hover {
-    background-color: white;
-    color: #e91e63;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .login-container {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-  
-    .login-image {
-      max-width: 300px;
-    }
-  }
-  
+}
+
+
+/* View password icon */
+.view-password-icon {
+  cursor: pointer;
+  color: #6A1E55;
+  transition: color 0.3s ease;
+}
+
+.view-password-icon:hover {
+  color: #A64D79;
+}

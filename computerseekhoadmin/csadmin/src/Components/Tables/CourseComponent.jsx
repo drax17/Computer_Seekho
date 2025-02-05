@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment } from '@mui/material';
+import { 
+  Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, 
+  ListItemSecondaryAction, InputAdornment, Avatar, Dialog, DialogTitle, DialogContent, 
+  DialogActions 
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
@@ -8,48 +12,36 @@ const colors = {
   primary: '#1A1A1D',
   secondary: '#3B1C32',
   accent: '#6A1E55',
-  light: '#F2F2F2', // Lighter background
+  light: '#F2F2F2',
   white: '#FFFFFF'
 };
 
-// Temporary static content
-const staticCourses = [
-  {
-    course_id: 1,
-    course_name: 'PG DAC',
-    course_description: 'Post Graduate Diploma in Advanced Computing.',
-    course_duration: 6,
-    course_fees: 15000,
-    course_is_active: true,
-  },
-  {
-    course_id: 2,
-    course_name: 'PG DBDA',
-    course_description: 'Post Graduate Diploma in Big Data Analytics.',
-    course_duration: 6,
-    course_fees: 20000,
-    course_is_active: true,
-  },
-  {
-    course_id: 3,
-    course_name: 'Pre CAT',
-    course_description: 'Pre C-CAT workshop for C-CAT (Section A+B).',
-    course_duration: 1,
-    course_fees: 5000,
-    course_is_active: true,
-  },
-];
-
 const CourseComponent = () => {
-  const [courses, setCourses] = useState(staticCourses); // Using static content
+  const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editCourse, setEditCourse] = useState(null);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
-  // Commented out fetchCourses and other dynamic code
-  /*
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('/api/courses');
-      setCourses(response.data);
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+      const response = await fetch('http://localhost:8080/api/course/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        console.error('API Error:', response.status, await response.text());
+        return;
+      }
+      const data = await response.json();
+      setCourses(data);
     } catch (error) {
       console.error('Error fetching courses:', error);
     }
@@ -61,17 +53,61 @@ const CourseComponent = () => {
 
   const deleteCourse = async (id) => {
     try {
-      await axios.delete(`/api/courses/${id}`);
-      setCourses(courses.filter(course => course.course_id !== id));
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) return;
+
+      await fetch(`http://localhost:8080/api/course/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setCourses(courses.filter(course => course.courseId !== id));
     } catch (error) {
       console.error('Error deleting course:', error);
     }
   };
-  */
 
-  const filteredCourses = Array.isArray(courses) ? courses.filter(course =>
-    course.course_name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  const openEditForm = (course) => {
+    setEditCourse(course);
+    setOpenEditDialog(true);
+  };
+
+  const handleEditChange = (e) => {
+    setEditCourse({ ...editCourse, [e.target.name]: e.target.value });
+  };
+
+  const updateCourse = async () => {
+    try {
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) return;
+
+      const response = await fetch('http://localhost:8080/api/course/update', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editCourse),
+      });
+
+      if (!response.ok) {
+        console.error('Update failed:', response.status, await response.text());
+        return;
+      }
+
+      setCourses(courses.map(course => (course.courseId === editCourse.courseId ? editCourse : course)));
+      setOpenEditDialog(false);
+    } catch (error) {
+      console.error('Error updating course:', error);
+    }
+  };
+
+  const filteredCourses = courses.filter(course =>
+    course.courseName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.light, borderRadius: '8px' }}>
@@ -96,27 +132,64 @@ const CourseComponent = () => {
 
       <List>
         {filteredCourses.map(course => (
-          <ListItem key={course.course_id} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+          <ListItem key={course.courseId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+            <Avatar src={course.courseImage} alt={course.courseName} sx={{ width: 50, height: 50, marginRight: 2 }} />
             <ListItemText
-              primary={<Typography sx={{ color: colors.primary, fontWeight: 'bold' }}>{course.course_name}</Typography>}
-              secondary={course.course_description}
+              primary={course.courseName}
+              secondary={`Duration: ${course.courseDuration} | Fee: ${course.courseFee}`}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => console.log('View course', course.course_id)}>
-                <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px', borderRadius: '20px' }}>
-                  View
-                </Button>
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Edit course', course.course_id)}>
+              <IconButton edge="end" onClick={() => openEditForm(course)}>
                 <EditIcon sx={{ color: colors.accent }} />
               </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Delete course', course.course_id)}>
+              <IconButton edge="end" onClick={() => deleteCourse(course.courseId)}>
                 <DeleteIcon sx={{ color: colors.secondary }} />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
+
+      {/* Edit Course Dialog */}
+      {editCourse && (
+        <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+          <DialogTitle>Edit Course</DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Name"
+              name="courseName"
+              value={editCourse.courseName}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Duration"
+              name="courseDuration"
+              value={editCourse.courseDuration}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Fee"
+              name="courseFee"
+              value={editCourse.courseFee}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenEditDialog(false)} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={updateCourse} color="primary" variant="contained">
+              Save Changes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Box>
   );
 };

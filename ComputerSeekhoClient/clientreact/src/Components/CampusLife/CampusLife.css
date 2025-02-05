@@ -1,0 +1,52 @@
+.campus-life {
+  text-align: center;
+  padding: 40px;
+}
+
+.box-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .box-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .box-container {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .campus-life h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .campus-life {
+    padding: 20px;
+  }
+
+  .campus-life h1 {
+    font-size: 24px;
+  }
+
+  .box-container {
+    gap: 15px;
+  }
+}

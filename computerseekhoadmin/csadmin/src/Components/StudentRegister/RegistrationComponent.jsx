@@ -63,9 +63,25 @@ const RegistrationComponent = () => {
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-        <Typography variant="h4" color="#6A1E55" sx={{ fontWeight: 700, fontFamily: "'Roboto Slab', serif" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontSize: "2.5rem",
+            marginBottom: "1.5rem",
+            color: "#1A1A1D", // Darker Maroon
+            fontWeight: "bold",
+            fontFamily: "'Arial', sans-serif",
+            transition: "color 0.3s, transform 0.3s",
+            "&:hover": {
+              color: "#A64D79",
+              transform: "scale(1.02)", // Adding a slight scaling effect on hover
+            },
+          }}
+        >
           Student Registration
         </Typography>
+
+
       </Box>
       <Card
         sx={{
@@ -92,7 +108,11 @@ const RegistrationComponent = () => {
                   onChange={handleChange}
                   required
                   variant="outlined"
-                  sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -104,7 +124,11 @@ const RegistrationComponent = () => {
                   onChange={handleChange}
                   required
                   variant="outlined"
-                  sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -117,7 +141,11 @@ const RegistrationComponent = () => {
                   onChange={handleChange}
                   required
                   variant="outlined"
-                  sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -129,7 +157,11 @@ const RegistrationComponent = () => {
                   onChange={handleChange}
                   required
                   variant="outlined"
-                  sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -139,7 +171,11 @@ const RegistrationComponent = () => {
                     value={formData.studentDob}
                     onChange={(newValue) => handleDateChange("studentDob", newValue)}
                     fullWidth
-                    sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                    sx={{
+                      backgroundColor: "#FEFFFF",
+                      borderRadius: 2,
+                      boxShadow: 2,
+                    }}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -151,9 +187,17 @@ const RegistrationComponent = () => {
                     value={formData.studentGender}
                     onChange={handleChange}
                     displayEmpty
-                    sx={{ backgroundColor: "#FEFFFF", "& .MuiOutlinedInput-root": { borderRadius: 2, boxShadow: 2 } }}
+                    sx={{
+                      backgroundColor: "#FEFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                        boxShadow: 2,
+                      },
+                    }}
                   >
-                    <MenuItem value="" disabled>Select Gender</MenuItem>
+                    <MenuItem value="" disabled>
+                      Select Gender
+                    </MenuItem>
                     <MenuItem value="Male">Male</MenuItem>
                     <MenuItem value="Female">Female</MenuItem>
                     <MenuItem value="Other">Other</MenuItem>
@@ -168,7 +212,11 @@ const RegistrationComponent = () => {
                   value={formData.photoUrl}
                   onChange={handleChange}
                   variant="outlined"
-                  sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -179,11 +227,21 @@ const RegistrationComponent = () => {
                     value={formData.batchId}
                     onChange={handleChange}
                     displayEmpty
-                    sx={{ backgroundColor: "#FEFFFF", "& .MuiOutlinedInput-root": { borderRadius: 2, boxShadow: 2 } }}
+                    sx={{
+                      backgroundColor: "#FEFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                        boxShadow: 2,
+                      },
+                    }}
                   >
-                    <MenuItem value="" disabled>Select Batch</MenuItem>
+                    <MenuItem value="" disabled>
+                      Select Batch
+                    </MenuItem>
                     {batches.map((batch) => (
-                      <MenuItem key={batch.batchId} value={batch.batchId}>{batch.batchName}</MenuItem>
+                      <MenuItem key={batch.batchId} value={batch.batchId}>
+                        {batch.batchName}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -196,11 +254,21 @@ const RegistrationComponent = () => {
                     value={formData.courseId}
                     onChange={handleChange}
                     displayEmpty
-                    sx={{ backgroundColor: "#FEFFFF", "& .MuiOutlinedInput-root": { borderRadius: 2, boxShadow: 2 } }}
+                    sx={{
+                      backgroundColor: "#FEFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                        boxShadow: 2,
+                      },
+                    }}
                   >
-                    <MenuItem value="" disabled>Select Course</MenuItem>
+                    <MenuItem value="" disabled>
+                      Select Course
+                    </MenuItem>
                     {courses.map((course) => (
-                      <MenuItem key={course.courseId} value={course.courseId}>{course.courseName}</MenuItem>
+                      <MenuItem key={course.courseId} value={course.courseId}>
+                        {course.courseName}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -213,7 +281,9 @@ const RegistrationComponent = () => {
                   sx={{
                     backgroundImage: "linear-gradient(to right, #6A1E55, #A64D79)",
                     color: "#FEFFFF",
-                    "&:hover": { backgroundImage: "linear-gradient(to right, #A64D79, #6A1E55)" },
+                    "&:hover": {
+                      backgroundImage: "linear-gradient(to right, #A64D79, #6A1E55)",
+                    },
                     py: 1.5,
                     mt: 2,
                     borderRadius: 2,
