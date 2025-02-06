@@ -9,6 +9,16 @@
             "projectName": "ComputerSeekho",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EmailMicroServiceApplication<EmailMicroService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.project.EmailMicroService.EmailMicroServiceApplication",
+            "projectName": "EmailMicroService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
