@@ -47,8 +47,8 @@ public class Enquiry {
     @Column(name = "student_name")
     private String studentName;
 
-    @Column(name = "inquiry_counter")
-    private int inquiryCounter;
+    @Column(name = "enquiry_counter")
+    private int enquiryCounter;
 
     @Column(name = "follow_up_date")
     private LocalDate followUpDate;
@@ -158,11 +158,11 @@ public class Enquiry {
     }
 
     public int getInquiryCounter() {
-        return inquiryCounter;
+        return enquiryCounter;
     }
 
-    public void setInquiryCounter(int inquiryCounter) {
-        this.inquiryCounter = inquiryCounter;
+    public void setInquiryCounter(int enquiryCounter) {
+        this.enquiryCounter = enquiryCounter;
     }
 
     public LocalDate getFollowUpDate() {
