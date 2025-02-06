@@ -34,9 +34,6 @@ public class Enquiry {
     @Column(name = "closure_reason")
     private String closureReason;
 
-    @Column(name = "enquiry_processed_flag")
-    private boolean enquiryProcessedFlag;
-
     @Column(name = "course_name")
     private String courseName;
 
@@ -48,7 +45,7 @@ public class Enquiry {
     private String studentName;
 
     @Column(name = "enquiry_counter")
-    private int enquiryCounter;
+    private int enquiryCounter = 0;
 
     @Column(name = "follow_up_date")
     private LocalDate followUpDate;
@@ -125,14 +122,6 @@ public class Enquiry {
         this.closureReason = closureReason;
     }
 
-    public boolean isEnquiryProcessedFlag() {
-        return enquiryProcessedFlag;
-    }
-
-    public void setEnquiryProcessedFlag(boolean enquiryProcessedFlag) {
-        this.enquiryProcessedFlag = enquiryProcessedFlag;
-    }
-
     public String getCoursName() {
         return courseName;
     }
@@ -157,11 +146,11 @@ public class Enquiry {
         this.studentName = studentName;
     }
 
-    public int getInquiryCounter() {
+    public int getEnquiryCounter() {
         return enquiryCounter;
     }
 
-    public void setInquiryCounter(int enquiryCounter) {
+    public void setEnquiryCounter(int enquiryCounter) {
         this.enquiryCounter = enquiryCounter;
     }
 

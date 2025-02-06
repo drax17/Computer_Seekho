@@ -35,4 +35,52 @@ public class GetInTouch {
 
     @Column(name = "course_name")
     private String courseName;
+
+    public int getGetInTouchId() {
+        return GetInTouchId;
+    }
+
+    public void setGetInTouchId(int getInTouchId) {
+        GetInTouchId = getInTouchId;
+    }
+
+    public String getEnquirerName() {
+        return enquirerName;
+    }
+
+    public void setEnquirerName(String enquirerName) {
+        this.enquirerName = enquirerName;
+    }
+
+    public String getEnquirerEmail() {
+        return enquirerEmail;
+    }
+
+    public void setEnquirerEmail(String enquirerEmail) {
+        this.enquirerEmail = enquirerEmail;
+    }
+
+    public String getEnquirerPhone() {
+        return enquirerPhone;
+    }
+
+    public void setEnquirerPhone(String enquirerPhone) {
+        this.enquirerPhone = enquirerPhone;
+    }
+
+    public String getEnquiryMessage() {
+        return enquiryMessage;
+    }
+
+    public void setEnquiryMessage(String enquiryMessage) {
+        this.enquiryMessage = enquiryMessage;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 }
