@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { FaUser, FaLock, FaSignInAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaUser  , FaLock, FaSignInAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import "./Login.css";
 import loginImage from './login-removebg-preview.png'; 
 
@@ -8,6 +8,15 @@ const Login = ({ onLogin }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
+    // Check for token on component mount
+    useEffect(() => {
+        const token = sessionStorage.getItem('jwttoken');
+        if (token) {
+            // User is already logged in
+            onLogin(); // Call the onLogin function to update the app state
+        }
+    }, [onLogin]);
 
     const inputChangeHandler = (field, value) => {
         if (field === "username") {
@@ -62,7 +71,7 @@ const Login = ({ onLogin }) => {
                 <form className="login-form" onSubmit={loginHandler}>
                     <div className="input-group">
                         <div className="input-icon">
-                            <FaUser />
+                            <FaUser   />
                             <input
                                 type="text"
                                 required
