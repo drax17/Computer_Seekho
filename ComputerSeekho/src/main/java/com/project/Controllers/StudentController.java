@@ -1,13 +1,17 @@
 package com.project.Controllers;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
 import com.project.Services.StudentService;
 import com.project.DTO.ResponseDTO;
 import com.project.Entities.Student;
@@ -17,6 +21,9 @@ import com.project.Entities.Student;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/getById/{studentId}")
     public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
@@ -34,7 +41,16 @@ public class StudentController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
+        Student student1 = studentService.addStudent(student);
+        Map<String, Object> email = new HashMap<>();
+        email.put("to", student1.getStudentEmail());
+        email.put("studentName", student1.getStudentName());
+
+        try {
+            restTemplate.postForObject("http://localhost:8090/api/email/send", email, String.class);
+        } catch (Exception e) {
+            System.out.println("Problem sending the email");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Student Added",new Date()));
     }
 
