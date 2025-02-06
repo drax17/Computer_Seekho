@@ -20,6 +20,7 @@ import ClosureReasonComponent from "./Components/Tables/ClosureReasonComponent.j
 import FollowupComponent from "./Components/Tables/FollowupComponent.jsx";
 import EnquiryComponent from "./Components/Tables/EnquiryComponent.jsx";
 import Login from "./Components/Login/Login";
+import Student from "./Components/Student/Student.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/listcomponent" element={<ListComponent enquiries={enquiries} onClose={handleCloseEnquiry} />} />
           <Route path="/add-enquiry" element={<AddEnquiryComponent />} />
           <Route path="/table" element={<TableComponent />} />
+          <Route path="/students" element={<Student />} />
           <Route path="/register" element={<RegistrationComponent />} />
           <Route path="/table/courses" element={<CourseComponent />} />
           <Route path="/table/batches" element={<BatchComponent />} />
