@@ -1,55 +1,38 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 
 const colors = {
-  primary: '#17252A',
-  secondary: '#2B7A78',
-  accent: '#3AAFA9',
-  light: '#DEF2F1',
-  white: '#FEFFFF'
+  primary: '#1A1A1D',
+  secondary: '#3B1C32',
+  accent: '#6A1E55',
+  light: '#F2F2F2',
+  white: '#FFFFFF'
 };
 
-// Temporary static content
-const staticAlbums = [
-  {
-    album_id: 1,
-    album_name: 'Summer Trip',
-    album_description: 'Photos from the summer trip.',
-    start_date: '2025-06-01T00:00',
-    end_date: '2025-06-10T23:59',
-    album_is_active: true,
-  },
-  {
-    album_id: 2,
-    album_name: 'Winter Wonderland',
-    album_description: 'Photos from the winter wonderland.',
-    start_date: '2025-12-01T00:00',
-    end_date: '2025-12-10T23:59',
-    album_is_active: true,
-  },
-  {
-    album_id: 3,
-    album_name: 'Spring Festival',
-    album_description: 'Photos from the spring festival.',
-    start_date: '2025-03-01T00:00',
-    end_date: '2025-03-10T23:59',
-    album_is_active: true,
-  },
-];
-
 const AlbumComponent = () => {
-  const [albums, setAlbums] = useState(staticAlbums); // Using static content
+  const [albums, setAlbums] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [open, setOpen] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [viewMode, setViewMode] = useState(false);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [newAlbum, setNewAlbum] = useState({
+    albumName: '',
+    albumDescription: ''
+  });
 
-  // Commented out fetchAlbums and other dynamic code
-  /*
   const fetchAlbums = async () => {
     try {
-      const response = await axios.get('/api/albums');
-      setAlbums(response.data);
+      const response = await fetch('http://localhost:8080/api/album/all');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Fetched albums:', data);
+      setAlbums(data);
     } catch (error) {
       console.error('Error fetching albums:', error);
     }
@@ -61,17 +44,92 @@ const AlbumComponent = () => {
 
   const deleteAlbum = async (id) => {
     try {
-      await axios.delete(`/api/albums/${id}`);
-      setAlbums(albums.filter(album => album.album_id !== id));
+      await fetch(`http://localhost:8080/api/album/delete/${id}`, {
+        method: 'DELETE'
+      });
+      setAlbums(albums.filter(album => album.albumId !== id));
     } catch (error) {
       console.error('Error deleting album:', error);
     }
   };
-  */
+
+  const addAlbum = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/album/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newAlbum)
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setAlbums([...albums, data]);
+      setNewAlbum({
+        albumName: '',
+        albumDescription: ''
+      });
+      setOpen(false);
+      fetchAlbums();
+    } catch (error) {
+      console.error('Error adding album:', error);
+    }
+  };
+
+  const updateAlbum = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/album/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...selectedAlbum,
+          albumName: newAlbum.albumName,
+          albumDescription: newAlbum.albumDescription
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setAlbums(albums.map(album => (album.albumId === data.albumId ? data : album)));
+      setNewAlbum({
+        albumName: '',
+        albumDescription: ''
+      });
+      setOpen(false);
+      setEditMode(false);
+      setSelectedAlbum(null);
+      fetchAlbums();
+    } catch (error) {
+      console.error('Error updating album:', error);
+    }
+  };
+
+  const handleEditClick = (album) => {
+    setSelectedAlbum(album);
+    setNewAlbum({
+      albumName: album.albumName,
+      albumDescription: album.albumDescription
+    });
+    setEditMode(true);
+    setOpen(true);
+  };
+
+  const handleViewClick = (album) => {
+    setSelectedAlbum(album);
+    setViewMode(true);
+    setOpen(true);
+  };
 
   const filteredAlbums = Array.isArray(albums) ? albums.filter(album =>
-    album.album_name.toLowerCase().includes(searchQuery.toLowerCase())
+    album.albumName && album.albumName.toLowerCase().includes(searchQuery.toLowerCase())
   ) : [];
+
+  console.log('Filtered albums:', filteredAlbums);
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.light, borderRadius: '8px' }}>
@@ -83,7 +141,7 @@ const AlbumComponent = () => {
           label="Search by Album Name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ width: '300px' }} // Adjust width as needed
+          sx={{ width: '300px' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -92,31 +150,82 @@ const AlbumComponent = () => {
             ),
           }}
         />
+        <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white }} onClick={() => setOpen(true)}>
+          {editMode ? 'Update Album' : 'Add Album'}
+        </Button>
       </Box>
 
       <List>
-        {filteredAlbums.map(album => (
-          <ListItem key={album.album_id} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
-            <ListItemText
-              primary={album.album_name}
-              secondary={album.album_description}
-            />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => console.log('View album', album.album_id)}>
-                <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px' }}>
-                  View
-                </Button>
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Edit album', album.album_id)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Delete album', album.album_id)}>
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
+        {filteredAlbums.length === 0 ? (
+          <Typography variant="body1" sx={{ color: colors.primary }}>
+            No albums found.
+          </Typography>
+        ) : (
+          filteredAlbums.map(album => (
+            <ListItem key={album.albumId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+              <ListItemText
+                primary={album.albumName}
+                secondary={album.albumDescription}
+              />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" onClick={() => handleViewClick(album)}>
+                  <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px' }}>
+                    View
+                  </Button>
+                </IconButton>
+                <IconButton edge="end" onClick={() => handleEditClick(album)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton edge="end" onClick={() => deleteAlbum(album.albumId)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))
+        )}
       </List>
+
+      <Dialog open={open} onClose={() => { setOpen(false); setEditMode(false); setViewMode(false); setSelectedAlbum(null); }}>
+        <DialogTitle>{editMode ? 'Update Album' : viewMode ? 'Album Details' : 'Add New Album'}</DialogTitle>
+        <DialogContent>
+          {viewMode ? (
+            <>
+              <Typography variant="h6">Album Name: {selectedAlbum?.albumName}</Typography>
+              <Typography variant="body1">Album Description: {selectedAlbum?.albumDescription}</Typography>
+            </>
+          ) : (
+            <>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Album Name"
+                type="text"
+                fullWidth
+                value={newAlbum.albumName}
+                onChange={(e) => setNewAlbum({ ...newAlbum, albumName: e.target.value })}
+              />
+              <TextField
+                margin="dense"
+                label="Album Description"
+                type="text"
+                fullWidth
+                value={newAlbum.albumDescription}
+                onChange={(e) => setNewAlbum({ ...newAlbum, albumDescription: e.target.value })}
+              />
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => { setOpen(false); setEditMode(false); setViewMode(false); setSelectedAlbum(null); }}>
+            Close
+          </Button>
+          {!viewMode && (
+            <Button onClick={editMode ? updateAlbum : addAlbum} sx={{ backgroundColor: colors.accent, color: colors.white }}>
+              {editMode ? 'Update' : 'Add'}
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
