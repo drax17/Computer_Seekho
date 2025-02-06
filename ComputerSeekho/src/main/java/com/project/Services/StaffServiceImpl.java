@@ -51,17 +51,18 @@ public class StaffServiceImpl implements StaffService {
 		}
 		else return false;
 	}
-
+	
 	@Override
 	public void deleteStaff(int staffId) {
 		staffRepository.deleteById(staffId);
 	}
-
+	
 	@Override
 	public boolean updateStaffUserNamePassword(String staffUsername, String staffPassword, int staffId) {
 		Optional<Staff> foundStaff = staffRepository.findById(staffId);
 		if(foundStaff.isPresent()) {
-			staffRepository.updateStaffUserNamePassword(staffUsername, staffPassword, staffId);
+			String password = passwordEncoder.encode(staffPassword);
+			staffRepository.updateStaffUserNamePassword(staffUsername, password, staffId);
 			return true;
 		}
 		else return false;
