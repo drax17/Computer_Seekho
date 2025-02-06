@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import './Faculty.css';
 
 const facultyData = [
@@ -36,22 +37,41 @@ const facultyData = [
 
 const Faculty = () => {
   return (
-    <div className="faculty-container">
+    <Container className="faculty-container">
       <div className="faculty-header">
-        <h1>Our Faculty</h1>
-        <p>Meet our experienced and dedicated faculty members</p>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Our Faculty
+        </Typography>
+        <Typography variant="h6" color="textSecondary">
+          Meet our experienced and dedicated faculty members
+        </Typography>
       </div>
-      <div className="faculty-list">
+      <Grid container spacing={4} className="faculty-list" direction="column" alignItems="center">
         {facultyData.map((faculty, index) => (
-          <div className="faculty-member" key={index}>
-            <img src={faculty.image} alt={faculty.name} />
-            <h2>{faculty.name}</h2>
-            <p className="position">{faculty.position}</p>
-            <p>{faculty.bio}</p>
-          </div>
+          <Grid item xs={12} key={index}>
+            <Card className="faculty-member">
+              <CardMedia
+                component="img"
+                height="140"
+                image={faculty.image}
+                alt={faculty.name}
+              />
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {faculty.name}
+                </Typography>
+                <Typography className="position" color="textSecondary">
+                  {faculty.position}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {faculty.bio}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
 }
 
