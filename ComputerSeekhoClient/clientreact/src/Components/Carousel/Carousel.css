@@ -1,8 +1,9 @@
-/* Carousel.css */
 .carousel {
     position: relative;
     width: 100%;
     overflow: hidden;
+    margin-top: 80px;
+    /* Adjust for navbar */
 }
 
 .carousel-inner {
@@ -16,15 +17,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    position: relative;
 }
 
 .carousel-image {
     width: 100%;
-    height: auto;
     max-height: 400px;
-    /* Adjust based on your needs */
     object-fit: cover;
-    /* Ensures the image covers the container */
+}
+
+.caption {
+    position: absolute;
+    bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .carousel-control {
@@ -36,7 +47,7 @@
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 1;
+    z-index: 2;
 }
 
 .carousel-control.prev {
@@ -47,24 +58,20 @@
     right: 10px;
 }
 
-/* Responsive Adjustments */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .carousel-image {
         max-height: 300px;
-        /* Adjust for smaller screens */
     }
 }
 
 @media (max-width: 480px) {
     .carousel-image {
         max-height: 200px;
-        /* Adjust for mobile screens */
     }
 
     .carousel-control {
         padding: 8px;
-        /* Smaller buttons for mobile */
         font-size: 14px;
-        /* Smaller font size for arrows */
     }
 }

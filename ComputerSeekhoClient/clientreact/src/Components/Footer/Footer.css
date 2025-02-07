@@ -1,0 +1,128 @@
+/* General styles */
+.footer {
+  width: 100vw;
+  background-color: #000;
+  /* Changed to black */
+  color: #f0f0f0;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  align-items: center;
+}
+
+.footer-section h2,
+.footer-section h3 {
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #f0f0f0;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #ffd700;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+}
+
+.newsletter-form input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.newsletter-form button {
+  padding: 10px 20px;
+  background-color: #ffd700;
+  color: #2c2c2c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsletter-form button:hover {
+  background-color: #ffc107;
+}
+
+.social-icons a {
+  font-size: 20px;
+  margin-right: 10px;
+  color: #f0f0f0;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ffd700;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #bbb;
+  flex-shrink: 0;
+  /* Prevent the footer from shrinking */
+}
+
+/* Ensure the footer stays at the bottom of the page */
+html,
+body {
+  height: 100%;
+  /* Ensure the body takes full height */
+  margin: 0;
+  /* Remove default margin */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  /* Stack children vertically */
+}
+
+.main-content {
+  flex: 1;
+  /* Allow the main content to grow and fill the space */
+}
