@@ -18,7 +18,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 
 const AddEnquiryComponent = ({selectedEnquiry}) => {
@@ -123,6 +123,7 @@ const AddEnquiryComponent = ({selectedEnquiry}) => {
 
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
+      <Toaster />
       <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
         <Typography
           variant="h4"

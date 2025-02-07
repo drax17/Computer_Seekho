@@ -6,6 +6,7 @@ import "./ListComponent.css";
 import RegistrationComponent from "../StudentRegister/RegistrationComponent";
 import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import {Close as CloseIcon} from "@mui/icons-material";
+import {toast , Toaster} from "react-hot-toast";
 
 const ListComponent = ({ onClose }) => {
   const navigate = useNavigate();
@@ -20,10 +21,19 @@ const ListComponent = ({ onClose }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayedEnquiries = enquiries.slice(startIndex, startIndex + itemsPerPage);
 
+  const jwttoken = sessionStorage.getItem('jwttoken');
+  if (!jwttoken) {
+    sessionStorage.removeItem('jwttoken');
+    navigate("/login");
+  }
+  const payloadB64 = jwttoken.split('.')[1];
+  const payload = JSON.parse(atob(payloadB64));
+  const username = payload.username;
+
   useEffect(() => {
     const fetchEnquiries = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/enquiry/all");
+        const response = await fetch(`http://localhost:8080/api/enquiry/getByStaff/${username}`);
         if (!response.ok) throw new Error("Something went wrong!");
         const result = await response.json();
         setEnquiries(result);
@@ -45,7 +55,8 @@ const ListComponent = ({ onClose }) => {
 
   return (
     <div className="list-container">
-      <h2 className="list-title">Enquiries</h2>
+    <Toaster />
+      <h2 className="list-title">Follow Ups</h2>
       <table className="enquiry-table">
         <thead>
           <tr>

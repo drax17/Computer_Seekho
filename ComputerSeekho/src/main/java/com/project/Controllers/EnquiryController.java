@@ -55,9 +55,9 @@ public class EnquiryController {
 		return ResponseEntity.ok().body(new ResponseDTO("Enquiry Deleted", new Date()));
 	}
 	
-	@GetMapping("/getByStaff/{staffId}")
-	public ResponseEntity<List<Enquiry>> getbystaff(@PathVariable int staffId) {
-		List<Enquiry> enquiry = enquiryService.getbystaff(staffId);
+	@GetMapping("/getByStaff/{staffUsername}")
+	public ResponseEntity<List<Enquiry>> getbystaff(@PathVariable String staffUsername) {
+		List<Enquiry> enquiry = enquiryService.getbystaff(staffUsername);
 		if (enquiry.isEmpty())
 			return ResponseEntity.notFound().build();
 		else

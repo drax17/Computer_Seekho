@@ -21,7 +21,7 @@ const StaffComponent = () => {
   const [staff, setStaff] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [openAddDialog, setOpenAddDialog] = useState(false);
-  const [newStaff, setNewStaff] = useState({ staffName: '', staffRole: '', staffEmail: '', staffMobile: '', staffPassword: '' });
+  const [newStaff, setNewStaff] = useState({ staffName: '', photoUrl: '', staffRole: '', staffEmail: '', staffMobile: '', staffUserName: '', staffPassword: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -39,7 +39,7 @@ const StaffComponent = () => {
 
       const response = await fetch('http://localhost:8080/api/staff/all', {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+        // headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
 
       if (response.ok) {
@@ -56,7 +56,7 @@ const StaffComponent = () => {
   const addStaff = async () => {
     if (!newStaff.staffName || !newStaff.staffRole || !newStaff.staffEmail || !newStaff.staffMobile || !newStaff.staffPassword) {
       setErrorMessage('All fields are required!');
-      return;
+      
     }
 
     try {
@@ -68,7 +68,7 @@ const StaffComponent = () => {
 
       const response = await fetch('http://localhost:8080/api/staff/add', {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json' },
         body: JSON.stringify(newStaff),
       });
 

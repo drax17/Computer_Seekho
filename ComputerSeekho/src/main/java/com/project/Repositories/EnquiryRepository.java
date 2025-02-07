@@ -17,9 +17,7 @@ public interface EnquiryRepository extends JpaRepository<Enquiry, Integer> {
 	List<Enquiry> findByEnquiryDate(LocalDate enquiryDate);
 
 	@Query(value = """
-			select * from Enquiry where Enquiry.staff_id = ?1 AND Enquiry.follow_up_date = CURDATE()
+			select * from Enquiry where Enquiry.staff_id = (select staff_id from Staff where staff_username = :staffUsername) ORDER BY follow_up_date DESC
 			""", nativeQuery = true)
-	public List<Enquiry> getbystaff(int staffId);
-
-	// List<Enquiry> findByStaff(Staff staff);
+	public List<Enquiry> getbystaff(String staffUsername);
 }

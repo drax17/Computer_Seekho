@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.project.Services.StudentService;
 import com.project.DTO.ResponseDTO;
+import com.project.DTO.StudentResponseDTO;
 import com.project.Entities.Student;
 
 @RestController
@@ -35,7 +36,7 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public List<Student> getAllStudents() {
+    public List<StudentResponseDTO> getAllStudents() {
         return studentService.getAllStudents();
     }
 
