@@ -3,17 +3,14 @@ import { Typography, Box, List, ListItem, ListItemText, Divider, IconButton } fr
 import { grey } from "@mui/material/colors";
 import MessageIcon from "@mui/icons-material/Message";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AddEnquiryComponent from "../EnquiryRegister/AddEnquiryComponent";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import {Close as CloseIcon} from "@mui/icons-material";
 
 const OnlineEnquiries = () => {
   const [enquiries, setEnquiries] = useState([]);
-
-  const handleAccept = (name) => {
-    const enquiry = enquiries.find((enquiry) => enquiry.enquirerName === name);
-    if (enquiry) {
-      const queryString = new URLSearchParams(enquiry).toString();
-      window.location.href = `/add-enquiry?${queryString}`;
-    }
-  };
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
       const fetchOnlineEnquiries = async () => {
@@ -29,7 +26,18 @@ const OnlineEnquiries = () => {
       fetchOnlineEnquiries();
     },[]);
 
+
+    const openRegisterForm = (enquiry) => {
+      setSelectedEnquiry(enquiry);
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
+
   return (
+    <div>
     <Box
       sx={{
         display: "flex",
@@ -100,7 +108,7 @@ const OnlineEnquiries = () => {
                     right: 8,
                     color: "green",
                   }}
-                  onClick={() => handleAccept(entry.enquirerName)}
+                  onClick={() => openRegisterForm(entry)}
                 >
                   <CheckCircleIcon />
                 </IconButton>
@@ -115,6 +123,38 @@ const OnlineEnquiries = () => {
         )}
       </List>
     </Box>
+    <Dialog
+        open={isModalOpen}
+        onClose={closeModal}
+        maxWidth="md"
+        fullWidth
+        sx={{
+          '& .MuiDialog-paper': {
+            overflow: 'hidden',
+            padding: '20px',
+          },
+        }}
+      >
+        <DialogTitle>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={closeModal}
+            aria-label="close"
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <AddEnquiryComponent selectedEnquiry={selectedEnquiry} />
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 

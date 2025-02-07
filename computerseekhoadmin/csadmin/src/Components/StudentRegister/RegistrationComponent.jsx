@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -18,8 +18,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-const RegistrationComponent = () => {
+const RegistrationComponent = ({ selectedEnquiry }) => {
+
+  console.log(selectedEnquiry);
+
   const [formData, setFormData] = useState({
     studentName: "",
     studentAddress: "",
@@ -28,36 +32,92 @@ const RegistrationComponent = () => {
     studentDob: dayjs(),
     studentQualification: "",
     studentMobile: "",
-    batchId: "",
-    courseId: "",
+    batch: { batchId: 1 },
+    course: { courseId: 1 },
   });
 
+  useEffect(() => {
+    if (selectedEnquiry) {
+      setFormData({
+        studentName: selectedEnquiry.studentName ? selectedEnquiry.studentName : selectedEnquiry.enquirerName,
+        studentAddress: selectedEnquiry.enquirerAddress,
+        studentMobile: selectedEnquiry.enquirerMobile,
+        studentEmail: selectedEnquiry.enquirerEmailId,
+      });
+    }
+  }, [selectedEnquiry]);
+
   const batches = [
-    { batchId: 1, batchName: "Batch 1" },
-    { batchId: 2, batchName: "Batch 2" },
-    { batchId: 3, batchName: "Batch 3" },
+    { batch: 1, batchName: "Unstoppables" },
+    { batch: 2, batchName: "DATA OPERATORS" },
+    { batch: 3, batchName: "precats" },
   ];
 
   const courses = [
-    { courseId: 1, courseName: "Course 1" },
-    { courseId: 2, courseName: "Course 2" },
-    { courseId: 3, courseName: "Course 3" },
+    { course: 1, courseName: "PG DAC" },
+    { course: 2, courseName: "PG DBDA" },
+    { course: 3, courseName: "PRE CAT" },
   ];
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData((formData) => ({
+      ...formData,
+      ...(name === "course"
+        ? { course: { ...formData.course, courseId: Number(value) } }
+        : name === "batch"
+          ? { batch: { ...formData.batch, batchId: Number(value) } }
+          : { [name]: value })
+    }));
   };
 
   const handleDateChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    navigate("/register");
+    // formData.staff = { staffId: 1 }; // Hardcoding staffId to 1 for now
+
+    const formattedData = {
+      ...formData,
+      studentDob: formData.studentDob ? dayjs(formData.studentDob).format("YYYY-MM-DD") : null,
+    };
+
+    console.log(formattedData);
+
+    const response = await fetch("http://localhost:8080/api/student/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add Student");
+    }
+
+    const result = await response.json();
+    toast.success(result.message || "Student registered successfully!");
+
+    setFormData({
+      studentName: "",
+      studentAddress: "",
+      studentGender: "",
+      photoUrl: "",
+      studentDob: dayjs(),
+      studentQualification: "",
+      studentMobile: "",
+      batchId: "",
+      courseId: "",
+      studentEmail: "",
+    });
+
+    navigate("/");
   };
 
   return (
@@ -121,6 +181,22 @@ const RegistrationComponent = () => {
                   label="Address"
                   name="studentAddress"
                   value={formData.studentAddress}
+                  onChange={handleChange}
+                  required
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: "#FEFFFF",
+                    borderRadius: 2,
+                    boxShadow: 2,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="studentEmail"
+                  value={formData.studentEmail}
                   onChange={handleChange}
                   required
                   variant="outlined"
@@ -223,8 +299,8 @@ const RegistrationComponent = () => {
                 <FormControl fullWidth required>
                   <InputLabel>Batch</InputLabel>
                   <Select
-                    name="batchId"
-                    value={formData.batchId}
+                    name="batch"
+                    value={formData.batch}
                     onChange={handleChange}
                     displayEmpty
                     sx={{
@@ -238,9 +314,9 @@ const RegistrationComponent = () => {
                     <MenuItem value="" disabled>
                       Select Batch
                     </MenuItem>
-                    {batches.map((batch) => (
-                      <MenuItem key={batch.batchId} value={batch.batchId}>
-                        {batch.batchName}
+                    {batches.map((tbatch) => (
+                      <MenuItem key={tbatch.batch} value={tbatch.batch}>
+                        {tbatch.batchName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -250,8 +326,8 @@ const RegistrationComponent = () => {
                 <FormControl fullWidth required>
                   <InputLabel>Course</InputLabel>
                   <Select
-                    name="courseId"
-                    value={formData.courseId}
+                    name="course"
+                    value={formData.course}
                     onChange={handleChange}
                     displayEmpty
                     sx={{
@@ -265,9 +341,9 @@ const RegistrationComponent = () => {
                     <MenuItem value="" disabled>
                       Select Course
                     </MenuItem>
-                    {courses.map((course) => (
-                      <MenuItem key={course.courseId} value={course.courseId}>
-                        {course.courseName}
+                    {courses.map((tcourse) => (
+                      <MenuItem key={tcourse.course} value={tcourse.course}>
+                        {tcourse.courseName}
                       </MenuItem>
                     ))}
                   </Select>

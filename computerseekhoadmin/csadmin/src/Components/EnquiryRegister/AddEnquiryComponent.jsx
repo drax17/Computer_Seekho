@@ -19,21 +19,35 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
-const AddEnquiryComponent = () => {
-  const getInTouchId = useRef(new URLSearchParams(window.location.search).get('getInTouchId') || "");
+const AddEnquiryComponent = ({selectedEnquiry}) => {
 
   const [formData, setFormData] = useState({
-    enquirerName: new URLSearchParams(window.location.search).get('enquirerName') || "",
+    enquirerName:  "",
     enquirerAddress: "",
-    enquirerMobile: new URLSearchParams(window.location.search).get('enquirerPhone') || "",
+    enquirerMobile: "",
     enquirerAlternateMobile: "",
-    enquirerEmailId: new URLSearchParams(window.location.search).get('enquirerEmail') || "",
+    enquirerEmailId: "",
     enquiryDate: dayjs(),
-    enquirerQuery: new URLSearchParams(window.location.search).get('enquiryMessage') || "",
-    courseName: new URLSearchParams(window.location.search).get('courseName') || "PG DAC",
+    enquirerQuery: "",
+    courseName: "",
     followUpDate: dayjs().add(3, 'day'), // Set follow-up date to 3 days ahead of enquiry date
   });
+
+  useEffect(() => {
+    if (selectedEnquiry) {
+      setFormData({
+        enquirerName: selectedEnquiry.enquirerName || "",
+        enquirerMobile: selectedEnquiry.enquirerPhone || "",
+        courseName: selectedEnquiry.courseName || "",
+        enquirerQuery: selectedEnquiry.enquiryMessage || "",
+        enquirerEmailId: selectedEnquiry.enquirerEmail || "",
+        enquiryDate: dayjs(),
+        followUpDate: dayjs().add(3, 'day'),
+      });
+    }
+  }, [selectedEnquiry]);
 
   const navigate = useNavigate();
 
@@ -56,23 +70,21 @@ const AddEnquiryComponent = () => {
       followUpDate: formData.followUpDate ? dayjs(formData.followUpDate).format("YYYY-MM-DD") : null,
     };
 
-    // const response = await fetch("http://localhost:8080/api/enquiry/add", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formattedData),
-    // });
+    const response = await fetch("http://localhost:8080/api/enquiry/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
 
-    // if (!response.ok) {
-    //   throw new Error("Failed to add Enquiry");
-    // }
+    if (!response.ok) {
+      throw new Error("Failed to add Enquiry");
+    }
 
-    // const newEnquiry = await response.json();
-    // toast.success(newEnquiry.message || "Enquiry added successfully!");
-    const id = getInTouchId.current;
-    alert(id);
-    deleteEnquiryHandler(id);
+    const newEnquiry = await response.json();
+    toast.success(newEnquiry.message || "Enquiry added successfully!");
+    await deleteEnquiryHandler();
 
     setFormData({
       enquirerName: "",
@@ -86,17 +98,16 @@ const AddEnquiryComponent = () => {
       followUpDate: dayjs().add(3, 'day'),
     });
 
-    // navigate("/");
+    navigate("/");
   };
 
-  const deleteEnquiryHandler = (i) => {
-
-    alert("Deleting enquiry with ID:", i);
+  const deleteEnquiryHandler = async () => {
+    const id = selectedEnquiry?.getInTouchId;
 
     if (!id) return;
 
     try {
-      const response = fetch(`http://localhost:8080/getInTouch/delete/${id}`, {
+      const response = fetch(`http://localhost:8080/api/getInTouch/delete/${id}`, {
         method: "DELETE",
       });
 

@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Call, PersonAdd, Close } from "@mui/icons-material";
 import "./ListComponent.css";
+import RegistrationComponent from "../StudentRegister/RegistrationComponent";
+import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import {Close as CloseIcon} from "@mui/icons-material";
 
 const ListComponent = ({ onClose }) => {
   const navigate = useNavigate();
 
-  const[enquiries, setEnquiries] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(enquiries.length / itemsPerPage);
@@ -27,7 +32,16 @@ const ListComponent = ({ onClose }) => {
       }
     };
     fetchEnquiries();
-  },[]);
+  }, []);
+
+  const openRegisterForm = (enquiry) => {
+    setSelectedEnquiry(enquiry);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="list-container">
@@ -46,7 +60,7 @@ const ListComponent = ({ onClose }) => {
           {displayedEnquiries.map((enquiry) => (
             <tr key={enquiry.enquiryId} className="enquiry-row">
               {/* <td className="enquiry-details">{enquiry.studentName}</td> */}
-              <td className="followup-count">{enquiry.studentName || enquiry.enquirerName}</td>
+              <td className="followup-count">{enquiry.studentName ? enquiry.studentName : enquiry.enquirerName}</td>
               <td className="followup-count">{enquiry.courseName}</td>
               <td className="followup-count">{enquiry.enquirerMobile}</td>
               <td className="followup-count">{enquiry.followUpDate}</td>
@@ -54,15 +68,16 @@ const ListComponent = ({ onClose }) => {
                 <Button className="btn call">
                   <Call /> Call
                 </Button>
-                <Button 
-                  className="btn register" 
-                  onClick={() => navigate("/register", { state: { enquiry } })}
+                <Button
+                  className="btn register"
+
+                  onClick={() => openRegisterForm(enquiry)}
                 >
                   <PersonAdd /> Register
                 </Button>
-                <Button 
-                  className="btn close" 
-                  onClick={() => onClose(enquiry.id)}  // ✅ Close button works now
+                <Button
+                  className="btn close"
+                  onClick={() => onClose(enquiry.id)}
                 >
                   <Close /> Close
                 </Button>
@@ -88,6 +103,37 @@ const ListComponent = ({ onClose }) => {
           Next
         </Button>
       </div>
+      <Dialog
+        open={isModalOpen}
+        onClose={closeModal}
+        maxWidth="md"
+        fullWidth
+        sx={{
+          '& .MuiDialog-paper': {
+            overflow: 'hidden',
+            padding: '20px',
+          },
+        }}
+      >
+        <DialogTitle>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={closeModal}
+            aria-label="close"
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <RegistrationComponent selectedEnquiry={selectedEnquiry} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
