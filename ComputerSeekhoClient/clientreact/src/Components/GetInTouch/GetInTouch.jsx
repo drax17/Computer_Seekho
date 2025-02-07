@@ -3,6 +3,35 @@ import { Container, Typography, TextField, Button, Box, Grid } from '@mui/materi
 import './GetInTouch.css';
 
 const GetInTouch = () => {
+
+  const coursesNames = ["PG DAC","PG DBDA", "PRE CAT"];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      enquirerName: formData.get('enquirerName'),
+      enquirerEmail: formData.get('enquirerEmail'),
+      enquirerPhone: formData.get('enquirerPhone'),
+      enquirerMessage: formData.get('enquirerMessage'),
+      courseName: formData.get('courseName')
+    };
+
+    fetch('http://localhost:8080/api/getInTouch', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
   return (
     <Container className="get-in-touch-container" maxWidth="md">
       <Typography variant="h2" component="h1" gutterBottom align="center" sx={{ fontWeight: 'bold', color: '#333' }}>
@@ -42,13 +71,13 @@ const GetInTouch = () => {
           Fill out the form below:
         </Typography>
 
-        <form>
+        <form onSubmit= {handleSubmit}>
           <Grid container spacing={3} justifyContent="center">
             <Grid item xs={12} md={8}>
               <TextField
                 fullWidth
-                label="Name*"
-                name="name"
+                label="Name"
+                name="enquirerName"
                 variant="outlined"
                 required
                 sx={{ mb: 2 }}
@@ -58,7 +87,7 @@ const GetInTouch = () => {
               <TextField
                 fullWidth
                 label="Email"
-                name="email"
+                name="enquirerEmail"
                 type="email"
                 variant="outlined"
                 sx={{ mb: 2 }}
@@ -67,13 +96,43 @@ const GetInTouch = () => {
             <Grid item xs={12} md={8}>
               <TextField
                 fullWidth
+                label="Phone Number"
+                name="enquirerPhone"
+                type="text" pattern="[6789][0-9]{9}"
+                variant="outlined"
+                sx={{ mb: 2 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <TextField
+                fullWidth
                 label="Message"
-                name="message"
+                name="enquirerMessage"
                 multiline
                 rows={4}
                 variant="outlined"
                 sx={{ mb: 2 }}
               />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <TextField
+                select
+                fullWidth
+                name="courseName"
+                variant="outlined"
+                required
+                SelectProps={{
+                  native: true,
+                }}
+                sx={{ mb: 2 }}
+              >
+                <option value="">Select a course</option>
+                {coursesNames.map((courseName) => (
+                  <option key={courseName} value={courseName}>
+                    {courseName}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid item xs={12} md={8} align="center">
               <Button

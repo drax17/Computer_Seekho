@@ -52,8 +52,8 @@ public class EnquiryServiceImpl implements EnquiryService{
 	}
 
 	@Override
-	public List<Enquiry> getbystaff(int staffId) {
-		return enquiryRepository.getbystaff(staffId);
+	public List<Enquiry> getbystaff(String staffUsername) {
+		return enquiryRepository.getbystaff(staffUsername);
 	}
 	
 }
