@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   TextField,
   Button,
@@ -18,19 +18,36 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
-const AddEnquiryComponent = () => {
+const AddEnquiryComponent = ({selectedEnquiry}) => {
+
   const [formData, setFormData] = useState({
-    enquirerName: "",
+    enquirerName:  "",
     enquirerAddress: "",
     enquirerMobile: "",
     enquirerAlternateMobile: "",
     enquirerEmailId: "",
     enquiryDate: dayjs(),
     enquirerQuery: "",
-    courseId: "",
-    followUpDate: null,
+    courseName: "",
+    followUpDate: dayjs().add(3, 'day'), // Set follow-up date to 3 days ahead of enquiry date
   });
+
+  useEffect(() => {
+    if (selectedEnquiry) {
+      setFormData({
+        enquirerName: selectedEnquiry.enquirerName || "",
+        enquirerMobile: selectedEnquiry.enquirerPhone || "",
+        courseName: selectedEnquiry.courseName || "",
+        enquirerQuery: selectedEnquiry.enquiryMessage || "",
+        enquirerEmailId: selectedEnquiry.enquirerEmail || "",
+        enquiryDate: dayjs(),
+        followUpDate: dayjs().add(3, 'day'),
+      });
+    }
+  }, [selectedEnquiry]);
 
   const navigate = useNavigate();
 
@@ -42,14 +59,71 @@ const AddEnquiryComponent = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
+    formData.staff = { staffId: 1 }; // Hardcoding staffId to 1 for now
+
+    const formattedData = {
+      ...formData,
+      enquiryDate: formData.enquiryDate ? dayjs(formData.enquiryDate).format("YYYY-MM-DD") : null,
+      followUpDate: formData.followUpDate ? dayjs(formData.followUpDate).format("YYYY-MM-DD") : null,
+    };
+
+    const response = await fetch("http://localhost:8080/api/enquiry/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add Enquiry");
+    }
+
+    const newEnquiry = await response.json();
+    toast.success(newEnquiry.message || "Enquiry added successfully!");
+    await deleteEnquiryHandler();
+
+    setFormData({
+      enquirerName: "",
+      enquirerAddress: "",
+      enquirerMobile: "",
+      enquirerAlternateMobile: "",
+      enquirerEmailId: "",
+      enquiryDate: dayjs(),
+      enquirerQuery: "",
+      courseName: "",
+      followUpDate: dayjs().add(3, 'day'),
+    });
+
     navigate("/");
+  };
+
+  const deleteEnquiryHandler = async () => {
+    const id = selectedEnquiry?.getInTouchId;
+
+    if (!id) return;
+
+    try {
+      const response = fetch(`http://localhost:8080/api/getInTouch/delete/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(response.status === 404 ? "Enquiry not found!" : "Failed to delete enquiry");
+      }
+
+      toast.success("Enquiry deleted successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
+      <Toaster />
       <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
         <Typography
           variant="h4"
@@ -105,7 +179,6 @@ const AddEnquiryComponent = () => {
                   name="enquirerAddress"
                   value={formData.enquirerAddress}
                   onChange={handleChange}
-                  required
                   variant="outlined"
                   sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
                 />
@@ -185,10 +258,10 @@ const AddEnquiryComponent = () => {
               <Grid item xs={12}>
                 <FormControl fullWidth required sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}>
                   <InputLabel>Course</InputLabel>
-                  <Select name="courseId" value={formData.courseId} onChange={handleChange}>
-                    <MenuItem value={"1"}>DAC</MenuItem>
-                    <MenuItem value={"2"}>DBDA</MenuItem>
-                    <MenuItem value={"3"}>PRE-CAT</MenuItem>
+                  <Select name="courseName" value={formData.courseName} onChange={handleChange}>
+                    <MenuItem value={"PG DAC"}>DAC</MenuItem>
+                    <MenuItem value={"PG DBDA"}>DBDA</MenuItem>
+                    <MenuItem value={"PRE CAT"}>PRE CAT</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

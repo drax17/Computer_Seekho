@@ -2,10 +2,12 @@ package com.project.Services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.DTO.StudentResponseDTO;
 import com.project.Entities.Student;
 import com.project.Repositories.StudentRepository;
 
@@ -21,8 +23,8 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public List<Student> getAllStudents() {
-		return studentRepository.findAll();
+	public List<StudentResponseDTO> getAllStudents() {
+		return studentRepository.findAll().stream().map(student -> new StudentResponseDTO(student.getStudentId(),student.getPhotoUrl(),student.getStudentName(),student.getStudentEmail(),student.getStudentMobile(),student.getCourse().getCourseName(),student.getBatch().getBatchName())).collect(Collectors.toList());
 	}
 
 	@Override
