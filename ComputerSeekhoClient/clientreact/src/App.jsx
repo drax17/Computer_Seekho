@@ -6,12 +6,22 @@ import Home from './Components/Home/Home';
 import BatchwisePlacement from './Components/Placement/BatchwisePlacement';
 import OurRecruiters from './Components/Placement/OurRecruiters';
 import Courses from './Components/Courses/Courses';
+import PG_DAC from './Components/Courses/PG_DAC';
+import PG_DBDA from './Components/Courses/PG_DBDA';
+import PRE_CAT from './Components/Courses/PRE_CAT';
 import CampusLife from './Components/CampusLife/CampusLife';
 import Faculty from './Components/Faculty/Faculty';
 import GetInTouch from './Components/GetInTouch/GetInTouch';
-import './App.css';
+import Footer from './Components/Footer/Footer';
 
 const App = () => {
+  // Array of courses
+  const courses = [
+    { path: '/pg-dac', component: <PG_DAC /> },
+    { path: '/pg-dbda', component: <PG_DBDA /> },
+    { path: '/pre-cat', component: <PRE_CAT /> },
+  ];
+
   return (
     <Router>
       <div className="fixed-header">
@@ -24,11 +34,16 @@ const App = () => {
           <Route path="/batchwiseplacement" element={<BatchwisePlacement />} />
           <Route path="/ourrecruiters" element={<OurRecruiters />} />
           <Route path="/courses" element={<Courses />} />
+          {/* Map through the courses array to create routes */}
+          {courses.map((course, index) => (
+            <Route key={index} path={course.path} element={course.component} />
+          ))}
           <Route path="/campuslife" element={<CampusLife />} />
           <Route path="/faculty" element={<Faculty />} />
           <Route path="/getintouch" element={<GetInTouch />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

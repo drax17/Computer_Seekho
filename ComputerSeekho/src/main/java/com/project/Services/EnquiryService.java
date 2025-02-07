@@ -13,5 +13,5 @@ public interface EnquiryService {
     boolean updateEnquiry(Enquiry enquiry);
     void deleteEnquiry(int enquiryId);
 	List<Enquiry> getEnquiryByDate(LocalDate enquiryDate);
-    List<Enquiry> getbystaff(int staffId);
+    List<Enquiry> getbystaff(String staffUsername);
 }

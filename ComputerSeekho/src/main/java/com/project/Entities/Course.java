@@ -40,75 +40,75 @@ public class Course {
     @Column(length = 100, name = "cover_photo") 
     private String coverPhoto;
 
-	public int getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
-	public String getCourseDescription() {
-		return courseDescription;
-	}
-
-	public void setCourseDescription(String courseDescription) {
-		this.courseDescription = courseDescription;
-	}
-
-	public int getCourseDuration() {
-		return courseDuration;
-	}
-
-	public void setCourseDuration(int courseDuration) {
-		this.courseDuration = courseDuration;
-	}
-
-	public String getCourseSyllabus() {
-		return courseSyllabus;
-	}
-
-	public void setCourseSyllabus(String courseSyllabus) {
-		this.courseSyllabus = courseSyllabus;
-	}
-
-	// public String getAgeGrpType() {
-	// 	return ageGrpType;
+	// public int getCourseId() {
+	// 	return courseId;
 	// }
 
-	// public void setAgeGrpType(String ageGrpType) {
-	// 	this.ageGrpType = ageGrpType;
+	// public void setCourseId(int courseId) {
+	// 	this.courseId = courseId;
 	// }
 
-	public double getCourseFee() {
-		return courseFee;
-	}
+	// public String getCourseName() {
+	// 	return courseName;
+	// }
 
-	public void setCourseFee(double courseFee) {
-		this.courseFee = courseFee;
-	}
+	// public void setCourseName(String courseName) {
+	// 	this.courseName = courseName;
+	// }
 
-	public Boolean getCourseIsActive() {
-		return courseIsActive;
-	}
+	// public String getCourseDescription() {
+	// 	return courseDescription;
+	// }
 
-	public void setCourseIsActive(Boolean courseIsActive) {
-		this.courseIsActive = courseIsActive;
-	}
+	// public void setCourseDescription(String courseDescription) {
+	// 	this.courseDescription = courseDescription;
+	// }
 
-	public String getCoverPhoto() {
-		return coverPhoto;
-	}
+	// public int getCourseDuration() {
+	// 	return courseDuration;
+	// }
 
-	public void setCoverPhoto(String coverPhoto) {
-		this.coverPhoto = coverPhoto;
-	}
+	// public void setCourseDuration(int courseDuration) {
+	// 	this.courseDuration = courseDuration;
+	// }
+
+	// public String getCourseSyllabus() {
+	// 	return courseSyllabus;
+	// }
+
+	// public void setCourseSyllabus(String courseSyllabus) {
+	// 	this.courseSyllabus = courseSyllabus;
+	// }
+
+	// // public String getAgeGrpType() {
+	// // 	return ageGrpType;
+	// // }
+
+	// // public void setAgeGrpType(String ageGrpType) {
+	// // 	this.ageGrpType = ageGrpType;
+	// // }
+
+	// public double getCourseFee() {
+	// 	return courseFee;
+	// }
+
+	// public void setCourseFee(double courseFee) {
+	// 	this.courseFee = courseFee;
+	// }
+
+	// public Boolean getCourseIsActive() {
+	// 	return courseIsActive;
+	// }
+
+	// public void setCourseIsActive(Boolean courseIsActive) {
+	// 	this.courseIsActive = courseIsActive;
+	// }
+
+	// public String getCoverPhoto() {
+	// 	return coverPhoto;
+	// }
+
+	// public void setCoverPhoto(String coverPhoto) {
+	// 	this.coverPhoto = coverPhoto;
+	// }
 }

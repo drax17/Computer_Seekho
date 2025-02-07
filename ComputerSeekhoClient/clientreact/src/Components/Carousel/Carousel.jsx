@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Box, IconButton, Typography } from "@mui/material";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import "./Carousel.css";
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const images = [
-    "https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/43e26378e18b32a2.jpg?q=20",
-    "https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/c928b14a5cddaf18.jpg?q=20",
-    "https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/5fbe79d96b10223e.jpg?q=20",
+    {
+      url: "https://images.unsplash.com/photo-1553484771-1399327ce50b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      caption: "Students studying together",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      caption: "Library environment",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1573497019410-7218592faeba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      caption: "Students working on laptops",
+    },
   ];
+
+  const handleNext = () => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
   const handlePrev = () => {
     setActiveIndex((prevIndex) =>
@@ -16,31 +31,34 @@ const Carousel = () => {
     );
   };
 
-  const handleNext = () => {
-    setActiveIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  // Auto-slide every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="carousel">
-      <div
+    <Box className="carousel" position="relative">
+      <Box
         className="carousel-inner"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
       >
         {images.map((image, index) => (
-          <div key={index} className="carousel-item">
-            <img src={image} alt={`Deal ${index + 1}`} className="carousel-image" />
-          </div>
+          <Box key={index} className="carousel-item">
+            <img src={image.url} alt={image.caption} className="carousel-image" />
+            <Typography className="caption">{image.caption}</Typography>
+          </Box>
         ))}
-      </div>
-      <button className="carousel-control prev" onClick={handlePrev}>
-        &#10094;
-      </button>
-      <button className="carousel-control next" onClick={handleNext}>
-        &#10095;
-      </button>
-    </div>
+      </Box>
+      <IconButton className="carousel-control prev" onClick={handlePrev}>
+        <ArrowBack />
+      </IconButton>
+      <IconButton className="carousel-control next" onClick={handleNext}>
+        <ArrowForward />
+      </IconButton>
+    </Box>
   );
 };
 
