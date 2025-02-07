@@ -37,7 +37,7 @@ public class Student {
 	@Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits")
     private String studentMobile;
 
-	@Column(name = "student_email", length = 30, nullable = false, unique = true)
+	@Column(name = "student_email", length = 30, nullable = false)
 	private String studentEmail;
 
     @ManyToOne

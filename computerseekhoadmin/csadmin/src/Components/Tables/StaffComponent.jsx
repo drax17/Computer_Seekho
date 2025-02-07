@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText,
   ListItemSecondaryAction, InputAdornment, Avatar, Dialog, DialogTitle, DialogContent,
@@ -18,6 +19,7 @@ const colors = {
 };
 
 const StaffComponent = () => {
+  const navigate = useNavigate();
   const [staff, setStaff] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [openAddDialog, setOpenAddDialog] = useState(false);
@@ -56,7 +58,7 @@ const StaffComponent = () => {
   const addStaff = async () => {
     if (!newStaff.staffName || !newStaff.staffRole || !newStaff.staffEmail || !newStaff.staffMobile || !newStaff.staffPassword) {
       setErrorMessage('All fields are required!');
-      
+      navigate('/');
     }
 
     try {

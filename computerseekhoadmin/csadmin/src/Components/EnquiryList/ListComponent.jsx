@@ -34,11 +34,11 @@ const ListComponent = ({ onClose }) => {
     const fetchEnquiries = async () => {
       try {
         const response = await fetch(`http://localhost:8080/api/enquiry/getByStaff/${username}`);
-        if (!response.ok) throw new Error("Something went wrong!");
+        if (!response.ok) throw new Error("No Enquiries!");
         const result = await response.json();
         setEnquiries(result);
       } catch (error) {
-        toast.error(error.message);
+        // toast.error(error.message);
       }
     };
     fetchEnquiries();
