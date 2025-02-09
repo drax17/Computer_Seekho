@@ -35,7 +35,7 @@ public class Course {
     private double courseFee;
 
     @Column(name = "course_is_active")
-    private Boolean courseIsActive;
+    private boolean courseIsActive = true;
 
     @Column(length = 100, name = "cover_photo") 
     private String coverPhoto;

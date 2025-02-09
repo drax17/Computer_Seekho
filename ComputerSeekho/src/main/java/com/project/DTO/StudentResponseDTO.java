@@ -15,4 +15,5 @@ public class StudentResponseDTO {
     private String studentMobile;
     private String courseName;
     private String batchName;
+    private double paymentDue;
 }

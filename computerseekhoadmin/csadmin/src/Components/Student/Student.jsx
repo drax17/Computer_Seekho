@@ -58,6 +58,7 @@ const Students = () => {
             <th className="enquiry-header">Mobile</th>
             <th className="enquiry-header">Course</th>
             <th className="enquiry-header">Batch</th>
+            <th className="enquiry-header">Balance Fees</th>
             <th className="enquiry-header">Actions</th>
           </tr>
         </thead>
@@ -69,6 +70,7 @@ const Students = () => {
               <td className="followup-count">{student.studentMobile}</td>
               <td className="followup-count">{student.courseName}</td>
               <td className="followup-count">{student.batchName}</td>
+              <td className="followup-count">{student.paymentDue}</td>
               <td className="enquiry-actions">
                 <Button
                   className="btn close"

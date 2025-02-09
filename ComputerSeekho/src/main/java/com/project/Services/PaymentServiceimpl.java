@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.DTO.PaymentReceiptDTO;
 import com.project.Entities.Payment;
 import com.project.Repositories.PaymentRepository;
 
@@ -47,5 +48,10 @@ public class PaymentServiceimpl implements PaymentService{
 	public void deletePayment(int paymentId) {
 		paymentRepository.deleteById(paymentId);
 		
+	}
+
+	@Override
+	public Optional<PaymentReceiptDTO> getPaymentDTO(int paymentId) {
+		return paymentRepository.getPaymentDTO(paymentId);	
 	}
 }

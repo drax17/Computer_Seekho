@@ -89,7 +89,7 @@ const RegistrationComponent = ({ selectedEnquiry }) => {
 
     console.log(formattedData);
 
-    const response = await fetch("http://localhost:8080/api/student/add", {
+    const response = await fetch(`http://localhost:8080/api/student/add/${selectedEnquiry.enquiryId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -324,6 +324,7 @@ return (
                   name="batch"
                   value={formData.batch}
                   onChange={handleChange}
+                  required
                   displayEmpty
                   sx={{
                     backgroundColor: "#FEFFFF",
@@ -351,6 +352,7 @@ return (
                   name="course"
                   value={formData.course}
                   onChange={handleChange}
+                  required
                   displayEmpty
                   sx={{
                     backgroundColor: "#FEFFFF",
