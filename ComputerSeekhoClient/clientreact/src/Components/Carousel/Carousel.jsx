@@ -16,7 +16,7 @@ const Carousel = () => {
       caption: "Library environment",
     },
     {
-      url: "https://images.unsplash.com/photo-1573497019410-7218592faeba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      url: "https://www.vidyanidhi.com/images/main1.png",
       caption: "Students working on laptops",
     },
   ];
@@ -58,6 +58,15 @@ const Carousel = () => {
       <IconButton className="carousel-control next" onClick={handleNext}>
         <ArrowForward />
       </IconButton>
+      <Box className="dots">
+        {images.map((_, index) => (
+          <span
+            key={index}
+            className={`dot ${activeIndex === index ? "active" : ""}`}
+            onClick={() => setActiveIndex(index)}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };
