@@ -12,8 +12,8 @@ import com.project.Entities.*;
 import com.project.Repositories.*;
 
 @Service
-public class StudentServiceImpl implements StudentService{
-	
+public class StudentServiceImpl implements StudentService {
+
 	@Autowired
 	private StudentRepository studentRepository;
 
@@ -30,24 +30,30 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public List<StudentResponseDTO> getAllStudents() {
-		return studentRepository.findAll().stream().map(student -> new StudentResponseDTO(student.getStudentId(),student.getPhotoUrl(),student.getStudentName(),student.getStudentEmail(),student.getStudentMobile(),student.getCourse().getCourseName(),student.getBatch().getBatchName())).collect(Collectors.toList());
+		return studentRepository.findAll().stream()
+				.map(student -> new StudentResponseDTO(student.getStudentId(), student.getPhotoUrl(),
+						student.getStudentName(), student.getStudentEmail(), student.getStudentMobile(),
+						student.getCourse().getCourseName(), student.getBatch().getBatchName()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Student addStudent(Student student, int enquiryId) {
+    Student student2 = studentRepository.save(student);
+		studentRepository.updatePaymentDue(student2.getStudentId());
 		closureReasonService.addClosureReason(new ClosureReason(student.getStudentName(),"Student Admitted to the institute"));
 		enquiryRepository.deactivateEnquiry(enquiryId);
-		return studentRepository.save(student);
+		return student2;
 	}
 
 	@Override
 	public boolean updateStudent(Student student) {
 		Optional<Student> foundStudent = studentRepository.findById(student.getStudentId());
-		if(foundStudent.isPresent()) {
+		if (foundStudent.isPresent()) {
 			studentRepository.save(student);
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
 
 	@Override

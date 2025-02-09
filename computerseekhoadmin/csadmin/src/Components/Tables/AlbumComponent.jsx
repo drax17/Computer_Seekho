@@ -44,14 +44,18 @@ const AlbumComponent = () => {
 
   const deleteAlbum = async (id) => {
     try {
-      await fetch(`http://localhost:8080/api/album/delete/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/album/delete/${id}`, {
         method: 'DELETE'
       });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       setAlbums(albums.filter(album => album.albumId !== id));
     } catch (error) {
       console.error('Error deleting album:', error);
     }
   };
+  
 
   const addAlbum = async () => {
     try {
