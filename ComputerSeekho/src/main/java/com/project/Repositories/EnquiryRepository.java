@@ -27,4 +27,6 @@ public interface EnquiryRepository extends JpaRepository<Enquiry, Integer> {
 			UPDATE Enquiry SET Enquiry.enquiry_is_active = false WHERE enquiry_id = ?1;
 			""", nativeQuery = true)
 	public void deactivateEnquiry(int enquiryId);
+
+	
 }

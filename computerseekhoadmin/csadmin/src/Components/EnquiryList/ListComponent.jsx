@@ -7,9 +7,14 @@ import RegistrationComponent from "../StudentRegister/RegistrationComponent";
 import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import {Close as CloseIcon} from "@mui/icons-material";
 import {toast , Toaster} from "react-hot-toast";
+import UpdateMessage from "./UpdateMessage";
 
 const ListComponent = ({ onClose }) => {
   const navigate = useNavigate();
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
   const [enquiries, setEnquiries] = useState([]);
   const [selectedEnquiry, setSelectedEnquiry] = useState(null);
@@ -52,6 +57,11 @@ const ListComponent = ({ onClose }) => {
     setIsModalOpen(false);
   };
 
+  const handleUpdate = () => {
+
+    closeDialog();
+  };
+
   return (
     <div className="list-container">
     <Toaster />
@@ -77,12 +87,15 @@ const ListComponent = ({ onClose }) => {
               <td className="followup-count">{enquiry.followUpDate}</td>
               <td className="followup-count">{enquiry.enquiryCounter}</td>
               <td className="enquiry-actions">
-                <Button className="btn call">
+                <Button className="btn call"
+                 onClick={() => {
+                   setSelectedEnquiry(enquiry);
+                   openDialog();
+                 }}>
                   <Call /> Call
                 </Button>
                 <Button
                   className="btn register"
-
                   onClick={() => openRegisterForm(enquiry)}
                 >
                   <PersonAdd /> Register
@@ -146,6 +159,7 @@ const ListComponent = ({ onClose }) => {
           <RegistrationComponent selectedEnquiry={selectedEnquiry} />
         </DialogContent>
       </Dialog>
+      <UpdateMessage isOpen={isDialogOpen} onClose={closeDialog} onUpdate={handleUpdate} enquiryId={selectedEnquiry?.enquiryId}/>
     </div>
   );
 };
