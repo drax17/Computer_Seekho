@@ -20,10 +20,10 @@ import java.nio.file.Paths;
 
 @Component
 public class MailSender {
-    @Value("${email.id}")
-    private String emailId;
-    @Value("${email.password}")
-    private String password;
+    // @Value("${email.id}")
+    private String emailId = "computerseekho2025@gmail.com";
+    // @Value("${email.password}")
+    private String password = "uqknkgmutwmxuxju";
 
 
     public void sendMail(String to, String studentName) {

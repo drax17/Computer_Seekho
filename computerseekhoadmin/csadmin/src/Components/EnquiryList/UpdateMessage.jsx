@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import toast from "react-hot-toast";
 
 const colors = {
   primary: "#1A1A1D",
@@ -9,9 +10,8 @@ const colors = {
   white: "#FFFFFF",
 };
 
-const UpdateMessage = ({ isOpen, onClose, onUpdate, enquiryId }) => {
-  const [message, setMessage] = useState("" || ""); // Store input value
-    console.log(enquiryId);
+const UpdateMessage = ({ isOpen, onClose, onUpdate, dialogTitle }) => {
+  const [message, setMessage] = useState("");
   return (
     <Dialog
       open={isOpen}
@@ -28,12 +28,12 @@ const UpdateMessage = ({ isOpen, onClose, onUpdate, enquiryId }) => {
       }}
     >
       <DialogTitle sx={{ fontWeight: "bold", textAlign: "center", color: colors.accent }}>
-        Write Message for Follow-Up
+        {dialogTitle}
       </DialogTitle>
 
       <DialogContent>
         <TextField
-          label="Update FollowUp Message"
+          label="Message"
           variant="outlined"
           fullWidth
           multiline
