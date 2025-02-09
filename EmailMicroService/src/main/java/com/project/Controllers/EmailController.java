@@ -8,6 +8,7 @@ import com.project.Services.MailSender;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,5 +32,16 @@ public class EmailController {
         }
         return ResponseEntity.ok("Email sent successfully");
     }
+
+    @PostMapping("/emailpayment")
+	public ResponseEntity<String> sendEmailPayment(@RequestBody Map<String, Object> emailRequest) {
+		try {
+			mailSender.sendReceiptEmail(emailRequest);
+			return ResponseEntity.status(HttpStatus.OK).body("Email sent successfully");
+		} 
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email: " + e.getMessage());
+		}
+	}
 
 }

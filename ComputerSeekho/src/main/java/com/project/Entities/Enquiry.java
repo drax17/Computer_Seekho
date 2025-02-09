@@ -31,9 +31,6 @@ public class Enquiry {
     @Column(name = "enquirer_query")
     private String enquirerQuery;
 
-    @Column(name = "closure_reason")
-    private String closureReason;
-
     @Column(name = "course_name")
     private String courseName;
 
@@ -124,14 +121,6 @@ public class Enquiry {
     // public void setClosureReasonId(int closureReasonId) {
     //     this.closureReasonId = closureReasonId;
     // }
-
-    public String getClosureReason() {
-        return closureReason;
-    }
-
-    public void setClosureReason(String closureReason) {
-        this.closureReason = closureReason;
-    }
 
     public String getCoursName() {
         return courseName;

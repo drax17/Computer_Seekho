@@ -14,4 +14,6 @@ public interface EnquiryService {
     void deleteEnquiry(int enquiryId);
 	List<Enquiry> getEnquiryByDate(LocalDate enquiryDate);
     List<Enquiry> getbystaff(String staffUsername);
+    int updateEnquirerQuery(String enquirerQuery, int enquiryId);
+    void deactivateEnquiry(String closureReasonDesc, int enquiryId);
 }

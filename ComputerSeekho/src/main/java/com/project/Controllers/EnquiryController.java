@@ -63,4 +63,19 @@ public class EnquiryController {
 		else
 			return new ResponseEntity<>(enquiry, HttpStatus.OK);
 	}
+
+	@PutMapping("/updateEnquirerQuery/{enquiryId}")
+	public ResponseEntity<ResponseDTO> updateQuery(@RequestBody String enquiry, @PathVariable int enquiryId){
+		int isUpdated = enquiryService.updateEnquirerQuery(enquiry, enquiryId);
+		if (isUpdated == 1) {
+			return ResponseEntity.ok(new ResponseDTO("updated"));
+		}
+		return new ResponseEntity<>(new ResponseDTO("updated"),HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/deactivate/{enquiryId}")
+	public ResponseEntity<ResponseDTO> deactivateEnquiry(@RequestBody String closureReasonDesc,@PathVariable int enquiryId){
+		enquiryService.deactivateEnquiry(closureReasonDesc, enquiryId);
+		return ResponseEntity.ok(new ResponseDTO("Enquiry Closed"));
+	}
 }

@@ -20,11 +20,16 @@ public interface EnquiryRepository extends JpaRepository<Enquiry, Integer> {
 	@Query(value = """
 			select * from Enquiry where Enquiry.staff_id = (select staff_id from Staff where staff_username = :staffUsername) AND Enquiry.enquiry_is_active = true ORDER BY follow_up_date DESC
 			""", nativeQuery = true)
-	public List<Enquiry> getbystaff(String staffUsername);
+	List<Enquiry> getbystaff(String staffUsername);
 
 	@Modifying
 	@Query(value = """
 			UPDATE Enquiry SET Enquiry.enquiry_is_active = false WHERE enquiry_id = ?1;
 			""", nativeQuery = true)
-	public void deactivateEnquiry(int enquiryId);
+	void deactivateEnquiry(int enquiryId);
+
+	@Modifying
+    @Query("UPDATE Enquiry e SET e.enquirerQuery = ?1, e.enquiryCounter = e.enquiryCounter + 1 WHERE e.enquiryId = ?2")
+    int updateEnquirerQuery(String enquirerQuery, int enquiryId);
+
 }

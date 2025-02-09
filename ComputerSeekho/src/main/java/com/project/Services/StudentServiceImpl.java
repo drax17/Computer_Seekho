@@ -33,15 +33,15 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.findAll().stream()
 				.map(student -> new StudentResponseDTO(student.getStudentId(), student.getPhotoUrl(),
 						student.getStudentName(), student.getStudentEmail(), student.getStudentMobile(),
-						student.getCourse().getCourseName(), student.getBatch().getBatchName()))
+						student.getCourse().getCourseName(), student.getBatch().getBatchName(),student.getPaymentDue()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Student addStudent(Student student, int enquiryId) {
-    Student student2 = studentRepository.save(student);
+    	Student student2 = studentRepository.save(student);
 		studentRepository.updatePaymentDue(student2.getStudentId());
-		closureReasonService.addClosureReason(new ClosureReason(student.getStudentName(),"Student Admitted to the institute"));
+		closureReasonService.addClosureReason(new ClosureReason(student2.getStudentName(),"Student Admitted to the institute"));
 		enquiryRepository.deactivateEnquiry(enquiryId);
 		return student2;
 	}

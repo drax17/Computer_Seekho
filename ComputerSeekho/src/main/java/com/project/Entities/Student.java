@@ -16,7 +16,7 @@ public class Student {
 	private int studentId;
 	
 	@Column(name = "payment_due")
-	private int paymentDue;	
+	private double paymentDue;
 
     @Column(name = "student_name", length = 30, nullable = false)
     private String studentName;
@@ -50,6 +50,14 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
+
+	public double getPaymentDue() {
+		return paymentDue;
+	}
+
+	public void setPaymentDue(double paymentDue) {
+		this.paymentDue = paymentDue;
+	}
     
     // public int getStudentId() {
 	// 	return studentId;
