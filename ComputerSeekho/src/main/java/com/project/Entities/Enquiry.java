@@ -34,9 +34,6 @@ public class Enquiry {
     @Column(name = "closure_reason")
     private String closureReason;
 
-    @Column(name = "enquiry_processed_flag")
-    private boolean enquiryProcessedFlag;
-
     @Column(name = "course_name")
     private String courseName;
 
@@ -47,11 +44,22 @@ public class Enquiry {
     @Column(name = "student_name")
     private String studentName;
 
-    @Column(name = "inquiry_counter")
-    private int inquiryCounter;
+    @Column(name = "enquiry_counter")
+    private int enquiryCounter;
 
     @Column(name = "follow_up_date")
     private LocalDate followUpDate;
+
+    @Column(name = "enquiry_is_active")
+    private boolean enquiryIsActive = true;
+
+    public void setEnquiryIsActive(boolean enquiryIsActive){
+        this.enquiryIsActive = enquiryIsActive;
+    }
+
+    public boolean getEnquiryIsActive(){
+        return enquiryIsActive;
+    }
 
     public int getEnquiryId() {
         return enquiryId;
@@ -125,14 +133,6 @@ public class Enquiry {
         this.closureReason = closureReason;
     }
 
-    public boolean isEnquiryProcessedFlag() {
-        return enquiryProcessedFlag;
-    }
-
-    public void setEnquiryProcessedFlag(boolean enquiryProcessedFlag) {
-        this.enquiryProcessedFlag = enquiryProcessedFlag;
-    }
-
     public String getCoursName() {
         return courseName;
     }
@@ -157,12 +157,12 @@ public class Enquiry {
         this.studentName = studentName;
     }
 
-    public int getInquiryCounter() {
-        return inquiryCounter;
+    public int getEnquiryCounter() {
+        return enquiryCounter;
     }
 
-    public void setInquiryCounter(int inquiryCounter) {
-        this.inquiryCounter = inquiryCounter;
+    public void setEnquiryCounter(int enquiryCounter) {
+        this.enquiryCounter = enquiryCounter;
     }
 
     public LocalDate getFollowUpDate() {

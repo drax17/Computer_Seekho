@@ -1,122 +1,106 @@
 .faculty-container {
-  padding: 40px 20px;
+  padding: 80px 20px 40px;
+  /* Adjust padding for visibility */
   background-color: #f9f9f9;
 }
 
 .faculty-header {
   text-align: center;
-  margin-bottom: 40px;
-}
-
-.faculty-header h1 {
-  font-size: 2.5em;
-  color: #333;
-}
-
-.faculty-header p {
-  font-size: 1.2em;
-  color: #666;
+  margin-bottom: 30px;
 }
 
 .faculty-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 columns per row */
+  gap: 20px;
+  /* Space between cards */
+  margin-top: 20px;
 }
 
 .faculty-member {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin: 20px 0;
-  padding: 20px;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  /* Slightly reduced */
+  background-color: white;
+  overflow: hidden;
+  padding: 10px;
+  /* Reduced padding */
 }
 
 .faculty-member:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .faculty-member img {
+  object-fit: cover;
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  height: 150px;
+  /* Reduced image height */
+  border-radius: 6px 6px 0 0;
 }
 
 .faculty-member h2 {
-  font-size: 1.5em;
-  color: #333;
-  margin: 15px 0 10px;
+  margin: 8px 0 4px;
+  font-size: 1rem;
+  /* Reduced font size */
+}
+
+.position {
+  font-weight: 500;
+  color: #555;
+  font-size: 0.9rem;
+  /* Slightly smaller */
+  margin-bottom: 5px;
 }
 
 .faculty-member p {
-  font-size: 1em;
+  font-size: 0.85rem;
+  /* Smaller description text */
   color: #666;
-}
-
-.faculty-member .position {
-  font-weight: bold;
-  color: #555;
   margin-bottom: 10px;
+  /* Reduced margin */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .faculty-header h1 {
-    font-size: 2em;
-    /* Smaller heading size */
-  }
-
-  .faculty-header p {
-    font-size: 1em;
-    /* Smaller paragraph size */
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .faculty-list {
+    grid-template-columns: repeat(2, 1fr);
+    /* Show 2 faculty members per row */
   }
 
   .faculty-member {
-    width: 90%;
-    /* Allow more width on smaller screens */
-    padding: 15px;
-    /* Reduced padding */
-  }
-
-  .faculty-member h2 {
-    font-size: 1.3em;
-    /* Smaller name size */
-  }
-
-  .faculty-member p {
-    font-size: 0.9em;
-    /* Smaller bio size */
+    padding: 8px;
+    /* Reduced padding for smaller screens */
   }
 }
 
-@media (max-width: 480px) {
-  .faculty-header h1 {
-    font-size: 1.8em;
-    /* Even smaller heading size */
+@media screen and (max-width: 768px) {
+  .faculty-list {
+    grid-template-columns: repeat(1, 1fr);
+    /* Show 1 faculty member per row */
   }
 
-  .faculty-header p {
-    font-size: 0.9em;
-    /* Even smaller paragraph size */
+  .faculty-container {
+    padding: 60px 10px 20px;
+    /* Adjust padding for smaller screens */
   }
 
-  .faculty-member {
-    padding: 10px;
-    /* Further reduced padding */
+  .faculty-member img {
+    height: 120px;
+    /* Further reduce image height on small screens */
   }
 
   .faculty-member h2 {
-    font-size: 1.2em;
-    /* Smaller name size */
+    font-size: 0.9rem;
+    /* Smaller title font size */
   }
 
   .faculty-member p {
-    font-size: 0.8em;
-    /* Smaller bio size */
+    font-size: 0.8rem;
+    /* Smaller text for description */
   }
 }

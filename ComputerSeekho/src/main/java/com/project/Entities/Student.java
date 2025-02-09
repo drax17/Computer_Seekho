@@ -13,7 +13,10 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private int studentId;
+	private int studentId;
+	
+	@Column(name = "payment_due")
+	private int paymentDue;	
 
     @Column(name = "student_name", length = 30, nullable = false)
     private String studentName;
@@ -37,7 +40,7 @@ public class Student {
 	@Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits")
     private String studentMobile;
 
-	@Column(name = "student_email", length = 30, nullable = false, unique = true)
+	@Column(name = "student_email", length = 30, nullable = false)
 	private String studentEmail;
 
     @ManyToOne

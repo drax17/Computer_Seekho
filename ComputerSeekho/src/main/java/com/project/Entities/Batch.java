@@ -30,51 +30,59 @@ public class Batch {
     @Column(name = "batch_is_active")
     private Boolean batchIsActive;
 
-    public int getBatchId() {
-        return batchId;
-    }
+    // public int getBatchId() {
+    //     return batchId;
+    // }
 
-    public void setBatchId(int batch_id) {
-        this.batchId = batch_id;
-    }
+    // public void setBatchId(int batch_id) {
+    //     this.batchId = batch_id;
+    // }
 
-    public String getBatchName() {
-        return batchName;
-    }
+    // public String getBatchName() {
+    //     return batchName;
+    // }
 
-    public void setBatchName(String batchName) {
-        this.batchName = batchName;
-    }
+    // public void setBatchName(String batchName) {
+    //     this.batchName = batchName;
+    // }
 
-    public LocalDate getBatchStartTime() {
-        return batchStartTime;
-    }
+    // public LocalDate getBatchStartTime() {
+    //     return batchStartTime;
+    // }
 
-    public void setBatchStartTime(LocalDate batchStartTime) {
-        this.batchStartTime = batchStartTime;
-    }
+    // public void setBatchStartTime(LocalDate batchStartTime) {
+    //     this.batchStartTime = batchStartTime;
+    // }
 
-    public LocalDate getBatchEndTime() {
-        return batchEndTime;
-    }
+    // public LocalDate getBatchEndTime() {
+    //     return batchEndTime;
+    // }
 
-    public void setBatchEndTime(LocalDate batchEndTime) {
-        this.batchEndTime = batchEndTime;
-    }
+    // public void setBatchEndTime(LocalDate batchEndTime) {
+    //     this.batchEndTime = batchEndTime;
+    // }
 
-    public int getCourseId() {
-        return course.getCourseId();
-    }
+    // public int getCourseId() {
+    //     return course.getCourseId();
+    // }
 
-    public void setCourseId(int courseId) {
-        this.course.setCourseId(courseId);
-    }
+    // public void setCourseId(int courseId) {
+    //     this.course.setCourseId(courseId);
+    // }
 
-    public Boolean getBatchIsActive() {
-        return batchIsActive;
-    }
+    // public Course getCourse() {
+    //     return course;
+    // }
 
-    public void setBatchIsActive(Boolean batchIsActive) {
-        this.batchIsActive = batchIsActive;
-    }
+    // public void setCourse(Course course) {
+    //     this.course = course;
+    // }
+
+    // public Boolean getBatchIsActive() {
+    //     return batchIsActive;
+    // }
+
+    // public void setBatchIsActive(Boolean batchIsActive) {
+    //     this.batchIsActive = batchIsActive;
+    // }
 }

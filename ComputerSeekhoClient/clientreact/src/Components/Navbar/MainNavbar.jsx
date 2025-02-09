@@ -9,9 +9,14 @@ const MainNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false); // State to manage menu visibility
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      window.scrollY > 50 ? setSticky(true) : setSticky(false);
-    });
+    const handleScroll = () => {
+      setSticky(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleMenu = () => {
@@ -37,7 +42,14 @@ const MainNavbar = () => {
               <Link to="/ourrecruiters">Our Recruiters</Link>
             </div>
           </li>
-          <li><Link to="/courses">Courses</Link></li>
+          <li className="dropdown">
+            <span className="dropbtn">Courses</span>
+            <div className="dropdown-content">
+              <Link to="/pg-dac">PG DAC</Link>
+              <Link to="/pg-dbda">PG DBDA</Link>
+              <Link to="/pre-cat">PRE-CAT</Link>
+            </div>
+          </li>
           <li><Link to="/campuslife">Campus Life</Link></li>
           <li><Link to="/faculty">Faculty</Link></li>
           <li><Link to="/getintouch" className='btn'>Get In Touch</Link></li>

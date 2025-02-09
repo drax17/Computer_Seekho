@@ -1,6 +1,7 @@
 import React from 'react';
+import { Container, Typography, Grid } from '@mui/material';
+import Box from '../Box/Box'; // Assuming Box is a custom component
 import './CampusLife.css';
-import Box from '../Box/Box';
 
 const CampusLife = () => {
   const boxContent = [
@@ -13,19 +14,22 @@ const CampusLife = () => {
   ];
 
   return (
-    <div className="campus-life">
-      <h1>Campus Life</h1>
-      <div className="box-container">
+    <Container className="campus-life">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Campus Life
+      </Typography>
+      <Grid container spacing={4} className="box-container">
         {boxContent.map((box, index) => (
-          <Box
-            key={index}
-            title={box.title}
-            description={box.description}
-            image={box.image}
-          />
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Box
+              title={box.title}
+              description={box.description}
+              image={box.image}
+            />
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
 };
 

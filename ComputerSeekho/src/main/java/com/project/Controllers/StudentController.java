@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.project.Services.StudentService;
 import com.project.DTO.ResponseDTO;
+import com.project.DTO.StudentResponseDTO;
 import com.project.Entities.Student;
 
 @RestController
@@ -35,13 +36,13 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public List<Student> getAllStudents() {
+    public List<StudentResponseDTO> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student) {
-        Student student1 = studentService.addStudent(student);
+    @PostMapping(value = "/add/{enquiryId}")
+    public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student, @PathVariable int enquiryId) {
+        Student student1 = studentService.addStudent(student, enquiryId);
         Map<String, Object> email = new HashMap<>();
         email.put("to", student1.getStudentEmail());
         email.put("studentName", student1.getStudentName());
