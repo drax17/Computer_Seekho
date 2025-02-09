@@ -6,15 +6,11 @@ import GroupIcon from '@mui/icons-material/Group';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const options = [
-  { name: 'Enquiries', path: '/table/enquiries', icon: <SchoolIcon /> },
   { name: 'Courses', path: '/table/courses', icon: <SchoolIcon /> },
   { name: 'Batches', path: '/table/batches', icon: <SchoolIcon /> },
-  { name: 'Followups', path: '/table/followups', icon: <GroupIcon /> },
   { name: 'Staff', path: '/table/staff', icon: <GroupIcon /> },
-  { name: 'Students', path: '/table/students', icon: <GroupIcon /> },
-  { name: 'Albums', path: '/table/albums', icon: <GroupIcon /> },
   { name: 'Payment', path: '/table/payment', icon: <AttachMoneyIcon /> },
-  { name: 'Closure Reasons', path: '/table/closure-reasons', icon: <AttachMoneyIcon /> }
+  { name: 'Closure-reason', path: '/table/closure-reason', icon: <GroupIcon /> },
 ];
 
 const colors = {
