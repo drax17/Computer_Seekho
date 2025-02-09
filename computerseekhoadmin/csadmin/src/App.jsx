@@ -20,19 +20,21 @@ import ClosureReasonComponent from "./Components/Tables/ClosureReasonComponent.j
 import FollowupComponent from "./Components/Tables/FollowupComponent.jsx";
 import EnquiryComponent from "./Components/Tables/EnquiryComponent.jsx";
 import Login from "./Components/Login/Login";
+import Student from "./Components/Student/Student.jsx";
+import OnlineEnquiries from "./Components/OnlineEnquiries/OnlineEnquiries.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [enquiries, setEnquiries] = useState([
-    { id: 1, name: "Enquiry 1", details: "Details of enquiry 1" },
-    { id: 2, name: "Enquiry 2", details: "Details of enquiry 2" },
-    { id: 3, name: "Enquiry 3", details: "Details of enquiry 3" },
-    { id: 4, name: "Enquiry 4", details: "Details of enquiry 4" },
-    { id: 5, name: "Enquiry 5", details: "Details of enquiry 5" },
-    { id: 6, name: "Enquiry 6", details: "Details of enquiry 6" },
-    { id: 7, name: "Enquiry 7", details: "Details of enquiry 7" },
-    { id: 8, name: "Enquiry 8", details: "Details of enquiry 8" },
-  ]);
+  // const [enquiries, setEnquiries] = useState([
+  //   { id: 1, name: "Enquiry 1", details: "Details of enquiry 1" },
+  //   { id: 2, name: "Enquiry 2", details: "Details of enquiry 2" },
+  //   { id: 3, name: "Enquiry 3", details: "Details of enquiry 3" },
+  //   { id: 4, name: "Enquiry 4", details: "Details of enquiry 4" },
+  //   { id: 5, name: "Enquiry 5", details: "Details of enquiry 5" },
+  //   { id: 6, name: "Enquiry 6", details: "Details of enquiry 6" },
+  //   { id: 7, name: "Enquiry 7", details: "Details of enquiry 7" },
+  //   { id: 8, name: "Enquiry 8", details: "Details of enquiry 8" },
+  // ]);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -57,10 +59,12 @@ const App = () => {
       
       <div style={{ marginTop: "70px", paddingBottom: "50px" }}>
         <Routes>
-          <Route path="/" element={<ListComponent enquiries={enquiries} onClose={handleCloseEnquiry} />} />
-          <Route path="/listcomponent" element={<ListComponent enquiries={enquiries} onClose={handleCloseEnquiry} />} />
+          <Route path="/" element={<ListComponent onClose={handleCloseEnquiry} />} />
+          <Route path="/listcomponent" element={<ListComponent onClose={handleCloseEnquiry} />} />
           <Route path="/add-enquiry" element={<AddEnquiryComponent />} />
+          <Route path="/online-enquiries" element={<OnlineEnquiries />} />
           <Route path="/table" element={<TableComponent />} />
+          <Route path="/students" element={<Student />} />
           <Route path="/register" element={<RegistrationComponent />} />
           <Route path="/table/courses" element={<CourseComponent />} />
           {/* <Route path="/table/batches" element={<BatchComponent />} /> */}

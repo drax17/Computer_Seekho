@@ -22,7 +22,7 @@ public class Payment {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 

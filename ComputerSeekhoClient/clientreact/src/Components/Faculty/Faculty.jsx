@@ -1,58 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import './Faculty.css';
 
-const facultyData = [
-  {
-    name: 'Ketki Acharya',
-    position: 'C, Web Programming, .Net',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbulv01lur73HEGmpMgCiLtPr_pe8SSvrh1g&s',
-    bio: 'Corporate Trainings Conducted for Deloitte, Accenture, Capgemini, Tata Consulting Engineering Ltd.'
-  },
-  {
-    name: 'Nitin VijayKar',
-    position: 'C++, Core and Enterprise Java',
-    image: '1.jpg',
-    bio: 'Corporate Trainings Conducted for L&T Infotech, Geometrix, Capgemini, BNP Paribas'
-  },
-  {
-    name: 'Amar Panchal',
-    position: 'Data Structures',
-    image: '1.jpg',
-    bio: 'Amar has 11 years of experience in the software industry and 10 years in teaching. His unique, innovative style of teaching enables students to be developers - real good ones!'
-  },
-  {
-    name: 'Jayant Ponkshe',
-    position: 'Project Mentor',
-    image: '1.jpg',
-    bio: 'With over 25 years experience in the software industry, of which 10 years with Patni as Solution Architect/Project Manager, Jayant ensures that each student is exposed to the project execution methodology that the industry uses.'
-  },
-  {
-    name: 'Pradeep Tripathi',
-    position: 'Big Data, AI and ML',
-    image: '1.jpg',
-    bio: 'An industry expert in Big Data, AI/ML and Business Analytics with experience in successfully implementing solutions for Fortune 100 enterprises.'
-  }
-];
-
 const Faculty = () => {
+  const [facultyData, setFacultyData] = useState([]);
+
+  // Fetch faculty data from the database
+  useEffect(() => {
+    const fetchFacultyData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/staff/all');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setFacultyData(data);
+      } catch (error) {
+        console.error('Error fetching faculty data:', error);
+      }
+    };
+
+    fetchFacultyData();
+  }, []);
+
   return (
-    <div className="faculty-container">
+    <Container className="faculty-container">
       <div className="faculty-header">
-        <h1>Our Faculty</h1>
-        <p>Meet our experienced and dedicated faculty members</p>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Our Faculty
+        </Typography>
+        <Typography variant="h6" color="textSecondary">
+          Meet our experienced and dedicated faculty members
+        </Typography>
       </div>
-      <div className="faculty-list">
-        {facultyData.map((faculty, index) => (
-          <div className="faculty-member" key={index}>
-            <img src={faculty.image} alt={faculty.name} />
-            <h2>{faculty.name}</h2>
-            <p className="position">{faculty.position}</p>
-            <p>{faculty.bio}</p>
-          </div>
+      <Grid container spacing={4} className="faculty-list" justifyContent="center">
+        {facultyData.map((faculty) => (
+          <Grid item xs={12} sm={6} md={4} key={faculty.staffId}>
+            <Card className="faculty-member">
+              <CardMedia
+                component="img"
+                height="140"
+                image={faculty.photoUrl}
+                alt={faculty.staffName}
+              />
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {faculty.staffName}
+                </Typography>
+                <Typography className="position" color="textSecondary">
+                  {faculty.staffRole || 'Faculty Member'}
+                </Typography>
+                {/* Description intentionally left empty as per request */}
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
-}
+};
 
 export default Faculty;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   TextField,
   Button,
@@ -18,51 +18,147 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
-const AddEnquiryComponent = () => {
+const AddEnquiryComponent = ({selectedEnquiry}) => {
+
+  const jwttoken = sessionStorage.getItem('jwttoken');
+    if (!jwttoken) {
+      navigate("/login");
+    }
+    const payloadB64 = jwttoken.split('.')[1];
+    const payload = JSON.parse(atob(payloadB64));
+    const username = payload.username;
+
   const [formData, setFormData] = useState({
-    enquirerName: "",
+    enquirerName:  "",
     enquirerAddress: "",
     enquirerMobile: "",
     enquirerAlternateMobile: "",
     enquirerEmailId: "",
     enquiryDate: dayjs(),
     enquirerQuery: "",
-    courseId: "",
-    followUpDate: null,
+    courseName: "",
+    followUpDate: dayjs().add(3, 'day'),
   });
-
+  
+  useEffect(() => {
+    if (selectedEnquiry) {
+      setFormData({
+        enquirerName: selectedEnquiry.enquirerName || "",
+        enquirerMobile: selectedEnquiry.enquirerPhone || "",
+        courseName: selectedEnquiry.courseName || "",
+        enquirerQuery: selectedEnquiry.enquiryMessage || "",
+        enquirerEmailId: selectedEnquiry.enquirerEmail || "",
+        enquiryDate: dayjs(),
+        followUpDate: dayjs().add(3, 'day'),
+      });
+    }
+  }, [selectedEnquiry]);
+  
   const navigate = useNavigate();
-
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
   const handleDateChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
+  
+  const getStaffIdHandler = async (username) =>{
+    try{
+      const response = await fetch(`http://localhost:8080/api/staff/getIdByName/${username}`)
+      const result = await response.json();
+      return Number(result.message);
+      }
+      catch(error){
+        toast.error(error.message)
+      }
+    }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
+    const id = await getStaffIdHandler(username);
+    formData.staff = { staffId: id };
+
+    const formattedData = {
+      ...formData,
+      enquiryDate: formData.enquiryDate ? dayjs(formData.enquiryDate).format("YYYY-MM-DD") : null,
+      followUpDate: formData.followUpDate ? dayjs(formData.followUpDate).format("YYYY-MM-DD") : null,
+    };
+
+    console.log(formattedData);
+
+    const response = await fetch("http://localhost:8080/api/enquiry/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formattedData),
+    });
+
+    if (!response.status === 201) {
+      throw new Error("Failed to add Enquiry");
+    }
+
+    const newEnquiry = await response.json();
+    toast.success(newEnquiry.message || "Enquiry added successfully!");
+    await deleteEnquiryHandler();
+
+    setFormData({
+      enquirerName: "",
+      enquirerAddress: "",
+      enquirerMobile: "",
+      enquirerAlternateMobile: "",
+      enquirerEmailId: "",
+      enquiryDate: dayjs(),
+      enquirerQuery: "",
+      courseName: "",
+      followUpDate: dayjs().add(3, 'day'),
+    });
+
     navigate("/");
   };
 
+  const deleteEnquiryHandler = async () => {
+    const id = selectedEnquiry?.getInTouchId;
+
+    if (!id) return;
+
+    try {
+      const response = fetch(`http://localhost:8080/api/getInTouch/delete/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!(await response).status === 200) {
+        throw new Error(response.status === 404 ? "Enquiry not found!" : "Failed to delete enquiry");
+      }
+
+      toast.success("Enquiry deleted successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
+      <Toaster />
       <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
         <Typography
           variant="h4"
           sx={{
             fontSize: "2.5rem",
             marginBottom: "1.5rem",
-            color: "#1A1A1D", // Darker Maroon
+            color: "#1A1A1D",
             fontWeight: "bold",
-            fontFamily: "'Arial', sans-serif", // Changing the font family to Arial
+            fontFamily: "'Arial', sans-serif",
             transition: "color 0.3s, transform 0.3s",
             "&:hover": {
               color: "#A64D79",
-              transform: "scale(1.02)", // Adding a slight scaling effect on hover
+              transform: "scale(1.02)",
             },
           }}
         >
@@ -105,7 +201,6 @@ const AddEnquiryComponent = () => {
                   name="enquirerAddress"
                   value={formData.enquirerAddress}
                   onChange={handleChange}
-                  required
                   variant="outlined"
                   sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}
                 />
@@ -185,10 +280,10 @@ const AddEnquiryComponent = () => {
               <Grid item xs={12}>
                 <FormControl fullWidth required sx={{ backgroundColor: "#FEFFFF", borderRadius: 2, boxShadow: 2 }}>
                   <InputLabel>Course</InputLabel>
-                  <Select name="courseId" value={formData.courseId} onChange={handleChange}>
-                    <MenuItem value={"1"}>DAC</MenuItem>
-                    <MenuItem value={"2"}>DBDA</MenuItem>
-                    <MenuItem value={"3"}>PRE-CAT</MenuItem>
+                  <Select name="courseName" value={formData.courseName} onChange={handleChange}>
+                    <MenuItem value={"PG DAC"}>DAC</MenuItem>
+                    <MenuItem value={"PG DBDA"}>DBDA</MenuItem>
+                    <MenuItem value={"PRE CAT"}>PRE CAT</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
