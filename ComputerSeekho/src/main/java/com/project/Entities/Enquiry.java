@@ -45,10 +45,21 @@ public class Enquiry {
     private String studentName;
 
     @Column(name = "enquiry_counter")
-    private int enquiryCounter = 0;
+    private int enquiryCounter;
 
     @Column(name = "follow_up_date")
     private LocalDate followUpDate;
+
+    @Column(name = "enquiry_is_active")
+    private boolean enquiryIsActive = true;
+
+    public void setEnquiryIsActive(boolean enquiryIsActive){
+        this.enquiryIsActive = enquiryIsActive;
+    }
+
+    public boolean getEnquiryIsActive(){
+        return enquiryIsActive;
+    }
 
     public int getEnquiryId() {
         return enquiryId;

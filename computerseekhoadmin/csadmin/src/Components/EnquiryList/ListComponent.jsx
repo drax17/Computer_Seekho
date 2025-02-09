@@ -23,7 +23,6 @@ const ListComponent = ({ onClose }) => {
 
   const jwttoken = sessionStorage.getItem('jwttoken');
   if (!jwttoken) {
-    sessionStorage.removeItem('jwttoken');
     navigate("/login");
   }
   const payloadB64 = jwttoken.split('.')[1];
@@ -64,6 +63,7 @@ const ListComponent = ({ onClose }) => {
             <th className="enquiry-header">Course</th>
             <th className="enquiry-header">Mobile</th>
             <th className="enquiry-header">Followup Date</th>
+            <th className="enquiry-header">Followups</th>
             <th className="enquiry-header">Actions</th>
           </tr>
         </thead>
@@ -75,6 +75,7 @@ const ListComponent = ({ onClose }) => {
               <td className="followup-count">{enquiry.courseName}</td>
               <td className="followup-count">{enquiry.enquirerMobile}</td>
               <td className="followup-count">{enquiry.followUpDate}</td>
+              <td className="followup-count">{enquiry.enquiryCounter}</td>
               <td className="enquiry-actions">
                 <Button className="btn call">
                   <Call /> Call

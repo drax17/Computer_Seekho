@@ -76,4 +76,10 @@ public class StaffController {
 		else
 			return ResponseEntity.notFound().build();
 	}
+
+	@GetMapping("/getIdByName/{staffUsername}")
+	public ResponseEntity<ResponseDTO> getStaffIdByStaffUsername(@PathVariable String staffUsername){
+		int id = staffService.getStaffIdByStaffUsername(staffUsername);
+		return ResponseEntity.ok(new ResponseDTO(new Integer(id).toString(id), new Date()));
+	}
 }

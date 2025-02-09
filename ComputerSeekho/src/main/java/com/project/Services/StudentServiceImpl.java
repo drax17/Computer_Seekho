@@ -8,14 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.DTO.StudentResponseDTO;
-import com.project.Entities.Student;
-import com.project.Repositories.StudentRepository;
+import com.project.Entities.*;
+import com.project.Repositories.*;
 
 @Service
 public class StudentServiceImpl implements StudentService{
 	
 	@Autowired
 	private StudentRepository studentRepository;
+
+	@Autowired
+	private ClosureReasonService closureReasonService;
+
+	@Autowired
+	private EnquiryRepository enquiryRepository;
 
 	@Override
 	public Optional<Student> getStudentById(int studentId) {
@@ -28,7 +34,9 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student addStudent(Student student) {
+	public Student addStudent(Student student, int enquiryId) {
+		closureReasonService.addClosureReason(new ClosureReason(student.getStudentName(),"Student Admitted to the institute"));
+		enquiryRepository.deactivateEnquiry(enquiryId);
 		return studentRepository.save(student);
 	}
 
