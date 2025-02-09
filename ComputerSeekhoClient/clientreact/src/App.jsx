@@ -13,6 +13,7 @@ import CampusLife from './Components/CampusLife/CampusLife';
 import Faculty from './Components/Faculty/Faculty';
 import GetInTouch from './Components/GetInTouch/GetInTouch';
 import Footer from './Components/Footer/Footer';
+import './App.css';
 
 const App = () => {
   // Array of courses

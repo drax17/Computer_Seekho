@@ -3,7 +3,9 @@ import Courses from '../Courses/Courses';
 import Title from '../Title/Title';
 import CampusLifeHome from '../CampusLife/CampusLifeHome';
 import Carousel from '../Carousel/Carousel';
+import WhyChoose from '../WhyChoose/WhyChoose';
 import './Home.css'; // Import the CSS file
+import Recruiters from '../Recruiters/Recruiters';
 
 const Home = () => {
   return (
@@ -17,6 +19,8 @@ const Home = () => {
         <Title title='Campus Life' subTitle='Life At Computer Seekho' />
         <div className='campus-life'>
           <CampusLifeHome />
+          <Recruiters/>
+          <WhyChoose />
         </div>
       </div>
     </div>
