@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, 
+  ListItemSecondaryAction, InputAdornment, Dialog, DialogTitle, DialogContent, 
+  DialogActions 
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
@@ -8,82 +12,50 @@ const colors = {
   primary: '#1A1A1D',
   secondary: '#3B1C32',
   accent: '#6A1E55',
-  light: '#F2F2F2', // Lighter background
+  light: '#F2F2F2',
   white: '#FFFFFF'
 };
 
-// Temporary static content
-const staticBatches = [
-  {
-    batch_id: 1,
-    batch_name: 'Batch 1',
-    batch_start_time: '09:00',
-    batch_end_time: '12:00',
-    course_id: 1,
-    presentation_date: '2025-02-20T09:00',
-    course_fees: 15000,
-    course_fees_from: '2025-02-01',
-    course_fees_to: '2025-06-01',
-    batch_is_active: true,
-  },
-  {
-    batch_id: 2,
-    batch_name: 'Batch 2',
-    batch_start_time: '13:00',
-    batch_end_time: '16:00',
-    course_id: 2,
-    presentation_date: '2025-03-20T13:00',
-    course_fees: 20000,
-    course_fees_from: '2025-03-01',
-    course_fees_to: '2025-09-01',
-    batch_is_active: true,
-  },
-  {
-    batch_id: 3,
-    batch_name: 'Batch 3',
-    batch_start_time: '17:00',
-    batch_end_time: '20:00',
-    course_id: 3,
-    presentation_date: '2025-04-20T17:00',
-    course_fees: 5000,
-    course_fees_from: '2025-04-01',
-    course_fees_to: '2025-05-01',
-    batch_is_active: true,
-  },
-];
-
 const BatchComponent = () => {
-  const [batches, setBatches] = useState(staticBatches); // Using static content
+  const [batches, setBatches] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+ 
+  useEffect(() => {
+    fetchBatches();
+  }, []);
 
-  // Commented out fetchBatches and other dynamic code
-  /*
   const fetchBatches = async () => {
     try {
-      const response = await axios.get('/api/batches');
-      setBatches(response.data);
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) return;
+
+      const response = await fetch('http://localhost:8080/api/batch/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+      
+      const data = await response.json();
+      setBatches(data);
     } catch (error) {
       console.error('Error fetching batches:', error);
     }
   };
 
-  useEffect(() => {
-    fetchBatches();
-  }, []);
-
-  const deleteBatch = async (id) => {
-    try {
-      await axios.delete(`/api/batches/${id}`);
-      setBatches(batches.filter(batch => batch.batch_id !== id));
-    } catch (error) {
-      console.error('Error deleting batch:', error);
-    }
+  
+  const openEditForm = (batch) => {
+    setEditBatch(batch);
+    setOpenEditDialog(true);
   };
-  */
 
-  const filteredBatches = Array.isArray(batches) ? batches.filter(batch =>
-    batch.batch_name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  
+  const filteredBatches = batches.filter(batch => 
+    batch.batchName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.light, borderRadius: '8px' }}>
@@ -95,7 +67,7 @@ const BatchComponent = () => {
           label="Search by Batch Name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ width: '300px', backgroundColor: colors.white, borderRadius: '4px' }} // Adjust width as needed
+          sx={{ width: '300px', backgroundColor: colors.white, borderRadius: '4px' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -108,23 +80,13 @@ const BatchComponent = () => {
 
       <List>
         {filteredBatches.map(batch => (
-          <ListItem key={batch.batch_id} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+          <ListItem key={batch.batchId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
             <ListItemText
-              primary={batch.batch_name}
-              secondary={`Start: ${batch.batch_start_time}, End: ${batch.batch_end_time}`}
+              primary={batch.batchName}
+              secondary={`Start: ${batch.batchStartTime}, End: ${batch.batchEndTime}`}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => console.log('View batch', batch.batch_id)}>
-                <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px' }}>
-                  View
-                </Button>
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Edit batch', batch.batch_id)}>
-                <EditIcon sx={{ color: colors.accent }} />
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Delete batch', batch.batch_id)}>
-                <DeleteIcon sx={{ color: colors.secondary }} />
-              </IconButton>
+             
             </ListItemSecondaryAction>
           </ListItem>
         ))}

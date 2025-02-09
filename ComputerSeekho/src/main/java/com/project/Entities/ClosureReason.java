@@ -2,11 +2,12 @@ package com.project.Entities;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Table(name = "closure_reason")
 @Data
+@NoArgsConstructor
+@Table(name = "closure_reason")
 public class ClosureReason {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
