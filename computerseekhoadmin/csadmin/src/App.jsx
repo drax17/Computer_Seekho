@@ -10,7 +10,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import HeaderComponent from "./Components/Navbar/HeaderComponent.jsx";
 import FooterComponent from "./Components/Navbar/FooterComponent.jsx";
 import TableComponent from "./Components/Tables/TableComponent.jsx";
-import BatchComponent from "./Components/Tables/batchComponent.jsx";
+// import BatchComponent from "./Components/Tables/batchComponent.jsx";
 import CourseComponent from "./Components/Tables/CourseComponent.jsx";
 import StaffComponent from "./Components/Tables/StaffComponent.jsx";
 import StudentComponent from "./Components/Tables/StudentComponent.jsx";
@@ -47,10 +47,14 @@ const App = () => {
     return <Login onLogin={handleLogin} />;
   }
 
+
+  
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <HeaderComponent />
       <AdminNavbar />
+      
       <div style={{ marginTop: "70px", paddingBottom: "50px" }}>
         <Routes>
           <Route path="/" element={<ListComponent enquiries={enquiries} onClose={handleCloseEnquiry} />} />
@@ -59,7 +63,7 @@ const App = () => {
           <Route path="/table" element={<TableComponent />} />
           <Route path="/register" element={<RegistrationComponent />} />
           <Route path="/table/courses" element={<CourseComponent />} />
-          <Route path="/table/batches" element={<BatchComponent />} />
+          {/* <Route path="/table/batches" element={<BatchComponent />} /> */}
           <Route path="/table/staff" element={<StaffComponent />} />
           <Route path="/table/students" element={<StudentComponent />} />
           <Route path="/table/albums" element={<AlbumComponent />} />

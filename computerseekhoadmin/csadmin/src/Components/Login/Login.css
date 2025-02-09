@@ -21,6 +21,15 @@
   }
 }
 
+.welcome-message {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f2f2f1;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
 /* Apply the animation to the image */
 .login-image-container {
   display: flex;
@@ -186,4 +195,31 @@
 
 .view-password-icon:hover {
   color: #A64D79;
+}
+
+
+/* Language switcher styles */
+.language-switcher {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.language-switcher button {
+  background-color: #6A1E55; /* Primary color */
+  color: white;
+  border: none;
+  font-size: 0.9rem; /* Smaller text */
+  font-weight: bold;
+  padding: 6px 12px; /* Smaller button */
+  border-radius: 20px; /* Rounded look */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.language-switcher button:hover {
+  background-color: #A64D79; /* Lighter shade on hover */
+  transform: scale(1.1); /* Slight zoom effect */
 }

@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import toast, { Toaster } from 'react-hot-toast';
-import { FaUser  , FaLock, FaSignInAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useTranslation } from "react-i18next"; // ✅ Import i18n hook
+import toast, { Toaster } from "react-hot-toast";
+import { FaUser, FaLock, FaSignInAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
-import loginImage from './login-removebg-preview.png'; 
+import loginImage from "./login-removebg-preview.png";
 
 const Login = ({ onLogin }) => {
+    const { t, i18n } = useTranslation(); // ✅ Initialize translation hook
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    // Check for token on component mount
     useEffect(() => {
-        const token = sessionStorage.getItem('jwttoken');
+        const token = sessionStorage.getItem("jwttoken");
         if (token) {
-            // User is already logged in
-            onLogin(); // Call the onLogin function to update the app state
+            onLogin();
         }
     }, [onLogin]);
+
+    useEffect(() => {
+        console.log("Welcome Message:", t("welcome_message")); // ✅ Debug: Check if translation is loaded
+    }, [t]);
 
     const inputChangeHandler = (field, value) => {
         if (field === "username") {
@@ -32,29 +36,27 @@ const Login = ({ onLogin }) => {
 
     const loginHandler = async (e) => {
         e.preventDefault();
-        
         try {
             const response = await fetch("http://localhost:8080/auth/signIn", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Basic " + btoa(username + ":" + password)
-                }
+                    Authorization: "Basic " + btoa(username + ":" + password),
+                },
             });
-            
+
             if (!response.ok) {
                 if (response.status === 401) {
-                    toast.error("Invalid credentials..!", { position: "top-center" });
+                    toast.error(t("invalid_credentials"), { position: "top-center" });
                 } else {
                     const errorData = await response.json();
-                    toast.error(errorData.message || "Login Failed", { position: "top-center" });
+                    toast.error(errorData.message || t("login_failed"), { position: "top-center" });
                 }
             } else {
-                const data = response.headers.get('Authorization');
-                sessionStorage.setItem('jwttoken', data);
-                toast.success("Login successful..!", { position: "top-center" });
-                console.log("Login successful", data);
-                onLogin(); 
+                const data = response.headers.get("Authorization");
+                sessionStorage.setItem("jwttoken", data);
+                toast.success(t("login_successful"), { position: "top-center" });
+                onLogin();
             }
         } catch (error) {
             toast.error(error.message);
@@ -65,19 +67,23 @@ const Login = ({ onLogin }) => {
         <section id="login" className="login-container">
             <Toaster />
             <div className="login-form-container">
+                {/* ✅ Welcome Message */}
+                <h1 className="welcome-message">{t("welcome_message")}</h1>
+
                 <h2 className="login-title">
-                    Login to <span className="highlight">Computer Seekho</span>
+                    {t("login_to")} <span className="highlight">{t("app_name")}</span>
                 </h2>
+
                 <form className="login-form" onSubmit={loginHandler}>
                     <div className="input-group">
                         <div className="input-icon">
-                            <FaUser   />
+                            <FaUser />
                             <input
                                 type="text"
                                 required
                                 onChange={(e) => inputChangeHandler("username", e.target.value)}
                                 value={username}
-                                placeholder="Username"
+                                placeholder={t("username")} // ✅ Translated placeholder
                             />
                         </div>
                         <div className="input-icon">
@@ -87,7 +93,7 @@ const Login = ({ onLogin }) => {
                                 required
                                 onChange={(e) => inputChangeHandler("password", e.target.value)}
                                 value={password}
-                                placeholder="Password"
+                                placeholder={t("password")} // ✅ Translated placeholder
                             />
                             {showPassword ? (
                                 <FaEyeSlash className="view-password-icon" onClick={togglePasswordVisibility} />
@@ -98,10 +104,17 @@ const Login = ({ onLogin }) => {
                     </div>
                     <div>
                         <button type="submit" className="login-button">
-                            <FaSignInAlt className="button-icon" /> Login
+                            <FaSignInAlt className="button-icon" /> {t("login")} {/* ✅ Translated button */}
                         </button>
                     </div>
                 </form>
+
+                {/* ✅ Language Switcher */}
+                <div className="language-switcher">
+                    <button onClick={() => i18n.changeLanguage("en")}>English</button>
+                    <button onClick={() => i18n.changeLanguage("hi")}>हिन्दी</button>
+                    <button onClick={() => i18n.changeLanguage("mr")}>मराठी</button>
+                </div>
             </div>
             <div className="login-image-container">
                 <img src={loginImage} alt="Login" className="login-image" />
