@@ -9,7 +9,7 @@ import com.project.Entities.Student;
 public interface StudentService {
 	Optional<Student> getStudentById(int studentId);
 	List<StudentResponseDTO> getAllStudents();
-	Student addStudent(Student student);
+	Student addStudent(Student student, int enquiryId);
 	boolean updateStudent(Student student);
 	void deleteStudent(int studentId);
 	List<Student> findbyCourse(int courseId);
