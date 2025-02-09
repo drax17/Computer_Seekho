@@ -93,7 +93,7 @@ const OnlineEnquiries = () => {
                         <b>Course:</b> {entry.courseName || "N/A"}
                       </Typography>
                       <Typography variant="body2" sx={{ color: "white" }}>
-                        <b>Message:</b> {entry.enquiryMessage || "N/A"}
+                        <b>Phone:</b> {entry.enquiryMessage || "N/A"}
                       </Typography>
                       <Typography variant="body2" sx={{ color: "white" }}>
                         <b>Message:</b> {entry.enquirerPhone || "N/A"}

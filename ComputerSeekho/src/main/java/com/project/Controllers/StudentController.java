@@ -40,9 +40,9 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student) {
-        Student student1 = studentService.addStudent(student);
+    @PostMapping(value = "/add/{enquiryId}")
+    public ResponseEntity<ResponseDTO> addStudent(@RequestBody Student student, @PathVariable int enquiryId) {
+        Student student1 = studentService.addStudent(student, enquiryId);
         Map<String, Object> email = new HashMap<>();
         email.put("to", student1.getStudentEmail());
         email.put("studentName", student1.getStudentName());
