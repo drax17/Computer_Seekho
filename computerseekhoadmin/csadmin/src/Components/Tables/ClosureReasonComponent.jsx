@@ -1,65 +1,57 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, InputAdornment } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, TextField, Typography, List, ListItem, ListItemText, 
+  InputAdornment
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 const colors = {
-  primary: '#17252A',
-  secondary: '#2B7A78',
-  accent: '#3AAFA9',
-  light: '#DEF2F1',
-  white: '#FEFFFF'
+  primary: '#1A1A1D',
+  secondary: '#3B1C32',
+  accent: '#6A1E55',
+  light: '#F2F2F2',
+  white: '#FFFFFF'
 };
 
-// Temporary static content
-const staticClosureReasons = [
-  {
-    closure_reasonID: 1,
-    closure_reason_desc: 'Time not suitable',
-  },
-  {
-    closure_reasonID: 2,
-    closure_reason_desc: 'Fees too high',
-  },
-  {
-    closure_reasonID: 3,
-    closure_reason_desc: 'Inconvenient location',
-  },
-];
-
 const ClosureReasonComponent = () => {
-  const [closureReasons, setClosureReasons] = useState(staticClosureReasons); // Using static content
+  const [closureReasons, setClosureReasons] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+ 
+  useEffect(() => {
+    fetchClosureReasons();
+  }, []);
 
-  // Commented out fetchClosureReasons and other dynamic code
-  /*
   const fetchClosureReasons = async () => {
     try {
-      const response = await axios.get('/api/closure-reasons');
-      setClosureReasons(response.data);
+      const token = sessionStorage.getItem('jwttoken');
+      if (!token) {
+        console.error('JWT Token not found');
+        return;
+      }
+
+      const response = await fetch('http://localhost:8080/api/closureReason/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${await response.text()}`);
+      }
+      
+      const data = await response.json();
+      console.log('Fetched Closure Reasons:', data); // Debugging
+      setClosureReasons(data);
     } catch (error) {
       console.error('Error fetching closure reasons:', error);
     }
   };
 
-  useEffect(() => {
-    fetchClosureReasons();
-  }, []);
-
-  const deleteClosureReason = async (id) => {
-    try {
-      await axios.delete(`/api/closure-reasons/${id}`);
-      setClosureReasons(closureReasons.filter(reason => reason.closure_reasonID !== id));
-    } catch (error) {
-      console.error('Error deleting closure reason:', error);
-    }
-  };
-  */
-
-  const filteredClosureReasons = Array.isArray(closureReasons) ? closureReasons.filter(reason =>
-    reason.closure_reason_desc.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  const filteredClosureReasons = closureReasons.filter(reason => 
+    reason?.closureReasonDesc?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.light, borderRadius: '8px' }}>
@@ -71,7 +63,7 @@ const ClosureReasonComponent = () => {
           label="Search by Closure Reason"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ width: '300px' }} // Adjust width as needed
+          sx={{ width: '300px', backgroundColor: colors.white, borderRadius: '4px' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -84,23 +76,11 @@ const ClosureReasonComponent = () => {
 
       <List>
         {filteredClosureReasons.map(reason => (
-          <ListItem key={reason.closure_reasonID} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
+          <ListItem key={reason.closureReasonId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
             <ListItemText
-              primary={reason.closure_reason_desc}
+              primary={`ID: ${reason.closureReasonId}`}
+              secondary={`Description: ${reason.closureReasonDesc || 'N/A'}`}
             />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => console.log('View closure reason', reason.closure_reasonID)}>
-                <Button variant="contained" sx={{ backgroundColor: colors.accent, color: colors.white, marginRight: '10px' }}>
-                  View
-                </Button>
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Edit closure reason', reason.closure_reasonID)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton edge="end" onClick={() => console.log('Delete closure reason', reason.closure_reasonID)}>
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
