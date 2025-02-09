@@ -1,4 +1,24 @@
 /* General styles */
+html,
+body {
+  height: 100%;
+  /* Ensure the body takes full height */
+  margin: 0;
+  /* Remove default margin */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  /* Stack children vertically */
+}
+
+.main-content {
+  flex: 1;
+  /* Allow the main content to grow and fill the space */
+}
+
+/* Footer styles */
 .footer {
   width: 100vw;
   background-color: #000;
@@ -24,7 +44,8 @@
 .footer-section {
   flex: 1;
   min-width: 200px;
-  align-items: center;
+  align-items: flex-start;
+  /* Align items to the start */
 }
 
 .footer-section h2,
@@ -58,43 +79,6 @@
   color: #ffd700;
 }
 
-.newsletter-form {
-  display: flex;
-  gap: 10px;
-}
-
-.newsletter-form input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  flex: 1;
-}
-
-.newsletter-form button {
-  padding: 10px 20px;
-  background-color: #ffd700;
-  color: #2c2c2c;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.newsletter-form button:hover {
-  background-color: #ffc107;
-}
-
-.social-icons a {
-  font-size: 20px;
-  margin-right: 10px;
-  color: #f0f0f0;
-  transition: color 0.3s;
-}
-
-.social-icons a:hover {
-  color: #ffd700;
-}
-
 .footer-bottom {
   width: 100%;
   text-align: center;
@@ -107,22 +91,19 @@
   /* Prevent the footer from shrinking */
 }
 
-/* Ensure the footer stays at the bottom of the page */
-html,
-body {
-  height: 100%;
-  /* Ensure the body takes full height */
-  margin: 0;
-  /* Remove default margin */
-}
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    /* Stack sections vertically on smaller screens */
+    align-items: center;
+    /* Center align items */
+  }
 
-body {
-  display: flex;
-  flex-direction: column;
-  /* Stack children vertically */
-}
-
-.main-content {
-  flex: 1;
-  /* Allow the main content to grow and fill the space */
+  .footer-section {
+    margin-bottom: 20px;
+    /* Add space between sections */
+    text-align: center;
+    /* Center text in sections */
+  }
 }

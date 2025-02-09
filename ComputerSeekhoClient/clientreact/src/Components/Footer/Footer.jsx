@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -16,11 +17,12 @@ const Footer = () => {
         <div className="footer-section navigation">
           <h3>Navigation</h3>
           <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/courses">Courses</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/batchwiseplacement">Batchwise Placement</Link></li>
+            <li><Link to="/ourrecruiters">Our Recruiters</Link></li>
+            <li><Link to="/campuslife">Campus Life</Link></li>
+            <li><Link to="/faculty">Faculty</Link></li>
+            <li><Link to="/getintouch">Get In Touch</Link></li> {/* Normal link */}
           </ul>
         </div>
 
@@ -49,9 +51,9 @@ const Footer = () => {
         <div className="footer-section dynamic-content">
           <h3>Trending Courses</h3>
           <ul>
-            <li><a href="/course-1">Dac</a></li>
-            <li><a href="/course-2">Dbda</a></li>
-            <li><a href="/course-3">Mscit</a></li>
+            <li><Link to="/pg-dac">PG DAC</Link></li>
+            <li><Link to="/pg-dbda">PG DBDA</Link></li>
+            <li><Link to="/pre-cat">PRE-CAT</Link></li>
           </ul>
           <h3>Upcoming Events</h3>
           <p>Join our next webinar: "Future of Online Learning" - Jan 30th, 2025</p>
