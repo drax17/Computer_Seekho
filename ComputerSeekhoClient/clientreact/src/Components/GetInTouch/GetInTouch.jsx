@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, TextField, Button, Box, Grid } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
 import './GetInTouch.css';
 
 const GetInTouch = () => {
@@ -12,11 +13,11 @@ const GetInTouch = () => {
       enquirerName: formData.get('enquirerName'),
       enquirerEmail: formData.get('enquirerEmail'),
       enquirerPhone: formData.get('enquirerPhone'),
-      enquirerMessage: formData.get('enquirerMessage'),
+      enquiryMessage: formData.get('enquiryMessage'),
       courseName: formData.get('courseName')
     };
 
-    fetch('http://localhost:8080/api/getInTouch', {
+    fetch('http://localhost:8080/api/getInTouch/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,14 +26,16 @@ const GetInTouch = () => {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('Success:', result);
+        toast.success("We will get Back to you soon!", { position: "top-center" });
       })
       .catch(error => {
-        console.error('Error:', error);
+        toast.error("Oops something went wrong..!", { position: "top-center" });
       });
   };
 
   return (
+    <div>
+    <Toaster/>
     <Container className="get-in-touch-container" maxWidth="md">
       <Typography variant="h2" component="h1" gutterBottom align="center" sx={{ fontWeight: 'bold', color: '#333' }}>
         Get In Touch
@@ -107,7 +110,7 @@ const GetInTouch = () => {
               <TextField
                 fullWidth
                 label="Message"
-                name="enquirerMessage"
+                name="enquiryMessage"
                 multiline
                 rows={4}
                 variant="outlined"
@@ -162,6 +165,7 @@ const GetInTouch = () => {
         ></iframe>
       </Box>
     </Container>
+    </div>
   );
 };
 

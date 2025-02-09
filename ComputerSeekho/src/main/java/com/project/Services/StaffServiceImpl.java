@@ -73,4 +73,9 @@ public class StaffServiceImpl implements StaffService {
 	public void deleteByStaffUsername(String staffUsername) {
 		staffRepository.deleteByStaffUsername(staffUsername);
 	}
+
+	@Override
+	public int getStaffIdByStaffUsername(String staffUsername) {
+		return staffRepository.getStaffIdByStaffUsername(staffUsername);
+	}
 }
