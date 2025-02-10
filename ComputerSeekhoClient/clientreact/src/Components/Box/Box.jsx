@@ -25,7 +25,7 @@ const Box = ({ title, description, image }) => {
         },
       }}
     >
-      <img src={image} alt={title} className="box-image" style={{ width: '100%', height: 'auto', marginBottom: '15px', borderRadius: '8px' }} />
+      <img src={image} alt={title} className="box-image" style={{ width: '100%', marginBottom: '15px', borderRadius: '8px' }} />
       <Typography variant="h5" sx={{ marginTop: '10px', marginBottom: '10px' }}>
         {title}
       </Typography>
