@@ -7,14 +7,22 @@ import RegistrationComponent from "../StudentRegister/RegistrationComponent";
 import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import {Close as CloseIcon} from "@mui/icons-material";
 import {toast , Toaster} from "react-hot-toast";
+import UpdateMessage from "./UpdateMessage";
 
 const ListComponent = ({ onClose }) => {
   const navigate = useNavigate();
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
+
+  const [enquiryId, setEnquiryId] = useState(0);
+  const [dialogtitle, setDialogTitle] = useState("");
   const [enquiries, setEnquiries] = useState([]);
   const [selectedEnquiry, setSelectedEnquiry] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [event, setEvent] = useState("")
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(enquiries.length / itemsPerPage);
@@ -52,6 +60,41 @@ const ListComponent = ({ onClose }) => {
     setIsModalOpen(false);
   };
 
+  const handleUpdate = (newMessage) => {
+    if (event === "Update") {
+      handleUpdateMessage(newMessage);
+    }
+    else if (event === "Close") {
+      closeEnquiry(newMessage);
+    }
+    closeDialog();
+  };
+
+  const handleUpdateMessage = async (message) => {
+      const response = await fetch(`http://localhost:8080/api/enquiry/updateEnquirerQuery/${enquiryId}`, {
+          method: "PUT", headers:{"Content-Type": "application/json"}, body: JSON.stringify(message),
+      });
+      if (response.status === 200) {
+          toast.success("Updated...")
+      }
+      else{
+          toast.error("There was a problem updating..")
+      }
+  }
+  
+  const closeEnquiry = async (message) => {
+      const response = await fetch(`http://localhost:8080/api/enquiry/deactivate/${enquiryId}`, {
+          method: "PUT", headers:{"Content-Type": "application/json"}, body: JSON.stringify(message),
+      });
+      if (response.status === 200) {
+          setEnquiries((prevEnquiry) => prevEnquiry.filter((enquiry) => enquiry.enquiryId !==enquiryId));
+          toast.success("Closed...")
+      }
+      else{
+          toast.error("There was a problem closing..")
+      }
+  }
+
   return (
     <div className="list-container">
     <Toaster />
@@ -77,19 +120,29 @@ const ListComponent = ({ onClose }) => {
               <td className="followup-count">{enquiry.followUpDate}</td>
               <td className="followup-count">{enquiry.enquiryCounter}</td>
               <td className="enquiry-actions">
-                <Button className="btn call">
+                <Button className="btn call"
+                 onClick={() => {
+                   setEvent("Update")
+                   setEnquiryId(enquiry.enquiryId);
+                   setDialogTitle("Write Message for Follow-Up")
+                   openDialog();
+                 }}>
                   <Call /> Call
                 </Button>
                 <Button
                   className="btn register"
-
                   onClick={() => openRegisterForm(enquiry)}
                 >
                   <PersonAdd /> Register
                 </Button>
                 <Button
                   className="btn close"
-                  onClick={() => onClose(enquiry.id)}
+                  onClick={() => {
+                   setEvent("Close")
+                   setEnquiryId(enquiry.enquiryId);
+                   setDialogTitle("Enter Closure Message")
+                   openDialog();
+                 }}
                 >
                   <Close /> Close
                 </Button>
@@ -146,6 +199,7 @@ const ListComponent = ({ onClose }) => {
           <RegistrationComponent selectedEnquiry={selectedEnquiry} />
         </DialogContent>
       </Dialog>
+      <UpdateMessage isOpen={isDialogOpen} onClose={closeDialog} onUpdate={handleUpdate} dialogTitle={dialogtitle}/>
     </div>
   );
 };

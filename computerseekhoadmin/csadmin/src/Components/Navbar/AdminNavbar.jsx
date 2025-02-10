@@ -128,8 +128,8 @@ const MainNavbar = () => {
             borderRadius: "8px", 
             background: "#1A1A1D", 
             color: "#FFFFFF",
-            width: "400px", // Set the desired width
-            maxWidth: "100%" // Ensure it doesn't exceed the viewport width
+            width: "400px", 
+            maxWidth: "100%" 
           } 
         }}
       >
