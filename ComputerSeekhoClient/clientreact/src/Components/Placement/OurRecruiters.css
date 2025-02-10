@@ -1,100 +1,97 @@
-/* General styles */
-.recruiter-page {
-    background-color: #011f4b;
-    color: white;
-    padding: 50px 25px;
-    /* Adjust left-right padding */
+/* RecruitersStyles.css */
+
+/* General styling for the section */
+.recruiters-sections {
+    padding: 60px;
+    text-align: center;
+    background-color: #f9f9f9;
 }
 
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #c0c0c0;
-    text-align: center;
+/* Section title */
+.recruiters-titles {
+    padding: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
     margin-bottom: 20px;
 }
 
-.page-subtitle {
-    text-align: center;
+/* Subtitle styling */
+.recruiters-subtitles {
     font-size: 1.2rem;
-    color: #d1d5db;
-    margin-bottom: 40px;
+    color: #666;
 }
 
-/* Grid container */
-.grid-container {
+/* Flexbox layout for recruiters */
+.recruiters-grid {
+    padding: 10px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 3 columns by default */
-    gap: 50px;
-    /* Increased gap between cards for more space */
-    justify-content: center;
-    width: 100%;
-    max-width: calc(100% - 50px);
-    /* Adjusted max-width for smaller side gaps */
-    margin: 0 auto;
-    padding: 0;
-    /* Removed left-right padding */
+    grid-template-columns: repeat(4, 1fr);
+    /* Set to 4 columns */
+    gap: 20px;
+    /* Increased gap between boxes */
+    justify-items: center;
+    align-items: center;
 }
 
-/* Recruiter card */
-.recruiter-card {
+/* Individual recruiter card */
+.recruiter-cards {
     background: white;
-    color: #333;
-    border-radius: 10px;
-    text-align: center;
-    padding: 20px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 230px;
-    /* Reduced height */
+    padding: 20px;
+    text-align: center;
+    width: 220px;
+    /* Fixed width for consistency */
+    height: 300px;
+    /* Fixed height for consistency */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* Center content vertically */
-}
-
-.recruiter-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.icon-container {
-    font-size: 2.8rem;
-    /* Reduced font size */
-    padding: 20px;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-}
-
-/* Modal */
-.custom-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 999;
+    justify-content: space-around;
+    transition: transform 0.2s ease-in-out;
 }
 
-.custom-modal {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    max-width: 400px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+/* Hover effect for recruiter card */
+.recruiter-cards:hover {
+    transform: scale(1.05);
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+/* Recruiter logo styling */
+.recruiter-logos {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+/* Recruiter name styling */
+.recruiter-names {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .recruiters-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .recruiters-grid {
+        grid-template-columns: 1fr;
+        /* 1 column on very small screens */
+    }
+}
+
+/* Loading and error messages */
+.recruiters-loading,
+.recruiters-error {
     font-size: 1.2rem;
-    cursor: pointer;
+    color: #e63946;
+    /* Error color */
 }
