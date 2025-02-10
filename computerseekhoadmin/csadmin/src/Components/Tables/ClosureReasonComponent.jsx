@@ -79,7 +79,7 @@ const ClosureReasonComponent = () => {
           <ListItem key={reason.closureReasonId} sx={{ backgroundColor: colors.white, borderRadius: '8px', marginBottom: '10px' }}>
             <ListItemText
               primary={`ID: ${reason.closureReasonId}`}
-              secondary={`Description: ${reason.closureReasonDesc || 'N/A'}`}
+              secondary={`Enquirer Name: ${reason.enquirerName || 'N/A'} | Reason: ${reason.closureReasonDesc || 'N/A'}`}
             />
           </ListItem>
         ))}

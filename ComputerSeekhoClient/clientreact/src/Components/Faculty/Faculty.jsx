@@ -9,7 +9,7 @@ const Faculty = () => {
   useEffect(() => {
     const fetchFacultyData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/staff/all');
+        const response = await fetch('http://localhost:8080/api/staff/allTeaching');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -48,9 +48,8 @@ const Faculty = () => {
                   {faculty.staffName}
                 </Typography>
                 <Typography className="position" color="textSecondary">
-                  {faculty.staffRole || 'Faculty Member'}
+                  {(faculty.staffRole).substring(5) || 'Faculty Member'}
                 </Typography>
-                {/* Description intentionally left empty as per request */}
               </CardContent>
             </Card>
           </Grid>

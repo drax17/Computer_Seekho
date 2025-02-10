@@ -29,4 +29,9 @@ public interface StaffRepository extends JpaRepository<Staff, Integer>{
     @Query(value = """
     SELECT staff_id FROM staff WHERE staff_username =?1""", nativeQuery = true)
     public int getStaffIdByStaffUsername(String staffUsername);
+
+    @Query(value = """
+            SELECT * FROM STAFF WHERE staff_role = "ROLE_TEACHING"
+            """, nativeQuery = true)
+    public List<Staff> getAllTeachingStaff();
 }

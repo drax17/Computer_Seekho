@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.project.DTO.PaymentReceiptDTO;
 import com.project.DTO.ResponseDTO;
 import com.project.Entities.Payment;
+import com.project.Entities.Student;
 import com.project.Services.PaymentService;
 
 @RestController
@@ -42,6 +43,11 @@ public class PaymentController {
 
 	@PostMapping("/add")
 	public ResponseEntity<ResponseDTO> addPayment(@RequestBody Payment payment) {
+		Student student = payment.getStudent();
+		if(student.getPaymentDue() - payment.getAmount() < 0){
+			return new ResponseEntity<>(new ResponseDTO("Invalid payment amount"), HttpStatus.NOT_ACCEPTABLE);
+		}
+		
 		Payment payment1 = paymentService.addPayment(payment);
 		Optional<PaymentReceiptDTO> paymentReceiptDTO = paymentService.getPaymentDTO(payment1.getPaymentId());
 
