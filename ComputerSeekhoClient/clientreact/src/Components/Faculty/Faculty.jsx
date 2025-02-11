@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
-import './Faculty.css';
+import './Faculty.css'; // You can keep the CSS file for styling
 
 const Faculty = () => {
   const [facultyData, setFacultyData] = useState([]);
@@ -24,39 +23,24 @@ const Faculty = () => {
   }, []);
 
   return (
-    <Container className="faculty-container">
+    <div className="faculty-container">
       <div className="faculty-header">
-        <Typography variant="h4" component="h1" gutterBottom>
-          Our Faculty
-        </Typography>
-        <Typography variant="h6" color="textSecondary">
-          Meet our experienced and dedicated faculty members
-        </Typography>
+        <h1>Our Faculty</h1>
+        <p>Meet our experienced and dedicated faculty members</p>
       </div>
-      <Grid container spacing={4} className="faculty-list" justifyContent="center">
+      <div className="faculty-list">
         {facultyData.map((faculty) => (
-          <Grid item xs={12} sm={6} md={4} key={faculty.staffId}>
-            <Card className="faculty-member">
-              <CardMedia
-                component="img"
-                height="140"
-                image={faculty.photoUrl}
-                alt={faculty.staffName}
-              />
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {faculty.staffName}
-                </Typography>
-                <Typography className="position" color="textSecondary">
-                  {faculty.staffRole || 'Faculty Member'}
-                </Typography>
-                {/* Description intentionally left empty as per request */}
-              </CardContent>
-            </Card>
-          </Grid>
+          <div className="faculty-member" key={faculty.staffId}>
+            <img src={faculty.photoUrl} alt={faculty.staffName} />
+            <div className="faculty-details">
+              <h2>{faculty.staffName}</h2>
+              <p className="position">{faculty.staffRole || 'Faculty Member'}</p>
+              {/* Description intentionally left empty as per request */}
+            </div>
+          </div>
         ))}
-      </Grid>
-    </Container>
+      </div>
+    </div>
   );
 };
 

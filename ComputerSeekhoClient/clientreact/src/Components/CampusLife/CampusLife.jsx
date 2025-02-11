@@ -28,7 +28,7 @@ const CampusLife = () => {
   return (
     <Container className="campus-life">
       <Typography variant="h4" component="h1" gutterBottom>
-        Campus Life
+        Edusity
       </Typography>
       {error && <Typography color="error">{error}</Typography>} {/* Display error message if there's an issue */}
       
