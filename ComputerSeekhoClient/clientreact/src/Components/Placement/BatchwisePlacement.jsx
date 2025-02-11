@@ -1,39 +1,71 @@
-import React, { useState } from "react";
-import './BatchwisePlacement.css'; // Import the CSS file
-import PlacementCard from "./PlacementCard";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import "/BatchwisePlacement.css";
 
 const BatchwisePlacement = () => {
-  const [DBDAbatchData, setDBDAbatchData] = useState([
-    { batch: "PG-DBDA March 2024", logo: "/DBDA/dbda_March24 (1).jpg", name: "Titans" },
-    { batch: "PG-DBDA Aug 2019", logo: "/images/dbda2.png", name: "Blitzkrieg" },
-    { batch: "PG-DAC Feb 2020", logo: "/images/dac1.png", name: "Comrades" },
-  ]);
+    const [batches, setBatches] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-  const [DACbatchData, setDACbatchData] = useState([
-    { batch: "PG-DAC May 2021", logo: "/images/dac1.png", name: "Warriors" },
-    { batch: "PG-DAC Aug 2019", logo: "/images/dac2.png", name: "Gladiators" },
-    { batch: "PG-DAC Feb 2020", logo: "/images/dac3.png", name: "Avengers" },
-  ]);
+    useEffect(() => {
+        const fetchBatches = async () => {
+            try {
+                const response = await fetch("http://localhost:8080/placement/getAll");
 
-  return (
-    <div className="batchwise-placement-container">
-      {/* PG-DBDA Section */}
-      <h1>PG-DBDA Placement</h1>
-      <div className="grid">
-        {DBDAbatchData.map((item, index) => (
-          <PlacementCard key={index} batch={item.batch} logo={item.logo} name={item.name} />
-        ))}
-      </div>
+                if (!response.ok) {
+                    throw new Error("Failed to fetch batch data");
+                }
 
-      {/* PG-DAC Section */}
-      <h1>PG-DAC Placement</h1>
-      <div className="grid">
-        {DACbatchData.map((item, index) => (
-          <PlacementCard key={index} batch={item.batch} logo={item.logo} name={item.name} />
-        ))}
-      </div>
-    </div>
-  );
+                const data = await response.json();
+
+                console.log("sjdfdksjfhsdfsdjf", {data});
+
+                setBatches(Array.isArray(data) ? data : []);
+            } catch (error) {
+                console.error("Error fetching batches:", error);
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBatches();
+    }, []);
+
+    if (loading) {
+        return <div className="loading">Loading...</div>;
+    }
+
+    if (error) {
+        return <p className="error">{error}</p>;
+    }
+
+    if (batches.length === 0) {
+        return <p className="no-data">No batches found</p>;
+    }
+    // console.log(batches)
+         
+    const handleNavigate = () => {
+        navigate(`/Placedstudent, { state: { batchId: batches.batchId } }`);};
+    return (
+        <div className="container">
+            <h2 className="title">PLACEMENTS</h2>
+            <div className="grid-container">
+                {batches.map((batch) => (
+                    <div key={batch.batchId} className="card">
+                        <img src={"https://th.bing.com/th/id/OIP.CA-d-tldf-MSNEwosqKEugHaEo?w=265&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"} alt={batch.batchName} className="card-img" />
+                        <div className="card-body">
+                            <button className="btn" onClick={handleNavigate}>
+                                {batch.batchName}
+                            </button>
+                            
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default BatchwisePlacement;

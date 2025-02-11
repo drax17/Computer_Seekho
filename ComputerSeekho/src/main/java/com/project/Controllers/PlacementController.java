@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.DTO.PlacedStudentDTO;
 import com.project.DTO.ResponseDTO;
 import com.project.Entities.Placement;
 import com.project.Services.PlacementService;
@@ -54,6 +56,15 @@ public class PlacementController {
     @PostMapping("/add")
     public ResponseEntity<ResponseDTO> addPlacement(@RequestBody Placement placement) {
         placementService.addPlacement(placement);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Placement Details Added",new Date()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Placement Details Added", new Date()));
+    }
+    
+    @GetMapping("/getAll")
+    public List<PlacedStudentDTO> getPlacedStudents(@RequestParam(value = "batchId", required = false) Integer batchId) {
+        if (batchId != null) {
+            return placementService.getPlacedStudentById(batchId); // Modify this in your service layer
+        } else {
+            return placementService.getPlacedStudent(); // Default behavior to return all students
+        }
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './OurRecruiters.css';
+import './OurRecruiters.css'; // Updated CSS file name
 
 const OurRecruiters = () => {
   const [recruiters, setRecruiters] = useState([]);
@@ -26,37 +26,37 @@ const OurRecruiters = () => {
   }, []);
 
   if (loading) {
-    return <div className="recruiter-page">Loading recruiters...</div>;
+    return <div className="recruiters-loading">Loading recruiters...</div>;
   }
 
   if (error) {
-    return <div className="recruiter-page">Error: {error}</div>;
+    return <div className="recruiters-error">Error: {error}</div>;
   }
 
   return (
-    <div className="recruiter-page full-page">
-      <header className="text-center mb-5">
-        <h1 className="page-title">
+    <div className="recruiters-sections">
+      <header className="recruiters-header">
+        <h1 className="recruiters-titles">
           Our <span className="highlight">Top Hiring Partners</span>
         </h1>
-        <p className="page-subtitle">Discover Opportunities with Industry Leaders</p>
+        <p className="recruiters-subtitles">Discover Opportunities with Industry Leaders</p>
       </header>
-      <div className="grid-container">
+      <div className="recruiters-grid"> {/* Updated class name */}
         {recruiters.map((recruiter, index) => (
-          <div key={index} className="recruiter-card">
-            <div className="icon-container">
+          <div key={index} className="recruiter-cards">
+            <div className="recruiter-icon-container">
               {/* Display logo if available; fallback to name's first letter */}
               {recruiter.recruiterPhoto ? (
                 <img
                   src={recruiter.recruiterPhoto}
                   alt={recruiter.recruiterName}
-                  style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                  className="recruiter-logos"
                 />
               ) : (
                 <span>{recruiter.recruiterName.charAt(0)}</span>
               )}
             </div>
-            <h3>{recruiter.recruiterName}</h3>
+            <h3 className="recruiter-names">{recruiter.recruiterName}</h3>
           </div>
         ))}
       </div>

@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-container">
         {/* Brand Information */}
         <div className="footer-section brand-info">
-          <h2>SM VITA</h2>
+          <h2>EDUSITY</h2>
           <p>Empowering learners worldwide with quality courses. Join us to start your journey of knowledge and growth.</p>
           <img src="/path-to-logo.png" alt="Computer Seekho Logo" className="footer-logo" />
         </div>
