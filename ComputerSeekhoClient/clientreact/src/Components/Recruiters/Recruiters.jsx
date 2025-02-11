@@ -30,30 +30,30 @@ const Recruiters = () => {
   }, []);
 
   if (loading) {
-    return <div className="major-recruiters">Loading recruiters...</div>;
+    return <div className="recruiters-main-section">Loading recruiters...</div>;
   }
 
   if (error) {
-    return <div className="major-recruiters">Error: {error}</div>;
+    return <div className="recruiters-main-section">Error: {error}</div>;
   }
 
   return (
-    <div className="major-recruiters">
-      <h2 className="section-title">Major Recruiters</h2>
-      <div className="recruiters-grid">
+    <div className="recruiters-main-section">
+      <h2 className="recruiters-main-title">Major Recruiters</h2>
+      <div className="recruiters-main-grid">
         {recruiters.map((recruiter, index) => (
-          <div key={index} className="recruiter-card">
+          <div key={index} className="recruiters-main-card">
             <img
               src={recruiter.recruiterPhoto || 'https://via.placeholder.com/100'} // Fallback to placeholder
               alt={recruiter.recruiterName}
-              className="recruiter-logo"
+              className="recruiters-main-logo"
             />
-            <h3 className="recruiter-name">{recruiter.recruiterName}</h3>
+            <h3 className="recruiters-main-name">{recruiter.recruiterName}</h3>
           </div>
         ))}
       </div>
       <button
-        className="see-more-button"
+        className="recruiters-see-more-button"
         onClick={() => navigate('/ourrecruiters')} // Navigate to /ourrecruiters
       >
         SEE MORE

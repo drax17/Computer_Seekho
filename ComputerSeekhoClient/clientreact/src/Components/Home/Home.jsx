@@ -16,7 +16,7 @@ const Home = () => {
         <div className='courses'>
           <Courses />
         </div>
-        <Title title='Campus Life' subTitle='Life At Computer Seekho' />
+        <Title title='Edusity' subTitle='Life At Edusity' />
         <div className='campus-life'>
           <CampusLifeHome />
           <Recruiters/>

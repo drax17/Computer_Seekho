@@ -4,7 +4,7 @@ import './WhyChoose.css'; // Import the CSS file for styling
 const WhyChoose = () => {
   return (
     <div className="why-choose-container">
-      <h2 className="section-title">Why Choose Computer Seekho?</h2>
+      <h2 className="section-title">Why Choose Edusity?</h2>
       <p className="section-description">
         Our Institute has been present for over 20 years in the market. We make the most of all our students.
       </p>

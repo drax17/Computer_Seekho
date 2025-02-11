@@ -1,32 +1,88 @@
-.placement-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+/* General Styling */
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.placement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
 }
 
-.placement-card img {
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1100px;
+}
+
+/* Card Styling */
+.card {
+    width: 260px;
+    height: 300px;
+    /* ⬅ Height kam ki */
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Image */
+.card img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    height: 65%;
+    /* ⬅ Image height adjust ki */
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
-.placement-card h2 {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 10px;
+/* Info Section */
+.card .info {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: #f5f5f5;
+    /* Light grey background */
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
-.placement-card p {
-    font-size: 1em;
-    color: #666;
+.card .info h1 {
+    font-size: 16px;
+    /* ⬅ Thoda chhota kiya */
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.card .info p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
 }

@@ -30,10 +30,12 @@ public class PlacementServiceImpl implements PlacementService {
         return placementRepository.findAll();
     }
 
+    @Override
     public List<PlacementDTO> getPlacedStudent(){
         return placementRepository.fetchPlacedStudents();
     }
 
+    @Override
     public List<PlacementDTO> getPlacedStudentById(int batchId){
         return placementRepository.findByBatchId(batchId);
     }

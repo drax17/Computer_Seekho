@@ -10,10 +10,10 @@ import com.project.Entities.Placement;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
-
 @Repository
 @Transactional
 public interface PlacementRepository extends JpaRepository<Placement, Integer> {
+
 
     @Query("SELECT new com.project.DTO.PlacementDTO( " +
            "p.batch.batchId, p.batch.batchName , p.studentID.studentName ,p.studentID.photoUrl, p.recruiterID.recruiterName) " +
@@ -33,5 +33,4 @@ public interface PlacementRepository extends JpaRepository<Placement, Integer> {
            "WHERE p.batch.batchId = :batchId " +
            "ORDER BY p.batch.batchId")
     List<PlacementDTO> findByBatchId(int batchId);
-    
 }
