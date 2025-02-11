@@ -57,10 +57,11 @@ const Students = () => {
             <th className="enquiry-header">PRN</th>
             <th className="enquiry-header">Student Name</th>
             <th className="enquiry-header">Mobile</th>
+            <th className="enquiry-header">Student Email</th>
             <th className="enquiry-header">Course</th>
             <th className="enquiry-header">Batch</th>
             <th className="enquiry-header">Balance Fees</th>
-            <th className="enquiry-header">Actions</th>
+            {/* <th className="enquiry-header">Actions</th> */}
           </tr>
         </thead>
         <tbody>
@@ -70,17 +71,18 @@ const Students = () => {
               <td className="followup-count">{student.studentId}</td>
               <td className="followup-count">{student.studentName}</td>
               <td className="followup-count">{student.studentMobile}</td>
+              <td className="followup-count">{student.studentEmail}</td>
               <td className="followup-count">{student.courseName}</td>
               <td className="followup-count">{student.batchName}</td>
               <td className="followup-count">{student.paymentDue}</td>
-              <td className="enquiry-actions">
+              {/* <td className="enquiry-actions">
                 <Button
                   className="btn close"
                   onClick={() => deleteHandler(student.studentId)}
                 >
                   <Close /> Delete
                 </Button>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>

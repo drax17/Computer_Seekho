@@ -11,7 +11,7 @@ const BatchwisePlacement = () => {
     useEffect(() => {
         const fetchBatches = async () => {
             try {
-                const response = await fetch("http://localhost:8080/placement/getAll");
+                const response = await fetch("http://localhost:8080/api/placement/getAll");
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch batch data");
@@ -46,8 +46,9 @@ const BatchwisePlacement = () => {
     }
     // console.log(batches)
          
-    const handleNavigate = () => {
-        navigate(`/Placedstudent, { state: { batchId: batches.batchId } }`);};
+    const handleNavigate = (batchId) => {
+        navigate(`/Placedstudent/${batchId}`);
+    };
     return (
         <div className="container">
             <h2 className="title">PLACEMENTS</h2>
@@ -56,7 +57,7 @@ const BatchwisePlacement = () => {
                     <div key={batch.batchId} className="card">
                         <img src={"https://th.bing.com/th/id/OIP.CA-d-tldf-MSNEwosqKEugHaEo?w=265&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"} alt={batch.batchName} className="card-img" />
                         <div className="card-body">
-                            <button className="btn" onClick={handleNavigate}>
+                            <button className="btn" onClick={() => handleNavigate(batch.batchId)}>
                                 {batch.batchName}
                             </button>
                             
