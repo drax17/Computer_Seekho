@@ -54,6 +54,7 @@ const Students = () => {
       <table className="enquiry-table">
         <thead>
           <tr>
+            <th className="enquiry-header">PRN</th>
             <th className="enquiry-header">Student Name</th>
             <th className="enquiry-header">Mobile</th>
             <th className="enquiry-header">Course</th>
@@ -66,6 +67,7 @@ const Students = () => {
           {displayedStudents.map((student) => (
             <tr key={student.studentId} className="enquiry-row">
               {/* <td className="enquiry-details">{enquiry.studentName}</td> */}
+              <td className="followup-count">{student.studentId}</td>
               <td className="followup-count">{student.studentName}</td>
               <td className="followup-count">{student.studentMobile}</td>
               <td className="followup-count">{student.courseName}</td>

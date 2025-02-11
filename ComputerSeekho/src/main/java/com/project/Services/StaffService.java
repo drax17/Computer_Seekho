@@ -14,4 +14,5 @@ public interface StaffService {
 	boolean updateStaffUserNamePassword(String staffUsername, String staffPassword, int staffId);
 	void deleteByStaffUsername(String staffUsername);
 	int getStaffIdByStaffUsername(String staffUsername);
+	List<Staff> getAllTeachingStaff();
 }

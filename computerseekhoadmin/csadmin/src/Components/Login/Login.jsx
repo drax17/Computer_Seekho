@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next"; // ✅ Import i18n hook
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 import { FaUser, FaLock, FaSignInAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
 import loginImage from "./login-removebg-preview.png";
 
 const Login = ({ onLogin }) => {
-    const { t, i18n } = useTranslation(); // ✅ Initialize translation hook
+    const { t, i18n } = useTranslation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,7 @@ const Login = ({ onLogin }) => {
     }, [onLogin]);
 
     useEffect(() => {
-        console.log("Welcome Message:", t("welcome_message")); // ✅ Debug: Check if translation is loaded
+        console.log("Welcome Message:", t("welcome_message"));
     }, [t]);
 
     const inputChangeHandler = (field, value) => {

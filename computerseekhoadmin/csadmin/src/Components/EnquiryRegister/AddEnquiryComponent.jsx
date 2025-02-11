@@ -135,8 +135,6 @@ const AddEnquiryComponent = ({selectedEnquiry}) => {
       if (!(await response).status === 200) {
         throw new Error(response.status === 404 ? "Enquiry not found!" : "Failed to delete enquiry");
       }
-
-      toast.success("Enquiry deleted successfully!");
     } catch (error) {
       toast.error(error.message);
     }

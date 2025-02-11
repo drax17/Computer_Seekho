@@ -23,6 +23,11 @@ public class StaffController {
 		return staffService.getAllStaffMembers();
 	}
 	
+	@GetMapping("/allTeaching")
+	public List<Staff> getAllTeachingStaffs(){
+		return staffService.getAllTeachingStaff();
+	}
+	
 	@GetMapping("/getById/{staffId}")
 	public  ResponseEntity<Staff> getStaffById(@PathVariable int staffId){
 		Optional<Staff> staff = staffService.getStaffById(staffId);

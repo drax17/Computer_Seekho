@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.DTO.PlacedStudentDTO;
+import com.project.DTO.PlacementDTO;
 import com.project.DTO.ResponseDTO;
 import com.project.Entities.Placement;
 import com.project.Services.PlacementService;
@@ -29,7 +29,7 @@ public class PlacementController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<Placement> getPlacement(@PathVariable int id) {
         Optional<Placement> foundPlacement = placementService.getPlacementById(id);
-        if(!foundPlacement.isPresent()) {
+        if (!foundPlacement.isPresent()) {
             return ResponseEntity.status(404).body(null);
         }
         return ResponseEntity.status(200).body(foundPlacement.get());
@@ -38,33 +38,25 @@ public class PlacementController {
     @GetMapping("/all")
     public ResponseEntity<List<Placement>> getAllPlacements() {
         List<Placement> placements = placementService.getAllPlacements();
-        if(placements == null) {
+        if (placements == null) {
             return ResponseEntity.status(200).body(null);
         }
         return ResponseEntity.status(200).body(placements);
     }
-
-//    @GetMapping("/student/{studentId}")
-//    public ResponseEntity<Placement> getPlacementsByStudent(@PathVariable int studentId) {
-//        Optional<Placement> placement = placementService.getbyStudent(studentId);
-//        if(placement.isEmpty()) {
-//            return ResponseEntity.status(404).body(null);
-//        }
-//        return ResponseEntity.status(200).body(placement.get());
-//    }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseDTO> addPlacement(@RequestBody Placement placement) {
         placementService.addPlacement(placement);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Placement Details Added", new Date()));
     }
-    
+
     @GetMapping("/getAll")
-    public List<PlacedStudentDTO> getPlacedStudents(@RequestParam(value = "batchId", required = false) Integer batchId) {
+    public List<PlacementDTO> getPlacedStudents(
+            @RequestParam(value = "batchId", required = false) Integer batchId) {
         if (batchId != null) {
-            return placementService.getPlacedStudentById(batchId); // Modify this in your service layer
+            return placementService.getPlacedStudentById((int)batchId);
         } else {
-            return placementService.getPlacedStudent(); // Default behavior to return all students
+            return placementService.getPlacedStudent();
         }
     }
 }

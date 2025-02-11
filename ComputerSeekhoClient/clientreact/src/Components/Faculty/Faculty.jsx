@@ -8,7 +8,7 @@ const Faculty = () => {
   useEffect(() => {
     const fetchFacultyData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/staff/all');
+        const response = await fetch('http://localhost:8080/api/staff/allTeaching');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

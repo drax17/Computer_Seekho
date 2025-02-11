@@ -103,7 +103,7 @@ const RegistrationComponent = ({ selectedEnquiry }) => {
 
     const result = await response.json();
     toast.success(result.message || "Student registered successfully!");
-    await deleteEnquiryHandler();
+    // await deleteEnquiryHandler();
 
     setFormData({
       studentName: "",
