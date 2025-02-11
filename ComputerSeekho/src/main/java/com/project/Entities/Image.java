@@ -15,6 +15,12 @@ public class Image {
     @Column(name = "image_url", length = 255, nullable = false)
     private String imageUrl;
 
+    @Column(name = "image_description")
+    private String imageDescription;
+
+    @Column(name = "imagetitle")
+    private String imagetitle;    
+
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "album_id")
     private Album album;

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import './PlacementCard.css';
 import { useParams } from "react-router-dom"
+import './Placedstudent.css';
+// import Navbar from "../Navbar/Navbar";
+// import Footer from "../Footer/Footer";
 
-
-
-
-const PlacementCard = ({ batch, logo, name }) => {
+const Placedstudent = () => {
     const [PlacedstudentList, setPlacedstudentList] = useState([]);
     const { batchId } = useParams();
     console.log(batchId);
@@ -14,7 +13,7 @@ const PlacementCard = ({ batch, logo, name }) => {
     useEffect(() => {
         const fetchPlacedstudent = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/student/getById/1', {
+                const response = await fetch(`http://localhost:8080/api/student/getById/${batchId}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
@@ -39,9 +38,9 @@ const PlacementCard = ({ batch, logo, name }) => {
                           img: data.photoUrl,
                           company: data.recruiterName
                       }];
-                      
+    
                 setPlacedstudentList(formattedStudents);
-              } catch (error) {
+            } catch (error) {
                 console.error("Error Fetching Data", error);
             }
         };
@@ -53,7 +52,7 @@ const PlacementCard = ({ batch, logo, name }) => {
         <div>
     <div className="wrapper">
         {PlacedstudentList.length > 0 ? (
-          PlacedstudentList.map((student, index) => (
+            PlacedstudentList.map((student, index) => (
                 <div key={index} className="card">
                     <img src={student.img} alt="Student" />
                     <div className="info">
@@ -62,15 +61,15 @@ const PlacementCard = ({ batch, logo, name }) => {
                     </div>
                 </div>
             ))
-          ) : (
+        ) : (
             <p>No students found</p>
-          )}
+        )}
     </div>
 
 
             {/* <Footer /> */}
         </div>
     );
-  }
-  
-  export default PlacementCard;
+}
+
+export default Placedstudent;
