@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using ComputerSeekhoDN.Models;
 using ComputerSeekhoDN.Services;
 using ComputerSeekhoDN.Repositories;
-using ComputerSeekhoDN.Models;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using ComputerSeekhoDN.Exceptions;
+using Computer_Seekho_DN.Service;
+using ComputerSeekho.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +17,18 @@ builder.Services.AddDbContext<ComputerSeekhoDBContext>(options =>
 	options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Register your service dependencies
-builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
+builder.Services.AddScoped<IBatchService, BatchService>();
+builder.Services.AddScoped<IClosureReasonService, ClosureReasonService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEnquiryService, EnquiryService>();
+builder.Services.AddScoped<IGetInTouchService, GetInTouchService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IRecruiterService, RecruiterService>();
+builder.Services.AddScoped<IVideoService, VideoService>();
 
 
 // Enable Swagger for API documentation (optional)

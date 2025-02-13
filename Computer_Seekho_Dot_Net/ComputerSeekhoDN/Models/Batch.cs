@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerSeekhoDN.Models;
@@ -19,7 +20,7 @@ public partial class Batch
     public DateOnly? BatchEndTime { get; set; }
 
     [Column("batch_is_active", TypeName = "bit(1)")]
-    public ulong? BatchIsActive { get; set; }
+    public bool BatchIsActive { get; set; }
 
     [Column("batch_name")]
     public string? BatchName { get; set; }
@@ -35,11 +36,14 @@ public partial class Batch
     public virtual Course Course { get; set; } = null!;
 
     [InverseProperty("Batch")]
+    [JsonIgnore]
     public virtual ICollection<Placement> Placements { get; set; } = new List<Placement>();
 
     [InverseProperty("Batch")]
+    [JsonIgnore]
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
     [InverseProperty("Batch")]
+    [JsonIgnore]
     public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
 }

@@ -17,75 +17,62 @@ namespace ComputerSeekhoDN.Services
 			this.csdbContext = csdbContext;
 		}
 
-		public async Task<Enquiry> addEnquiry(Enquiry enquiry)
+		public async Task addEnquiry(Enquiry enquiry)
 		{
-			csdbContext.Add(enquiry);
+			await csdbContext.AddAsync(enquiry);
 			await csdbContext.SaveChangesAsync();
-			return enquiry;
 		}
 
-		public async Task<bool> deactivateEnquiry(string closureReasonDesc, int enquiryId)
+		public async Task deactivateEnquiry(string closureReasonDesc, int enquiryId)
 		{
-			Enquiry enquiry = csdbContext.Enquiries.Find(enquiryId);
-			if (enquiry == null)
-			{
-				throw new NotFound($"Enquiry with Id: {enquiryId} does not exists");
-			}
+			var enquiry = csdbContext.Enquiries.Find(enquiryId) ?? throw new NotFound($"Enquiry with Id: {enquiryId} does not exists");
+
 			enquiry.EnquiryIsActive = false;
+			await csdbContext.ClosureReasons.AddAsync(new ClosureReason { ClosureReasonDesc = closureReasonDesc, EnquirerName = enquiry.StudentName??enquiry.EnquirerName});
+
 			csdbContext.Entry(enquiry).State = EntityState.Modified;
 			await csdbContext.SaveChangesAsync();
-			return true;
 		}
 
-		public async Task<bool> deleteEnquiry(int enquiryId)
+		public async Task deleteEnquiry(int enquiryId)
 		{
-			Enquiry enquiry = await csdbContext.Enquiries.FindAsync(enquiryId);
-			if (enquiry == null)
-			{
-				throw new NotFound($"Enquiry not found with id: {enquiryId}");
-			}
+			var enquiry = await csdbContext.Enquiries.FindAsync(enquiryId) ?? throw new NotFound($"Enquiry not found with id: {enquiryId}");
 			csdbContext.Enquiries.Remove(enquiry);
 			await csdbContext.SaveChangesAsync();
-			return true;
 		}
 
-		public async Task<ActionResult<IEnumerable<Enquiry>>> getAllEnquiries()
+		public async Task<IEnumerable<Enquiry>> getAllEnquiries()
 		{
-			return await csdbContext.Enquiries.ToListAsync();
+			var enquiryList = await csdbContext.Enquiries.ToListAsync();
+			if (enquiryList.Count == 0) throw new NotFound("No records");
+			return enquiryList;
 		}
 
-		public async Task<ActionResult<IEnumerable<Enquiry>>> getbystaff(string staffUsername)
+		public async Task<IEnumerable<Enquiry>> getbystaff(string staffUsername)
 		{
-			Staff staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername);
-			if (staff == null)
-			{
-				throw new NotFound($"Enquiries for staff with username: {staffUsername} do not exist");
-			}
+			var staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername) ?? throw new NotFound($"No staff with username: {staffUsername} exists.");
 			int staffId = staff.StaffId;
-			return await csdbContext.Enquiries.Where(e => e.StaffId == staffId).ToListAsync();
+			var enquiryList = await csdbContext.Enquiries.Where(e => e.StaffId == staffId && e.EnquiryIsActive == true).OrderByDescending(e  => e.FollowUpDate).ToListAsync();
+			if (enquiryList.Count == 0) throw new NotFound($"Enquiries for staff with username: {staffUsername} do not exist");
+			return enquiryList;
 		}
 
-		public Task<ActionResult<IEnumerable<Enquiry>>> getEnquiryByDate(DateOnly enquiryDate)
-		{
-			throw new NotImplementedException();
-		}
-
-		public async Task<ActionResult<Enquiry>> getEnquiryById(int enquiryId)
+		public async Task<Enquiry> getEnquiryById(int enquiryId)
 		{
 			var foundEnquiry = await csdbContext.Enquiries.FindAsync(enquiryId);
-			if (foundEnquiry == null)
-			{
-				throw new NotFound($"Enquiry Not Found with Id: {enquiryId}");				
-			}
-			return foundEnquiry;
+			return foundEnquiry ?? throw new NotFound($"Enquiry Not Found with Id: {enquiryId}");
 		}
 
-		public Task<int> updateEnquirerQuery(string enquirerQuery, int enquiryId)
+		public async Task updateEnquirerQuery(string enquirerQuery, int enquiryId)
 		{
-			throw new NotImplementedException();
+			var enquiry = await csdbContext.Enquiries.FindAsync(enquiryId) ?? throw new NotFound($"No enquiry with Id: {enquiryId} exists");
+			enquiry.EnquirerQuery = enquirerQuery;
+			enquiry.EnquiryCounter++;
+			csdbContext.Entry(enquiry).State = EntityState.Modified;
+			await csdbContext.SaveChangesAsync();
 		}
 
-		public async Task<bool> updateEnquiry(Enquiry enquiry)
+		public async Task updateEnquiry(Enquiry enquiry)
 		{
 			int enquiryId = enquiry.EnquiryId;
 			csdbContext.Entry(enquiry).State = EntityState.Modified;
@@ -105,7 +92,6 @@ namespace ComputerSeekhoDN.Services
 					throw;
 				}
 			}
-			return true;
 		}
 
 		private bool enquiryExists(int id)

@@ -17,37 +17,49 @@ namespace ComputerSeekhoDN.Controllers
 
 		[HttpGet("all")]
 		public async Task<ActionResult<IEnumerable<Enquiry>>> GetAll() {
-			return await enquiryService.getAllEnquiries();
+			return Ok(await enquiryService.getAllEnquiries());
 		}
 
 		[HttpGet("getById/{id}")]
 		public async Task<ActionResult<Enquiry>> getById(int id)
 		{
-			var enquiry = await enquiryService.getEnquiryById(id);
-			return Ok(enquiry);
+			return Ok(await enquiryService.getEnquiryById(id));
 		}
 
 		[HttpPost("add")]
-		public async Task<ActionResult<Enquiry>> addEnquiry([FromBody] Enquiry enquiry)
+		public async Task<ActionResult> addEnquiry([FromBody] Enquiry enquiry)
 		{
-			if (enquiry == null)
-			{
-				return BadRequest(new { message = "Invalid enquiry data" });
-			}
-
-			var newEnquiry = await enquiryService.addEnquiry(enquiry);
-			return CreatedAtAction(nameof(getById), new { id = newEnquiry.EnquiryId }, newEnquiry);
+			if (enquiry == null) return BadRequest(new { message = "Invalid enquiry data" });
+			await enquiryService.addEnquiry(enquiry);
+			return Ok(new { message = "Enquiry Added"});
 		}
 
 		[HttpPut("update")]
-		public async Task<ActionResult<bool>> updateEnquiry([FromBody] Enquiry enquiry)
+		public async Task<ActionResult> updateEnquiry([FromBody] Enquiry enquiry)
 		{
-			bool isUpdated = await enquiryService.updateEnquiry(enquiry);
-			if (!isUpdated)
-			{
-				return NotFound(new { message = "No Enquiry Found"});
-			}
-			return Ok(new {message = "Enquiry Updated"});
+			if(enquiry == null) return BadRequest(new { message = "Invalid enquiry data"});
+			await enquiryService.updateEnquiry(enquiry);
+			return Ok(new { message = "Enquiry Updated"});
+		}
+
+		[HttpDelete("delete/{enquiryId}")]
+		public async Task<ActionResult> deleteEnquiry(int enquiryId)
+		{
+			await enquiryService.deleteEnquiry(enquiryId);
+			return Ok(new { message = "Enquiry Deleted Successfully"});
+		}
+
+		[HttpGet("getByStaff/{staffUsername}")]
+		public async Task<ActionResult<IEnumerable<Enquiry>>> getEnquiriesByStaff(string staffUsername)
+		{
+			return Ok(await enquiryService.getbystaff(staffUsername));
+		}
+
+		[HttpPut("updateEnquirerQuery/{enquiryId}")]
+		public async Task<ActionResult> updateEnquirerQuery([FromBody] string enquiryMessage, int enquiryId)
+		{
+			await enquiryService.updateEnquirerQuery(enquiryMessage, enquiryId);
+			return Ok(new { message = "Enquiry Message Updated"});
 		}
 	}
 }

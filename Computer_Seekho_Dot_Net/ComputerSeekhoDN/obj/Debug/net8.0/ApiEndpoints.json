@@ -1,5 +1,412 @@
 [
   {
+    "ContainingType": "ComputerSeekhoDN.Controllers.AlbumController",
+    "Method": "addAlbum",
+    "RelativePath": "api/album/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "album",
+        "Type": "ComputerSeekhoDN.Models.Album",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.AlbumController",
+    "Method": "getAllAlbums",
+    "RelativePath": "api/album/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Album, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.AlbumController",
+    "Method": "deleteAlbum",
+    "RelativePath": "api/album/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.AlbumController",
+    "Method": "getById",
+    "RelativePath": "api/album/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Album",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.AlbumController",
+    "Method": "updateAlbum",
+    "RelativePath": "api/album/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "album",
+        "Type": "ComputerSeekhoDN.Models.Album",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "toggleBatch",
+    "RelativePath": "api/batch/activate/{batchIsActive}/{batchId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batchIsActive",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      },
+      {
+        "Name": "batchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "GetAll",
+    "RelativePath": "api/batch/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Batch, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "deleteById",
+    "RelativePath": "api/batch/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "getById",
+    "RelativePath": "api/batch/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Batch",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "getByName",
+    "RelativePath": "api/batch/getByName/{batchName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batchName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Batch",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.BatchController",
+    "Method": "updateBatch",
+    "RelativePath": "api/batch/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batch",
+        "Type": "ComputerSeekhoDN.Models.Batch",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ClosureReasonController",
+    "Method": "addClosureReason",
+    "RelativePath": "api/closureReason/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "closureReason",
+        "Type": "ComputerSeekhoDN.Models.ClosureReason",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ClosureReasonController",
+    "Method": "getAllClosureReasons",
+    "RelativePath": "api/closureReason/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.ClosureReason, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ClosureReasonController",
+    "Method": "deleteClosure",
+    "RelativePath": "api/closureReason/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ClosureReasonController",
+    "Method": "getById",
+    "RelativePath": "api/closureReason/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ClosureReasonController",
+    "Method": "updateClosure",
+    "RelativePath": "api/closureReason/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "closureReason",
+        "Type": "ComputerSeekhoDN.Models.ClosureReason",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.CourseController",
+    "Method": "AddCourse",
+    "RelativePath": "api/course/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "course",
+        "Type": "ComputerSeekhoDN.Models.Course",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.CourseController",
+    "Method": "GetAllCourses",
+    "RelativePath": "api/course/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Course, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.CourseController",
+    "Method": "DeleteCourse",
+    "RelativePath": "api/course/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.CourseController",
+    "Method": "GetCourseById",
+    "RelativePath": "api/course/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Course",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.CourseController",
+    "Method": "UpdateCourse",
+    "RelativePath": "api/course/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "course",
+        "Type": "ComputerSeekhoDN.Models.Course",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Course",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
     "Method": "addEnquiry",
     "RelativePath": "api/enquiry/add",
@@ -13,17 +420,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "ComputerSeekhoDN.Models.Enquiry",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
@@ -44,6 +441,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
+    "Method": "deleteEnquiry",
+    "RelativePath": "api/enquiry/delete/{enquiryId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "enquiryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
@@ -73,6 +486,32 @@
   },
   {
     "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
+    "Method": "getEnquiriesByStaff",
+    "RelativePath": "api/enquiry/getByStaff/{staffUsername}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "staffUsername",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Enquiry, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
     "Method": "updateEnquiry",
     "RelativePath": "api/enquiry/update",
     "HttpMethod": "PUT",
@@ -85,9 +524,56 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.EnquiryController",
+    "Method": "updateEnquirerQuery",
+    "RelativePath": "api/enquiry/updateEnquirerQuery/{enquiryId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "enquiryMessage",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "enquiryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.GetInTouchController",
+    "Method": "addGetInTouch",
+    "RelativePath": "api/getInTouch/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "getInTouch",
+        "Type": "ComputerSeekhoDN.Models.GetInTouch",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.GetInTouchController",
+    "Method": "getAll",
+    "RelativePath": "api/getInTouch/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Boolean",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.GetInTouch, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -96,6 +582,344 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.GetInTouchController",
+    "Method": "deleteGetInTouch",
+    "RelativePath": "api/getInTouch/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ImageController",
+    "Method": "addImage",
+    "RelativePath": "api/image/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "image",
+        "Type": "ComputerSeekhoDN.Models.Image",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ImageController",
+    "Method": "getAll",
+    "RelativePath": "api/image/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Image, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ImageController",
+    "Method": "deleteImage",
+    "RelativePath": "api/image/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ImageController",
+    "Method": "getById",
+    "RelativePath": "api/image/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Image",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.ImageController",
+    "Method": "updateImage",
+    "RelativePath": "api/image/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "image",
+        "Type": "ComputerSeekhoDN.Models.Image",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentController",
+    "Method": "AllPayemnts",
+    "RelativePath": "api/payment/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Payment, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentController",
+    "Method": "getDto",
+    "RelativePath": "api/payment/dto/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.DTO.PaymentDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentController",
+    "Method": "getById",
+    "RelativePath": "api/payment/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Payment",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentTypeController",
+    "Method": "addPaymentType",
+    "RelativePath": "api/paymentType/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "ComputerSeekhoDN.Models.PaymentType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentTypeController",
+    "Method": "getAll",
+    "RelativePath": "api/paymentType/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.PaymentType, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.PaymentTypeController",
+    "Method": "getById",
+    "RelativePath": "api/paymentType/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.PaymentType",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.RecruiterController",
+    "Method": "addImage",
+    "RelativePath": "api/recruiter/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recruiter",
+        "Type": "ComputerSeekhoDN.Models.Recruiter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.RecruiterController",
+    "Method": "getAll",
+    "RelativePath": "api/recruiter/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.Models.Recruiter, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.RecruiterController",
+    "Method": "deleteImage",
+    "RelativePath": "api/recruiter/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.RecruiterController",
+    "Method": "getById",
+    "RelativePath": "api/recruiter/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ComputerSeekhoDN.Models.Recruiter",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ComputerSeekhoDN.Controllers.RecruiterController",
+    "Method": "updateImage",
+    "RelativePath": "api/recruiter/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recruiter",
+        "Type": "ComputerSeekhoDN.Models.Recruiter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "ComputerSeekhoDN.Controllers.StaffController",
@@ -111,17 +935,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "ComputerSeekhoDN.Models.Staff",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "ComputerSeekhoDN.Controllers.StaffController",
@@ -252,26 +1066,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ComputerSeekhoDN.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ComputerSeekhoDN.WeatherForecast, ComputerSeekhoDN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]
