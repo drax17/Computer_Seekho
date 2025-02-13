@@ -57,8 +57,8 @@ public partial class Enquiry
     [Column("enquiry_is_active")]
     public bool? EnquiryIsActive { get; set; }
 
-    [InverseProperty("Enquiry")]
-    public virtual ICollection<Followup> Followups { get; set; } = new List<Followup>();
+    //[InverseProperty("Enquiry")]
+    //public virtual ICollection<Followup> Followups { get; set; } = new List<Followup>();
 
     [ForeignKey("StaffId")]
     [InverseProperty("Enquiries")]
