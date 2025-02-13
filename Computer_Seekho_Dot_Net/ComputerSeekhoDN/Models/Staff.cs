@@ -44,6 +44,6 @@ public partial class Staff
     [InverseProperty("Staff")]
     public virtual ICollection<Enquiry> Enquiries { get; set; } = new List<Enquiry>();
 
-    [InverseProperty("Staff")]
-    public virtual ICollection<Followup> Followups { get; set; } = new List<Followup>();
+    //[InverseProperty("Staff")]
+    //public virtual ICollection<Followup> Followups { get; set; } = new List<Followup>();
 }

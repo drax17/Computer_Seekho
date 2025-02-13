@@ -1,12 +1,88 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|c:\\cdac\\dac4project\\computer_seekho\\computer_seekho_dot_net\\computerseekhodn\\services\\enquiryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|solutionrelative:services\\enquiryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|c:\\cdac\\dac4project\\computer_seekho\\computer_seekho_dot_net\\computerseekhodn\\controllers\\enquirycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|solutionrelative:controllers\\enquirycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|c:\\cdac\\dac4project\\computer_seekho\\computer_seekho_dot_net\\computerseekhodn\\services\\istaffservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|solutionrelative:services\\istaffservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|c:\\cdac\\dac4project\\computer_seekho\\computer_seekho_dot_net\\computerseekhodn\\exceptions\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9391CD3-64A4-4069-9B26-BF66361B69C2}|ComputerSeekhoDN.csproj|solutionrelative:exceptions\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 218,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IStaffService.cs",
+              "DocumentMoniker": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Services\\IStaffService.cs",
+              "RelativeDocumentMoniker": "Services\\IStaffService.cs",
+              "ToolTip": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Services\\IStaffService.cs",
+              "RelativeToolTip": "Services\\IStaffService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:50:15.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnquiryService.cs",
+              "DocumentMoniker": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Services\\EnquiryService.cs",
+              "RelativeDocumentMoniker": "Services\\EnquiryService.cs",
+              "ToolTip": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Services\\EnquiryService.cs",
+              "RelativeToolTip": "Services\\EnquiryService.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAswGYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T08:26:30.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GlobalExceptionHandler.cs",
+              "DocumentMoniker": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Exceptions\\GlobalExceptionHandler.cs",
+              "RelativeDocumentMoniker": "Exceptions\\GlobalExceptionHandler.cs",
+              "ToolTip": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Exceptions\\GlobalExceptionHandler.cs",
+              "RelativeToolTip": "Exceptions\\GlobalExceptionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T08:15:54.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EnquiryController.cs",
+              "DocumentMoniker": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Controllers\\EnquiryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EnquiryController.cs",
+              "ToolTip": "C:\\CDAC\\DAC4project\\Computer_Seekho\\Computer_Seekho_Dot_Net\\ComputerSeekhoDN\\Controllers\\EnquiryController.cs",
+              "RelativeToolTip": "Controllers\\EnquiryController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T05:19:20.465Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
