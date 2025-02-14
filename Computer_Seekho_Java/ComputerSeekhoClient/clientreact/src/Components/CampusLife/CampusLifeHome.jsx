@@ -35,7 +35,7 @@ const CampusLifeHome = () => {
           images.slice(0, 4).map((image) => (
             <img
               key={image.imageId}
-              src={image.imageUrl}
+              src={`/images/${image.imageUrl}`}
               alt="Gallery"
               style={{ width: '23%', borderRadius: '10px', marginBottom: '20px' }}
             />

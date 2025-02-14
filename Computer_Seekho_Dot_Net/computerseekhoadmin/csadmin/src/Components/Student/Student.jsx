@@ -72,8 +72,8 @@ const Students = () => {
               <td className="followup-count">{student.studentName}</td>
               <td className="followup-count">{student.studentMobile}</td>
               <td className="followup-count">{student.studentEmail}</td>
-              <td className="followup-count">{student.courseName}</td>
-              <td className="followup-count">{student.batchName}</td>
+              <td className="followup-count">{student.course.courseName}</td>
+              <td className="followup-count">{student.batch.batchName}</td>
               <td className="followup-count">{student.paymentDue}</td>
               {/* <td className="enquiry-actions">
                 <Button

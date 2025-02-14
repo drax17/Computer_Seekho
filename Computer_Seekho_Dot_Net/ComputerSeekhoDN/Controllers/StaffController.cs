@@ -26,6 +26,12 @@ namespace ComputerSeekhoDN.Controllers
 		{
 			return Ok(await _staffService.getStaffById(id));
 		}
+		
+		[HttpGet("allTeaching")]
+		public async Task<ActionResult<Staff>> GetAllTeachingStaff()
+		{
+			return Ok(await _staffService.getAllTeachingStaff());
+		}
 
 		[HttpPost("add")]
 		public async Task<ActionResult> AddStaff([FromBody] Staff staff)
@@ -38,7 +44,7 @@ namespace ComputerSeekhoDN.Controllers
 			return Ok( new { message = "Staff added"});
 		}
 
-		[HttpPut("/update")]
+		[HttpPut("update")]
 		public async Task<IActionResult> UpdateStaff([FromBody] Staff staff)
 		{
 			await _staffService.updateStaff(staff);

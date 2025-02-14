@@ -33,6 +33,7 @@ public partial class Batch
 
     [ForeignKey("CourseId")]
     [InverseProperty("Batches")]
+    [JsonInclude]
     public virtual Course Course { get; set; } = null!;
 
     [InverseProperty("Batch")]

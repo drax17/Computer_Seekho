@@ -37,6 +37,7 @@ public class EmailController {
 	public ResponseEntity<String> sendEmailPayment(@RequestBody Map<String, Object> emailRequest) {
 		try {
 			mailSender.sendReceiptEmail(emailRequest);
+            System.out.println("Mail receipt send");
 			return ResponseEntity.status(HttpStatus.OK).body("Email sent successfully");
 		} 
 		catch (Exception e) {

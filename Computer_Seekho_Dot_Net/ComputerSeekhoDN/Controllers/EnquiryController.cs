@@ -61,5 +61,12 @@ namespace ComputerSeekhoDN.Controllers
 			await enquiryService.updateEnquirerQuery(enquiryMessage, enquiryId);
 			return Ok(new { message = "Enquiry Message Updated"});
 		}
+		
+		[HttpPut("deactivate/{enquiryId}")]
+		public async Task<ActionResult> deactivateEnquiry([FromBody] string enquiryMessage, int enquiryId)
+		{
+			await enquiryService.deactivateEnquiry(enquiryMessage, enquiryId);
+			return Ok(new { message = "Enquiry Message Updated"});
+		}
 	}
 }

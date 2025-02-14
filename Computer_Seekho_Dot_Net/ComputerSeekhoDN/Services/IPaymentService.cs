@@ -5,9 +5,10 @@ namespace ComputerSeekhoDN.Services
 {
 	public interface IPaymentService
 	{
-		Task<Payment> getPaymentById(int paymentId);
-		Task<IEnumerable<Payment>> getAllPayment();
-		Task addPayment(Payment payment);
-		Task<PaymentDTO> getPaymentDTO(int paymentId);
+		Task<Payment> GetPaymentById(int paymentId);
+
+		Task<IEnumerable<Payment>> GetAllPayments();
+
+		Task AddPayment(Payment payment);
 	}
 }

@@ -16,7 +16,7 @@ public partial class PaymentType
 
     [Column("payment_type_desc")]
     [StringLength(255)]
-    public string? PaymentTypeDesc { get; set; }
+    public string PaymentTypeDesc { get; set; } = null!;
 
     [InverseProperty("PaymentType")]
     [JsonIgnore]

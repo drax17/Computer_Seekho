@@ -949,6 +949,48 @@
         }
       }
     },
+    "/api/enquiry/deactivate/{enquiryId}": {
+      "put": {
+        "tags": [
+          "Enquiry"
+        ],
+        "parameters": [
+          {
+            "name": "enquiryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/getInTouch/all": {
       "get": {
         "tags": [
@@ -1282,39 +1324,47 @@
         }
       }
     },
-    "/api/payment/dto/{id}": {
-      "get": {
+    "/api/payment/add": {
+      "post": {
         "tags": [
           "Payment"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentDTO"
+                  "$ref": "#/components/schemas/Payment"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentDTO"
+                  "$ref": "#/components/schemas/Payment"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentDTO"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             }
@@ -1672,6 +1722,35 @@
         }
       }
     },
+    "/api/staff/allTeaching": {
+      "get": {
+        "tags": [
+          "Staff"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Staff"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Staff"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Staff"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/staff/add": {
       "post": {
         "tags": [
@@ -1703,7 +1782,7 @@
         }
       }
     },
-    "/update": {
+    "/api/staff/update": {
       "put": {
         "tags": [
           "Staff"
@@ -1834,6 +1913,355 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/auth/signIn": {
+      "post": {
+        "tags": [
+          "StaffAuth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/student/all": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/getById/{id}": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/student/add/{enquiryId}": {
+      "post": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "enquiryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/student/update": {
+      "put": {
+        "tags": [
+          "Student"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/video/all": {
+      "get": {
+        "tags": [
+          "Video"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Video"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Video"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Video"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/video/getById/{id}": {
+      "get": {
+        "tags": [
+          "Video"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Video"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Video"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Video"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/video/add": {
+      "post": {
+        "tags": [
+          "Video"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/video/update": {
+      "put": {
+        "tags": [
+          "Video"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Video"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/video/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Video"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -2170,10 +2598,6 @@
         },
         "additionalProperties": false
       },
-      "PaymentDTO": {
-        "type": "object",
-        "additionalProperties": false
-      },
       "PaymentType": {
         "type": "object",
         "properties": {
@@ -2309,6 +2733,9 @@
         "additionalProperties": false
       },
       "Student": {
+        "required": [
+          "studentEmail"
+        ],
         "type": "object",
         "properties": {
           "studentId": {
@@ -2358,13 +2785,11 @@
           },
           "batchId": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "courseId": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "studentEmail": {
             "maxLength": 30,
@@ -2383,15 +2808,61 @@
           "course": {
             "$ref": "#/components/schemas/Course"
           },
-          "payments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Payment"
-            },
-            "nullable": true
-          },
           "placement": {
             "$ref": "#/components/schemas/Placement"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Video": {
+        "type": "object",
+        "properties": {
+          "videoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "videoDescription": {
+            "maxLength": 60,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "videoUrl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "batchId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "courseId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "batch": {
+            "$ref": "#/components/schemas/Batch"
+          },
+          "course": {
+            "$ref": "#/components/schemas/Course"
           }
         },
         "additionalProperties": false

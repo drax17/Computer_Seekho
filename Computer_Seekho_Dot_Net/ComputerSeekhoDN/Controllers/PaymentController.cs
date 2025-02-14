@@ -1,33 +1,34 @@
-﻿using ComputerSeekhoDN.DTO;
-using ComputerSeekhoDN.Models;
+﻿using ComputerSeekhoDN.Models;
 using ComputerSeekhoDN.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComputerSeekhoDN.Controllers
 {
 	[Route("api/payment")]
 	[ApiController]
-	public class PaymentController : ControllerBase
+	public class PaymentController : Controller
 	{
-		private readonly IPaymentService service;
-		public PaymentController(IPaymentService service) { this.service = service; }
+		private readonly IPaymentService _paymentService;
+
+		public PaymentController(IPaymentService paymentService) { _paymentService = paymentService; }
 
 		[HttpGet("all")]
-		public async Task<ActionResult<IEnumerable<Payment>>> AllPayemnts() {
-			return Ok(await service.getAllPayment());
+		public async Task<ActionResult<IEnumerable<Payment>>> GetAllPayments()
+		{
+			return Ok(await _paymentService.GetAllPayments());
 		}
 
 		[HttpGet("getById/{id}")]
-		public async Task<ActionResult<Payment>> getById(int id)
+		public async Task<ActionResult<Payment>> GetPaymentById(int id)
 		{
-			return Ok(await service.getPaymentById(id));
+			return Ok(await _paymentService.GetPaymentById(id));
 		}
 
-		[HttpGet("dto/{id}")]
-		public async Task<ActionResult<PaymentDTO>> getDto(int id)
+		[HttpPost("add")]
+		public async Task<ActionResult<Payment>> AddPayment([FromBody] Payment payment)
 		{
-			return Ok(await service.getPaymentDTO(id));
+			await _paymentService.AddPayment(payment);
+			return Ok(new { message = "Payment Added" });
 		}
 	}
 }

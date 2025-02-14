@@ -71,7 +71,7 @@ const AddEnquiryComponent = ({selectedEnquiry}) => {
     try{
       const response = await fetch(`http://localhost:8080/api/staff/getIdByName/${username}`)
       const result = await response.json();
-      return Number(result.message);
+      return Number(result);
       }
       catch(error){
         toast.error(error.message)
@@ -81,15 +81,13 @@ const AddEnquiryComponent = ({selectedEnquiry}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const id = await getStaffIdHandler(username);
-    formData.staff = { staffId: id };
 
     const formattedData = {
       ...formData,
       enquiryDate: formData.enquiryDate ? dayjs(formData.enquiryDate).format("YYYY-MM-DD") : null,
       followUpDate: formData.followUpDate ? dayjs(formData.followUpDate).format("YYYY-MM-DD") : null,
+      staffId : id
     };
-
-    console.log(formattedData);
 
     const response = await fetch("http://localhost:8080/api/enquiry/add", {
       method: "POST",
