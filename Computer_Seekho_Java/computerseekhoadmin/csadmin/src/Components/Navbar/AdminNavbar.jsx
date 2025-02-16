@@ -66,11 +66,11 @@ const MainNavbar = () => {
             </Typography>
 
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: "24px", alignItems: "center" }}>
-              {["add-enquiry","online-enquiries", "follow-up", "table", "Students"].map((route, index) => (
+              {["add-enquiry","online-enquiries", "Enquiries", "table", "Students"].map((route, index) => (
                 <Typography
                   key={index}
                   component={Link}
-                  to={route === "follow-up" ? "/listcomponent" : `/${route}`}
+                  to={route === "Enquiries" ? "/listcomponent" : `/${route}`}
                   sx={{
                     color: "#FFFFFF",
                     fontSize: "1rem",
@@ -107,7 +107,7 @@ const MainNavbar = () => {
                 <MenuIcon sx={{ color: "#A64D79" }} />
               </IconButton>
               <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-                {["add-enquiry", "online-enquiries","follow-up", "table", "Students"].map((route, index) => (
+                {["add-enquiry", "online-enquiries","Enquiries", "table", "Students"].map((route, index) => (
                   <MenuItem key={index} component={Link} to={`/${route}`} onClick={handleMenuClose}>
                     {route.replace("-", " ")}
                   </MenuItem>
