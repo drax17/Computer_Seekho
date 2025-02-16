@@ -14,56 +14,51 @@ namespace ComputerSeekhoDN.Services
 			this.csdbContext = csdbcontext;
 		}
 
-		public async Task<Staff> addStaff(Staff staff)
+		public async Task addStaff(Staff staff)
 		{
 			staff.StaffPassword = BCrypt.Net.BCrypt.HashPassword("rootpassword");
-			staff.StaffUsername = staff.StaffEmail;
 			staff.StaffRole = "ROLE_"+staff.StaffRole;
-			csdbContext.Add(staff);
+			await csdbContext.AddAsync(staff);
 			await csdbContext.SaveChangesAsync();
-			return staff;
 		}
 
-		public async Task<bool> deleteStaff(int staffId)
+		public async Task deleteStaff(int staffId)
 		{
-			Staff staff = csdbContext.Staff.Find(staffId);
-			if (staff == null) {
-				throw new NotFound($"Staff with Id: {staffId} does not exist");
-			}
+			var staff = await csdbContext.Staff.FindAsync(staffId) ?? throw new NotFound($"Staff with Id: {staffId} does not exist");
 			csdbContext.Staff.Remove(staff);
 			await csdbContext.SaveChangesAsync();
-			return true;
 		}
 
-		public async Task<ActionResult<IEnumerable<Staff>>> getAllStaffMembers()
+		public async Task<IEnumerable<Staff>> getAllStaffMembers()
 		{
-			return await csdbContext.Staff.ToListAsync();
+			var staffList =  await csdbContext.Staff.ToListAsync();
+			if(staffList.Count == 0) throw new NotFound("No records");
+			return staffList;
 		}
 
-		public async Task<ActionResult<IEnumerable<Staff>>> getAllTeachingStaff()
+		public async Task<IEnumerable<Staff>> getAllTeachingStaff()
 		{
-			//IEnumerable<Staff> teachingStaffs = await csdbContext.Staff.FromSql();
-			throw new NotImplementedException();
+			return await csdbContext.Staff.Where(s => s.StaffRole == "ROLE_TEACHING").ToListAsync();
 		}
 
-		public async Task<ActionResult<Staff>> getStaffById(int staffId)
+		public async Task<Staff> getStaffById(int staffId)
 		{
-			return await csdbContext.Staff.FindAsync(staffId);
+			var staff = await csdbContext.Staff.FindAsync(staffId);
+			return staff ?? throw new NotFound($"No staff with Id: {staffId} exists.");
 		}
 
-		public async Task<ActionResult<Staff>> getStaffByUsername(string staffUsername)
+		public async Task<Staff> getStaffByUsername(string staffUsername)
 		{
-			Staff staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername);
-			return staff;
+			var staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername); return staff ?? throw new NotFound($"No staff with username: {staffUsername} exists.");
 		}
 
 		public async Task<int> getStaffIdByStaffUsername(string staffUsername)
 		{
-			Staff staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername);
+			var staff = await csdbContext.Staff.FirstOrDefaultAsync(staff => staff.StaffUsername == staffUsername) ?? throw new NotFound($"No staff with username: {staffUsername} exists.");
 			return staff.StaffId;
 		}
 
-		public async Task<bool> updateStaff(Staff staff)
+		public async Task updateStaff(Staff staff)
 		{
 			int staffId = staff.StaffId;
 			staff.StaffPassword = BCrypt.Net.BCrypt.HashPassword(staff.StaffPassword);
@@ -82,7 +77,6 @@ namespace ComputerSeekhoDN.Services
 					throw;
 				}
 			}
-			return true;
 		}
 
 		//public Task<bool> updateStaffUserNamePassword(string staffUsername, string staffPassword, int staffId)

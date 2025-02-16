@@ -40,6 +40,7 @@ public partial class Course
     public string? CoverPhoto { get; set; }
 
     [InverseProperty("Course")]
+    [JsonIgnore]
     public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 
     [InverseProperty("Course")]
@@ -47,5 +48,6 @@ public partial class Course
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
     [InverseProperty("Course")]
+    [JsonIgnore]
     public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
 }

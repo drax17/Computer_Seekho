@@ -5,14 +5,15 @@ namespace ComputerSeekhoDN.Services
 {
 	public interface IStaffService
 	{
-		Task<ActionResult<Staff>> getStaffById(int staffId);
-		Task<ActionResult<Staff>> getStaffByUsername(String staffUsername);
-		Task<ActionResult<IEnumerable<Staff>>> getAllStaffMembers();
-		Task<Staff> addStaff(Staff staff);
-		Task<bool> updateStaff(Staff staff);
-		Task<bool> deleteStaff(int staffId);
+		Task<Staff> getStaffById(int staffId);
+		Task<Staff> getStaffByUsername(String staffUsername);
+		Task<IEnumerable<Staff>> getAllStaffMembers();
+		Task addStaff(Staff staff);
+		Task updateStaff(Staff staff);
+		Task deleteStaff(int staffId);
+		
 		//Task<bool> updateStaffUserNamePassword(String staffUsername, String staffPassword, int staffId);
 		Task<int> getStaffIdByStaffUsername(String staffUsername);
-		Task<ActionResult<IEnumerable<Staff>>> getAllTeachingStaff();
+		Task<IEnumerable<Staff>> getAllTeachingStaff();
 	}
 }

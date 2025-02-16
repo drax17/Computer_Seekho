@@ -61,6 +61,6 @@ public partial class Enquiry
     //public virtual ICollection<Followup> Followups { get; set; } = new List<Followup>();
 
     [ForeignKey("StaffId")]
-    [InverseProperty("Enquiries")]
+    //[InverseProperty("Enquiries")]
     public virtual Staff? Staff { get; set; }
 }
