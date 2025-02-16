@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerSeekhoDN.Models;
@@ -35,13 +36,14 @@ public partial class Staff
 
     [Column("staff_role")]
     [StringLength(255)]
-    public string? StaffRole { get; set; }
+    public string StaffRole { get; set; } = null!;
 
     [Column("staff_username")]
     [StringLength(30)]
     public string StaffUsername { get; set; } = null!;
 
     [InverseProperty("Staff")]
+    [JsonIgnore]
     public virtual ICollection<Enquiry> Enquiries { get; set; } = new List<Enquiry>();
 
     //[InverseProperty("Staff")]

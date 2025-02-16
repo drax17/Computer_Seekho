@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerSeekhoDN.Models;
@@ -31,5 +32,6 @@ public partial class Album
     public DateOnly? StartDate { get; set; }
 
     [InverseProperty("Album")]
+    [JsonIgnore]
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 }

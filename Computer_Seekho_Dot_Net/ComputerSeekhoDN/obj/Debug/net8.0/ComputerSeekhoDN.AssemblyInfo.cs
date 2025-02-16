@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ComputerSeekhoDN")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c24bd653d32f4dd0104a4a1f1cbab62ecb41e707")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5b8de21596842fe2cd13b37dbfe99922c45f83a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ComputerSeekhoDN")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ComputerSeekhoDN")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
