@@ -8,7 +8,7 @@ const Carousel = () => {
 
   const images = [
     {
-      url: "https://images.unsplash.com/photo-1553484771-1399327ce50b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      url: "https://vidyanidhi.com/images/img1.jpg",
       caption: "Students studying together",
     },
     {

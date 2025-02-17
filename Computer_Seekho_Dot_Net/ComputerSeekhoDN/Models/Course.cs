@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerSeekhoDN.Models;
@@ -39,11 +40,14 @@ public partial class Course
     public string? CoverPhoto { get; set; }
 
     [InverseProperty("Course")]
+    [JsonIgnore]
     public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 
     [InverseProperty("Course")]
+    [JsonIgnore]
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
     [InverseProperty("Course")]
+    [JsonIgnore]
     public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
 }

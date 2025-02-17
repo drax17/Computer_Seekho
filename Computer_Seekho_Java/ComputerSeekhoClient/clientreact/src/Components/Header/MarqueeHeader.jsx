@@ -20,7 +20,7 @@ const MarqueeHeader = () => {
   return (
     <div className={`marquee-header ${dark ? 'dark' : ''}`}>
       <marquee behavior="scroll" direction="left" scrollamount="5">
-        🎉 VITA Placements - 2025 Batch Hiring Started! Apply Now! 🎉
+        🎉 EDUSITY Placements - 2025 Batch Hiring Started! Apply Now! 🎉
       </marquee>
     </div>
   );

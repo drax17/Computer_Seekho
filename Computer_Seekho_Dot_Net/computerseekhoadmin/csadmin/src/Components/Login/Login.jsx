@@ -54,6 +54,7 @@ const Login = ({ onLogin }) => {
                 }
             } else {
                 const data = response.headers.get("Authorization");
+                console.log(data);
                 sessionStorage.setItem("jwttoken", data);
                 toast.success(t("login_successful"), { position: "top-center" });
                 onLogin();

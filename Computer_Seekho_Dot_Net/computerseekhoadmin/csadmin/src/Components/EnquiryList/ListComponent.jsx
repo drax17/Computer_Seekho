@@ -98,7 +98,7 @@ const ListComponent = ({ onClose }) => {
   return (
     <div className="list-container">
     <Toaster />
-      <h2 className="list-title">Follow Ups</h2>
+      <h2 className="list-title">Pending Enquiries</h2>
       <table className="enquiry-table">
         <thead>
           <tr>

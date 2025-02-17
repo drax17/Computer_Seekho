@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainNavbar from './Components/Navbar/MainNavbar';
 import MarqueeHeader from './Components/Header/MarqueeHeader';
 import Home from './Components/Home/Home';
-import BatchwisePlacement from './Components/Placement/BatchwisePlacement';
+import CourseBatch from './Components/Placement/CourseBatch';
+import StudentPlaced from './Components/Placement/StudentPlaced';
 import OurRecruiters from './Components/Placement/OurRecruiters';
 import Courses from './Components/Courses/Courses';
 import PG_DAC from './Components/Courses/PG_DAC';
@@ -32,7 +33,8 @@ const App = () => {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/batchwiseplacement" element={<BatchwisePlacement />} />
+          <Route path="/batchwiseplacement" element={<CourseBatch />} />
+          <Route path="/batch/:batchId" element={<StudentPlaced />} />
           <Route path="/ourrecruiters" element={<OurRecruiters />} />
           <Route path="/courses" element={<Courses />} />
           {/* Map through the courses array to create routes */}

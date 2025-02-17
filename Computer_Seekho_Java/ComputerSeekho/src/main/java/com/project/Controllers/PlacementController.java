@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.DTO.PlacementDTO;
 import com.project.DTO.ResponseDTO;
 import com.project.Entities.Placement;
 import com.project.Services.PlacementService;
@@ -50,13 +48,13 @@ public class PlacementController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("Placement Details Added", new Date()));
     }
 
-    @GetMapping("/getAll")
-    public List<PlacementDTO> getPlacedStudents(
-            @RequestParam(value = "batchId", required = false) Integer batchId) {
-        if (batchId != null) {
-            return placementService.getPlacedStudentById((int)batchId);
-        } else {
-            return placementService.getPlacedStudent();
-        }
+    @GetMapping("/getByBatch/{batchId}")
+public ResponseEntity<List<Placement>> getPlacementsByBatch(@PathVariable int batchId) {
+    List<Placement> placements = placementService.getPlacementsByBatchId(batchId);
+    
+    if (placements.isEmpty()) {
+        return ResponseEntity.status(404).build();
     }
+    return ResponseEntity.ok(placements);
+}
 }
