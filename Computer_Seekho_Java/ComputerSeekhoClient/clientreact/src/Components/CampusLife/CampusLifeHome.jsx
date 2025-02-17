@@ -11,7 +11,7 @@ const CampusLifeHome = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/image/all'); // Adjust URL as per backend
+        const response = await fetch('http://localhost:8080/api/image/all');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

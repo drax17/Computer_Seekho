@@ -24,6 +24,10 @@ public partial class Batch
 
     [Column("batch_name")]
     public string? BatchName { get; set; }
+    
+    [Column("batch_photo")]
+    [MaxLength(500)]
+    public string? BatchPhoto { get; set; }
 
     [Column("batch_start_time")]
     public DateOnly? BatchStartTime { get; set; }

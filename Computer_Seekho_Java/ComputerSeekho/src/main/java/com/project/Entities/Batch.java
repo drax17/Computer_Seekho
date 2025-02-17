@@ -17,6 +17,9 @@ public class Batch {
     @Column(name = "batch_name", unique = true)
     private String batchName;
 
+    @Column(name = "batch_photo", unique = true, length = 500)
+    private String batchPhoto;
+
     @Column(name = "batch_start_time")
     private LocalDate batchStartTime;
 
